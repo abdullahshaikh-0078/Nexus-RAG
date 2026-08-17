@@ -1,0 +1,150 @@
+{
+  "version": "v1_baseline",
+  "dataset_name": "Attention Is All You Need Evaluation Suite",
+  "document_reference": "attention_paper.txt",
+  "created_at": "2026-08-17T00:00:00Z",
+  "test_cases": [
+    {
+      "question_id": "q01",
+      "category": "Factual",
+      "question": "What is the Transformer architecture based on?",
+      "expected_snippets": [
+        "based solely on attention mechanisms, dispensing with recurrence and convolutions entirely",
+        "Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism"
+      ],
+      "relevance_scores": {
+        "attention mechanisms": 1.0,
+        "eschewing recurrence": 1.0
+      }
+    },
+    {
+      "question_id": "q02",
+      "category": "Section-Specific",
+      "question": "What are the three ways multi-head attention is used in section 3.2.3?",
+      "expected_snippets": [
+        "The Transformer uses multi-head attention in three different ways",
+        "1. In encoder-decoder attention layers, the queries come from the previous decoder layer",
+        "2. The encoder contains self-attention layers",
+        "3. Similarly, self-attention layers in the decoder allow each position in the decoder to attend to all positions"
+      ],
+      "relevance_scores": {
+        "encoder-decoder attention": 1.0,
+        "self-attention layers": 1.0
+      }
+    },
+    {
+      "question_id": "q03",
+      "category": "Conceptual",
+      "question": "Why does the Transformer eschew recurrent and convolutional neural networks?",
+      "expected_snippets": [
+        "dispensing with recurrence and convolutions entirely",
+        "superior in quality while being more parallelizable and requiring significantly less time to train"
+      ],
+      "relevance_scores": {
+        "parallelizable": 1.0,
+        "less time to train": 1.0
+      }
+    },
+    {
+      "question_id": "q04",
+      "category": "Factual",
+      "question": "What sequence transduction tasks were evaluated in the experiments?",
+      "expected_snippets": [
+        "Experiments on two machine translation tasks show these models to be superior in quality",
+        "English-to-German and English-to-French translation tasks"
+      ],
+      "relevance_scores": {
+        "machine translation": 1.0
+      }
+    },
+    {
+      "question_id": "q05",
+      "category": "Section-Specific",
+      "question": "How do encoder-decoder attention layers obtain their queries, keys, and values?",
+      "expected_snippets": [
+        "In encoder-decoder attention layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder."
+      ],
+      "relevance_scores": {
+        "queries come from the previous decoder layer": 1.0
+      }
+    },
+    {
+      "question_id": "q06",
+      "category": "Conceptual",
+      "question": "How does self-attention operate within the encoder layers?",
+      "expected_snippets": [
+        "The encoder contains self-attention layers. In a self-attention layer all of the keys, values and queries come from the same place, in this case, the output of the previous layer in the encoder."
+      ],
+      "relevance_scores": {
+        "output of the previous layer in the encoder": 1.0
+      }
+    },
+    {
+      "question_id": "q07",
+      "category": "Section-Specific",
+      "question": "How is self-attention restricted in the decoder to prevent leftward information flow?",
+      "expected_snippets": [
+        "self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position"
+      ],
+      "relevance_scores": {
+        "up to and including that position": 1.0
+      }
+    },
+    {
+      "question_id": "q08",
+      "category": "Multi-Part",
+      "question": "What neural network approaches were traditionally state of the art for sequence modeling before the Transformer?",
+      "expected_snippets": [
+        "Recurrent neural networks, particularly long short-term memory and gated recurrent neural networks, have been firmly established as state of the art approaches"
+      ],
+      "relevance_scores": {
+        "long short-term memory": 1.0
+      }
+    },
+    {
+      "question_id": "q09",
+      "category": "Conceptual",
+      "question": "What mechanism allows the Transformer to draw global dependencies between input and output?",
+      "expected_snippets": [
+        "relying entirely on an attention mechanism to draw global dependencies between input and output"
+      ],
+      "relevance_scores": {
+        "global dependencies": 1.0
+      }
+    },
+    {
+      "question_id": "q10",
+      "category": "Cross-Section",
+      "question": "How does multi-head attention allow the model to jointly attend to information from different representation subspaces?",
+      "expected_snippets": [
+        "Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions."
+      ],
+      "relevance_scores": {
+        "representation subspaces": 1.0
+      }
+    },
+    {
+      "question_id": "q11",
+      "category": "Factual",
+      "question": "Who are the authors of the Attention Is All You Need paper?",
+      "expected_snippets": [
+        "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin"
+      ],
+      "relevance_scores": {
+        "Ashish Vaswani": 1.0
+      }
+    },
+    {
+      "question_id": "q12",
+      "category": "Complex",
+      "question": "What advantages does self-attention offer over recurrent layers in terms of computational complexity and maximum path length?",
+      "expected_snippets": [
+        "self-attention layers connect all positions with a constant number of sequentially executed operations",
+        "maximum path length between any two positions"
+      ],
+      "relevance_scores": {
+        "constant number of sequentially executed operations": 1.0
+      }
+    }
+  ]
+}

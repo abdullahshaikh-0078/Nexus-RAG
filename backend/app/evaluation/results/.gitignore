@@ -1,0 +1,9 @@
+# Evaluation Results Directory Git Configuration
+# Track versioned baseline *.json files and latest.json
+
+# Ignore temporary files, locks, logs, and caches
+*.tmp
+*.log
+*.bak
+__pycache__/
+.DS_Store
