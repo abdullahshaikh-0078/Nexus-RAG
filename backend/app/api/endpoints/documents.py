@@ -5,6 +5,7 @@ from app.core.config import settings
 from app.services.document_parser import UnifiedDocumentParser, DocumentExtractionError
 from app.services.chunker import RecursiveTextChunker
 from app.services.embedder import embedding_service
+from app.services.bm25_search import bm25_service
 from app.db.vectorstore import vector_store
 from app.db.mongodb import mongo_db
 from app.models.schemas import (
@@ -25,7 +26,8 @@ async def upload_document(file: UploadFile = File(...)):
     2. Splits into overlapping chunks.
     3. Generates vector embeddings.
     4. Stores vectors + payload in Qdrant.
-    5. Stores metadata record in MongoDB.
+    5. Indexes text in BM25 lexical index.
+    6. Stores metadata record in MongoDB.
     """
     filename = file.filename or "unnamed_document"
     logger.info(f"Receiving document upload: {filename}")
@@ -68,7 +70,10 @@ async def upload_document(file: UploadFile = File(...)):
             filename=filename,
         )
 
-        # 5. Save metadata to MongoDB
+        # 5. Index in BM25 search service
+        bm25_service.index_chunks(chunks=chunks, filename=filename)
+
+        # 6. Save metadata to MongoDB
         doc_metadata = DocumentMetadata(
             document_id=document_id,
             filename=filename,
@@ -111,7 +116,7 @@ async def list_documents():
 
 @router.delete("/{document_id}")
 async def delete_document(document_id: str):
-    """Deletes document metadata from MongoDB and vectors from Qdrant."""
+    """Deletes document metadata from MongoDB, vectors from Qdrant, and payload from BM25 index."""
     doc = await mongo_db.get_document(document_id)
     if not doc:
         raise HTTPException(
@@ -120,6 +125,7 @@ async def delete_document(document_id: str):
         )
 
     vector_store.delete_document_chunks(document_id)
+    bm25_service.delete_document(document_id)
     await mongo_db.delete_document_metadata(document_id)
 
     return {

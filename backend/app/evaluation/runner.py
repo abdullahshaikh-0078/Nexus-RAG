@@ -7,6 +7,7 @@ from typing import List, Dict, Any
 from app.core.config import settings
 from app.services.chunker import RecursiveTextChunker
 from app.services.embedder import embedding_service
+from app.services.bm25_search import bm25_service
 from app.db.vectorstore import vector_store
 from app.evaluation.metrics import (
     RetrievalEvaluator,
@@ -23,7 +24,7 @@ RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results")
 
 
 class EvaluationRunner:
-    """Executes evaluation runs against the V1 Dense Retrieval engine cleanly and atomically."""
+    """Executes evaluation runs against the V1 Dense Retrieval or V2.1 BM25 Lexical engine."""
 
     def __init__(self, dataset_path: str = DATASET_PATH):
         self.dataset_path = dataset_path
@@ -35,8 +36,10 @@ class EvaluationRunner:
         with open(self.dataset_path, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    def run_evaluation(self, top_k: int = 10) -> EvaluationRunResult:
-        logger.info("Starting NEXUS RAG V1 Evaluation Baseline Run...")
+    def run_evaluation(self, top_k: int = 10, retrieval_mode: str = "dense") -> EvaluationRunResult:
+        mode = retrieval_mode.lower()
+        version_name = "v2_1_bm25" if mode == "bm25" else "v1_baseline"
+        logger.info(f"Starting NEXUS RAG Evaluation Run (Mode: '{mode}', Version: '{version_name}')...")
         os.makedirs(RESULTS_DIR, exist_ok=True)
         dataset = self.load_dataset()
         test_cases = dataset.get("test_cases", [])
@@ -44,7 +47,7 @@ class EvaluationRunner:
         if not test_cases:
             raise ValueError("Evaluation dataset contains no test cases.")
 
-        # Ensure document is ingested into vector store
+        # Ensure document is ingested into vector store and BM25 index
         doc_id = self._ensure_test_document_ingested()
 
         question_results: List[QuestionEvalResult] = []
@@ -58,12 +61,19 @@ class EvaluationRunner:
 
             # Measure isolated retrieval latency
             start_time = time.time()
-            query_vector = embedding_service.embed_text(question)
-            raw_citations = vector_store.search_similar(
-                query_vector=query_vector,
-                top_k=top_k,
-                document_ids=[doc_id] if doc_id else None,
-            )
+            if mode == "bm25":
+                raw_citations = bm25_service.search(
+                    query=question,
+                    top_k=top_k,
+                    document_ids=[doc_id] if doc_id else None,
+                )
+            else:
+                query_vector = embedding_service.embed_text(question)
+                raw_citations = vector_store.search_similar(
+                    query_vector=query_vector,
+                    top_k=top_k,
+                    document_ids=[doc_id] if doc_id else None,
+                )
             citations = vector_store.expand_adjacent_context(raw_citations, window=1)
             elapsed_ms = round((time.time() - start_time) * 1000, 2)
             latencies.append(elapsed_ms)
@@ -108,9 +118,11 @@ class EvaluationRunner:
 
         now_iso = datetime.now(timezone.utc).isoformat()
         run_result = EvaluationRunResult(
-            evaluation_version="v1_baseline",
+            dataset_version=dataset.get("version", "v1_baseline"),
+            evaluation_version=version_name,
+            retrieval_mode=mode,
             timestamp=now_iso,
-            embedding_model=settings.EMBEDDING_MODEL_NAME,
+            embedding_model="N/A (BM25 Lexical Search)" if mode == "bm25" else settings.EMBEDDING_MODEL_NAME,
             chunk_size=settings.CHUNK_SIZE,
             chunk_overlap=settings.CHUNK_OVERLAP,
             retrieval_top_k=top_k,
@@ -127,9 +139,10 @@ class EvaluationRunner:
 
         # Atomic Result Persistence Strategy
         timestamp_str = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-        versioned_file = os.path.join(RESULTS_DIR, f"v1_baseline_{timestamp_str}.json")
-        latest_file = os.path.join(RESULTS_DIR, "latest.json")
-        temp_latest_file = os.path.join(RESULTS_DIR, "latest.json.tmp")
+        versioned_file = os.path.join(RESULTS_DIR, f"{version_name}_{timestamp_str}.json")
+        latest_file_name = "v2_1_bm25_latest.json" if mode == "bm25" else "latest.json"
+        latest_file = os.path.join(RESULTS_DIR, latest_file_name)
+        temp_latest_file = os.path.join(RESULTS_DIR, f"{latest_file_name}.tmp")
 
         result_dict = run_result.model_dump()
 
@@ -208,6 +221,7 @@ class EvaluationRunner:
             embeddings=embeddings,
             filename="attention_paper.txt",
         )
+        bm25_service.index_chunks(chunks=chunks, filename="attention_paper.txt")
         return doc_id
 
 

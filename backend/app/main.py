@@ -6,6 +6,7 @@ from app.core.config import settings
 from app.api.endpoints import health, documents, chat, evaluation
 from app.db.vectorstore import vector_store
 from app.db.mongodb import mongo_db
+from app.services.bm25_search import bm25_service
 
 # Configure logging
 logging.basicConfig(
@@ -19,12 +20,13 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Application startup and shutdown events."""
     logger.info(f"Starting {settings.APP_NAME} ({settings.APP_ENV})...")
-    
-    # Initialize Qdrant and MongoDB connections
+
+    # Initialize Qdrant, MongoDB connections, and hydrate BM25 index
     try:
         vector_store.initialize()
         await mongo_db.connect()
-        logger.info("Database connections initialized successfully.")
+        bm25_service.hydrate_from_vector_store(vector_store)
+        logger.info("Database connections & BM25 index initialized successfully.")
     except Exception as e:
         logger.warning(f"Error during startup initialization: {str(e)}")
 

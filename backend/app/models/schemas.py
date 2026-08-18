@@ -54,12 +54,16 @@ class ChatQueryRequest(BaseModel):
     query: str = Field(..., min_length=1, description="The user's query string.")
     top_k: int = Field(default=4, ge=1, le=20, description="Number of context chunks to retrieve.")
     document_ids: Optional[List[str]] = Field(default=None, description="Filter search to specific documents.")
+    retrieval_mode: Optional[str] = Field(
+        default="dense", description="Retrieval mode: 'dense' (V1 vector search) or 'bm25' (V2.1 lexical search)."
+    )
 
 
 class ChatQueryResponse(BaseModel):
     query: str
     answer: str
     sources: List[SourceCitation]
+    retrieval_mode: str = "dense"
     llm_provider: str
     model_name: str
     processing_time_seconds: float

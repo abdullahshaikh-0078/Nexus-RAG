@@ -20,7 +20,9 @@ class QuestionEvalResult(BaseModel):
 
 
 class EvaluationRunResult(BaseModel):
+    dataset_version: str = "v1_baseline"
     evaluation_version: str = "v1_baseline"
+    retrieval_mode: str = "dense"
     timestamp: str
     embedding_model: str
     chunk_size: int
