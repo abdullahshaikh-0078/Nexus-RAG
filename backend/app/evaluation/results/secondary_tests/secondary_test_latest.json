@@ -1,0 +1,509 @@
+{
+  "summary": {
+    "test_name": "Second Retrieval Test",
+    "purpose": "Diagnostic comparison of Dense vs BM25",
+    "official_baseline_affected": false,
+    "dataset": "Attention Is All You Need (Diagnostic Set)",
+    "timestamp": "2026-08-18T01:22:00.338744+00:00",
+    "question_count": 10,
+    "modes": [
+      "dense",
+      "bm25"
+    ],
+    "total_runs": 20
+  },
+  "dense_summary": {
+    "questions_tested": 10,
+    "questions_with_relevant_context": 10,
+    "questions_without_relevant_context": 0,
+    "average_retrieval_latency_ms": 25.07,
+    "average_first_relevant_rank": 1.1
+  },
+  "bm25_summary": {
+    "questions_tested": 10,
+    "questions_with_relevant_context": 10,
+    "questions_without_relevant_context": 0,
+    "average_retrieval_latency_ms": 1.6,
+    "average_first_relevant_rank": 1.1
+  },
+  "dense_results": [
+    {
+      "question_id": "Q01",
+      "category": "Conceptual",
+      "question": "Why does the Transformer avoid recurrence?",
+      "retrieval_mode": "dense",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'Why does the Transformer avoid recurrence?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.4093)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 0.4093,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 28.53,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q02",
+      "category": "Factual",
+      "question": "What BLEU score did the model achieve?",
+      "retrieval_mode": "dense",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'What BLEU score did the model achieve?':\n\n\"machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particularly long short-term memory and gated recurrent neural networks, have been firmly established as st...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.3315)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 1,
+          "retrieval_rank": 1,
+          "retrieval_score": 0.3315,
+          "text_preview": "machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particu",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 16.0,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q03",
+      "category": "Exact Entity",
+      "question": "Who is Mitchell P. Marcus?",
+      "retrieval_mode": "dense",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'Who is Mitchell P. Marcus?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 2 relevant chunk(s) with highest similarity score of 0.0792)*",
+      "retrieved_context_count": 2,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 0.0792,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": false
+        },
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 4,
+          "retrieval_rank": 2,
+          "retrieval_score": 0.0792,
+          "text_preview": "self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.\n\n3.5 Positional Encoding\nSince our model contains n",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 19.02,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 2,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q04",
+      "category": "Name Lookup",
+      "question": "Who proposed scaled dot-product attention?",
+      "retrieval_mode": "dense",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'Who proposed scaled dot-product attention?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.5645)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 0.5645,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 19.53,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q05",
+      "category": "Section Lookup",
+      "question": "What is discussed in Section 3.2.3?",
+      "retrieval_mode": "dense",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'What is discussed in Section 3.2.3?':\n\n\"machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particularly long short-term memory and gated recurrent neural networks, have been firmly established as st...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.1543)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 1,
+          "retrieval_rank": 1,
+          "retrieval_score": 0.1543,
+          "text_preview": "machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particu",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 17.52,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q06",
+      "category": "Number Lookup",
+      "question": "How many GPUs were used?",
+      "retrieval_mode": "dense",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'How many GPUs were used?':\n\n\"machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particularly long short-term memory and gated recurrent neural networks, have been firmly established as st...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.3118)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 1,
+          "retrieval_rank": 1,
+          "retrieval_score": 0.3118,
+          "text_preview": "machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particu",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 17.78,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q07",
+      "category": "Acronym",
+      "question": "What does WMT stand for?",
+      "retrieval_mode": "dense",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'What does WMT stand for?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.6534)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 0.6534,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 33.67,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q08",
+      "category": "Citation / Reference",
+      "question": "What paper is reference [2]?",
+      "retrieval_mode": "dense",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'What paper is reference [2]?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.2485)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 0.2485,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 34.8,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q09",
+      "category": "Multi-Part",
+      "question": "Compare self-attention and recurrent layers.",
+      "retrieval_mode": "dense",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'Compare self-attention and recurrent layers.':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.6385)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 0.6385,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 31.86,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q10",
+      "category": "Cross-Section",
+      "question": "How does the Transformer's use of self-attention relate to its advantages in parallelization and its experimental training efficiency?",
+      "retrieval_mode": "dense",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'How does the Transformer's use of self-attention relate to its advantages in parallelization and its experimental training efficiency?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.6523)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 0.6523,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 32.01,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    }
+  ],
+  "bm25_results": [
+    {
+      "question_id": "Q01",
+      "category": "Conceptual",
+      "question": "Why does the Transformer avoid recurrence?",
+      "retrieval_mode": "bm25",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'Why does the Transformer avoid recurrence?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 1.0)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 2.0,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q02",
+      "category": "Factual",
+      "question": "What BLEU score did the model achieve?",
+      "retrieval_mode": "bm25",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'What BLEU score did the model achieve?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 1.0)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 2.0,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q03",
+      "category": "Exact Entity",
+      "question": "Who is Mitchell P. Marcus?",
+      "retrieval_mode": "bm25",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'Who is Mitchell P. Marcus?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 2 relevant chunk(s) with highest similarity score of 1.0)*",
+      "retrieved_context_count": 2,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": false
+        },
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 3,
+          "retrieval_rank": 2,
+          "retrieval_score": 1.0,
+          "text_preview": "With a single attention head, averaging inhibits this.\n\n3.2.3 Applications of Attention in our Model\nThe Transformer uses multi-head attention in three different ways:\n1. In encoder-decoder attention ",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 1.0,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 2,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q04",
+      "category": "Name Lookup",
+      "question": "Who proposed scaled dot-product attention?",
+      "retrieval_mode": "bm25",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'Who proposed scaled dot-product attention?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 1.0)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 1.0,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q05",
+      "category": "Section Lookup",
+      "question": "What is discussed in Section 3.2.3?",
+      "retrieval_mode": "bm25",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'What is discussed in Section 3.2.3?':\n\n\"machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particularly long short-term memory and gated recurrent neural networks, have been firmly established as st...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 1.0)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 1,
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "text_preview": "machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particu",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 2.01,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q06",
+      "category": "Number Lookup",
+      "question": "How many GPUs were used?",
+      "retrieval_mode": "bm25",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'How many GPUs were used?':\n\n\"self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.\n\n3.5 Positional Encoding\nSince our model contains no recurrence and no convolution, in order for the model to make use of the order of the sequence, we...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 1.0)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 4,
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "text_preview": "self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.\n\n3.5 Positional Encoding\nSince our model contains n",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 2.0,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q07",
+      "category": "Acronym",
+      "question": "What does WMT stand for?",
+      "retrieval_mode": "bm25",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'What does WMT stand for?':\n\n\"With a single attention head, averaging inhibits this.\n\n3.2.3 Applications of Attention in our Model\nThe Transformer uses multi-head attention in three different ways:\n1. In encoder-decoder attention layers, the queries come from the previous decoder layer, and the memory keys and values come from t...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 1.0)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 3,
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "text_preview": "With a single attention head, averaging inhibits this.\n\n3.2.3 Applications of Attention in our Model\nThe Transformer uses multi-head attention in three different ways:\n1. In encoder-decoder attention ",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 1.33,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q08",
+      "category": "Citation / Reference",
+      "question": "What paper is reference [2]?",
+      "retrieval_mode": "bm25",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'What paper is reference [2]?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 1.0)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 1.01,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q09",
+      "category": "Multi-Part",
+      "question": "Compare self-attention and recurrent layers.",
+      "retrieval_mode": "bm25",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'Compare self-attention and recurrent layers.':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 1.0)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 1.43,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    },
+    {
+      "question_id": "Q10",
+      "category": "Cross-Section",
+      "question": "How does the Transformer's use of self-attention relate to its advantages in parallelization and its experimental training efficiency?",
+      "retrieval_mode": "bm25",
+      "final_answer": "Based on **attention_paper_diagnostic.txt**, here is what was found regarding 'How does the Transformer's use of self-attention relate to its advantages in parallelization and its experimental training efficiency?':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 1.0)*",
+      "retrieved_context_count": 1,
+      "retrieved_chunks": [
+        {
+          "document_name": "attention_paper_diagnostic.txt",
+          "chunk_index": 0,
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "text_preview": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models a",
+          "is_relevant": true
+        }
+      ],
+      "retrieval_latency_ms": 2.2,
+      "relevant_context_retrieved": true,
+      "first_relevant_rank": 1,
+      "answer_has_context": true,
+      "answer_contains_supported_information": true
+    }
+  ]
+}
