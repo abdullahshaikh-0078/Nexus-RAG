@@ -51,7 +51,7 @@ def test_evaluation_dataset_loading():
     dataset = runner.load_dataset()
     assert dataset["version"] == "v1_baseline"
     test_cases = dataset["test_cases"]
-    assert len(test_cases) >= 10
+    assert len(test_cases) == 12
     for case in test_cases:
         assert "question_id" in case
         assert "question" in case
@@ -72,6 +72,31 @@ def test_evaluation_runner_execution_and_atomic_write():
         data = json.load(f)
     latest_obj = EvaluationRunResult(**data)
     assert latest_obj.timestamp == result.timestamp
+
+
+def test_bm25_evaluation_preserves_v1_baseline():
+    runner = EvaluationRunner()
+    v1_latest_path = os.path.join(RESULTS_DIR, "latest.json")
+    v1_timestamp_before = None
+    if os.path.exists(v1_latest_path):
+        with open(v1_latest_path, "r", encoding="utf-8") as f:
+            v1_timestamp_before = json.load(f).get("timestamp")
+
+    res_bm25 = runner.run_evaluation(top_k=10, retrieval_mode="bm25")
+    assert res_bm25.dataset_version == "v1_baseline"
+    assert res_bm25.evaluation_version == "v2_1_bm25"
+    assert res_bm25.retrieval_mode == "bm25"
+    assert res_bm25.total_questions == 12
+
+    # Verify BM25 saved to v2_1_bm25_latest.json
+    bm25_latest_path = os.path.join(RESULTS_DIR, "v2_1_bm25_latest.json")
+    assert os.path.exists(bm25_latest_path)
+
+    # Verify V1 latest.json was NOT modified
+    if v1_timestamp_before:
+        with open(v1_latest_path, "r", encoding="utf-8") as f:
+            v1_timestamp_after = json.load(f).get("timestamp")
+        assert v1_timestamp_after == v1_timestamp_before, "BM25 evaluation must not overwrite frozen V1 latest.json"
 
 
 def test_evaluation_runner_atomic_error_resilience(tmp_path):
