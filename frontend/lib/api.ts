@@ -43,6 +43,7 @@ export interface ChatQueryResponse {
   query: string;
   answer: string;
   sources: SourceCitation[];
+  retrieval_mode: string;
   llm_provider: string;
   model_name: string;
   processing_time_seconds: number;
@@ -135,7 +136,8 @@ export async function deleteDocument(documentId: string): Promise<boolean> {
 export async function queryRag(
   query: string,
   topK: number = 4,
-  documentIds?: string[]
+  documentIds?: string[],
+  retrievalMode: string = "dense"
 ): Promise<ChatQueryResponse> {
   const validDocIds =
     documentIds && documentIds.length > 0
@@ -151,6 +153,7 @@ export async function queryRag(
       query,
       top_k: topK,
       document_ids: validDocIds,
+      retrieval_mode: retrievalMode,
     }),
   });
 
@@ -162,8 +165,8 @@ export async function queryRag(
   return res.json();
 }
 
-export async function fetchLatestEvaluation(): Promise<EvaluationRunResult> {
-  const res = await fetch(`${API_BASE_URL}/evaluation/results`, {
+export async function fetchLatestEvaluation(mode: string = "dense"): Promise<EvaluationRunResult> {
+  const res = await fetch(`${API_BASE_URL}/evaluation/results?mode=${mode}`, {
     cache: "no-store",
   });
   if (!res.ok) {
@@ -173,8 +176,19 @@ export async function fetchLatestEvaluation(): Promise<EvaluationRunResult> {
   return res.json();
 }
 
-export async function triggerEvaluationRun(): Promise<EvaluationRunResult> {
-  const res = await fetch(`${API_BASE_URL}/evaluation/run`, {
+export async function fetchAllEvaluations(): Promise<{ v1_dense: EvaluationRunResult; v2_1_bm25: EvaluationRunResult }> {
+  const res = await fetch(`${API_BASE_URL}/evaluation/results/all`, {
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({ detail: res.statusText }));
+    throw new Error(errorData.detail || "Failed to fetch all evaluation results.");
+  }
+  return res.json();
+}
+
+export async function triggerEvaluationRun(mode: string = "dense"): Promise<EvaluationRunResult> {
+  const res = await fetch(`${API_BASE_URL}/evaluation/run?mode=${mode}`, {
     method: "POST",
   });
   if (!res.ok) {
