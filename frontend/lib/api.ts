@@ -37,6 +37,19 @@ export interface SourceCitation {
   chunk_index: number;
   score: number;
   content: string;
+  dense_rank?: number;
+  bm25_rank?: number;
+  rrf_score?: number;
+}
+
+export interface LatencyBreakdown {
+  embedding_ms?: number;
+  dense_search_ms?: number;
+  bm25_search_ms?: number;
+  rrf_fusion_ms?: number;
+  context_expansion_ms?: number;
+  llm_generation_ms?: number;
+  total_request_ms?: number;
 }
 
 export interface ChatQueryResponse {
@@ -47,6 +60,49 @@ export interface ChatQueryResponse {
   llm_provider: string;
   model_name: string;
   processing_time_seconds: number;
+  evaluation_id?: string;
+  latency_breakdown?: LatencyBreakdown;
+}
+
+export interface QueryEvaluation {
+  evaluation_id: string;
+  timestamp: string;
+  query: string;
+  document_ids?: string[];
+  retrieval_mode: string;
+  dense_results?: any[];
+  bm25_results?: any[];
+  hybrid_results?: any[];
+  final_context: SourceCitation[];
+  answer: string;
+  citations: SourceCitation[];
+  latency_breakdown: LatencyBreakdown;
+  evaluation_status: {
+    retrieval_status: string;
+    answer_status: string;
+  };
+  ground_truth?: any;
+  retrieval_metrics?: any;
+  answer_metrics?: any;
+}
+
+export interface BenchmarkCatalogItem {
+  benchmark_id: string;
+  file_name: string;
+  relative_path: string;
+  benchmark_type: string;
+  dataset_version: string;
+  evaluation_version: string;
+  retrieval_mode: string;
+  timestamp: string;
+  total_questions: number;
+  recall_at_1: number;
+  recall_at_3: number;
+  recall_at_5: number;
+  recall_at_10: number;
+  mrr_at_10: number;
+  ndcg_at_10: number;
+  average_retrieval_latency_ms: number;
 }
 
 export interface QuestionEvalResult {
@@ -54,6 +110,10 @@ export interface QuestionEvalResult {
   question: string;
   category: string;
   first_relevant_rank?: number;
+  dense_rank?: number;
+  bm25_rank?: number;
+  hybrid_rank?: number;
+  rrf_score?: number;
   recall_at_1: number;
   recall_at_3: number;
   recall_at_5: number;
@@ -66,7 +126,12 @@ export interface QuestionEvalResult {
 }
 
 export interface EvaluationRunResult {
+  dataset_version?: string;
   evaluation_version: string;
+  retrieval_mode: string;
+  bm25?: boolean;
+  fusion_method?: string;
+  rrf_k?: number;
   timestamp: string;
   embedding_model: string;
   chunk_size: number;
@@ -99,7 +164,6 @@ export async function uploadDocument(file: File): Promise<DocumentMetadata> {
 
   const res = await fetch(`${API_BASE_URL}/documents/upload`, {
     method: "POST",
-    body: formData,
   });
 
   if (!res.ok) {
@@ -137,7 +201,7 @@ export async function queryRag(
   query: string,
   topK: number = 4,
   documentIds?: string[],
-  retrievalMode: string = "dense"
+  retrievalMode: string = "hybrid"
 ): Promise<ChatQueryResponse> {
   const validDocIds =
     documentIds && documentIds.length > 0
@@ -165,7 +229,7 @@ export async function queryRag(
   return res.json();
 }
 
-export async function fetchLatestEvaluation(mode: string = "dense"): Promise<EvaluationRunResult> {
+export async function fetchLatestEvaluation(mode: string = "hybrid"): Promise<EvaluationRunResult> {
   const res = await fetch(`${API_BASE_URL}/evaluation/results?mode=${mode}`, {
     cache: "no-store",
   });
@@ -176,7 +240,11 @@ export async function fetchLatestEvaluation(mode: string = "dense"): Promise<Eva
   return res.json();
 }
 
-export async function fetchAllEvaluations(): Promise<{ v1_dense: EvaluationRunResult; v2_1_bm25: EvaluationRunResult }> {
+export async function fetchAllEvaluations(): Promise<{
+  v1_dense: EvaluationRunResult;
+  v2_1_bm25: EvaluationRunResult;
+  v2_2_hybrid: EvaluationRunResult;
+}> {
   const res = await fetch(`${API_BASE_URL}/evaluation/results/all`, {
     cache: "no-store",
   });
@@ -187,7 +255,7 @@ export async function fetchAllEvaluations(): Promise<{ v1_dense: EvaluationRunRe
   return res.json();
 }
 
-export async function triggerEvaluationRun(mode: string = "dense"): Promise<EvaluationRunResult> {
+export async function triggerEvaluationRun(mode: string = "hybrid"): Promise<EvaluationRunResult> {
   const res = await fetch(`${API_BASE_URL}/evaluation/run?mode=${mode}`, {
     method: "POST",
   });
@@ -196,4 +264,33 @@ export async function triggerEvaluationRun(mode: string = "dense"): Promise<Eval
     throw new Error(errorData.detail || "Failed to execute evaluation suite.");
   }
   return res.json();
+}
+
+export async function fetchBenchmarkCatalog(): Promise<{ total: number; benchmarks: BenchmarkCatalogItem[] }> {
+  const res = await fetch(`${API_BASE_URL}/evaluation/benchmarks`, { cache: "no-store" });
+  if (!res.ok) throw new Error("Failed to fetch benchmark catalog.");
+  return res.json();
+}
+
+export async function fetchBenchmarkDetail(benchmarkId: string): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/evaluation/benchmarks/${benchmarkId}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to fetch benchmark detail for ${benchmarkId}`);
+  return res.json();
+}
+
+export async function fetchQueryEvaluations(limit: number = 50): Promise<QueryEvaluation[]> {
+  const res = await fetch(`${API_BASE_URL}/evaluation/query-evaluations?limit=${limit}`, { cache: "no-store" });
+  if (!res.ok) throw new Error("Failed to fetch query evaluations.");
+  return res.json();
+}
+
+export async function fetchQueryEvaluationDetail(evalId: string): Promise<QueryEvaluation> {
+  const res = await fetch(`${API_BASE_URL}/evaluation/query-evaluations/${evalId}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to fetch query evaluation ${evalId}`);
+  return res.json();
+}
+
+export async function deleteQueryEvaluation(evalId: string): Promise<boolean> {
+  const res = await fetch(`${API_BASE_URL}/evaluation/query-evaluations/${evalId}`, { method: "DELETE" });
+  return res.ok;
 }
