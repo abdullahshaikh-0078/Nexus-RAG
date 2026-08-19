@@ -33,6 +33,11 @@ class Settings(BaseSettings):
     GROQ_API_KEY: Optional[str] = None
     LLM_MODEL_NAME: str = "gemini-1.5-flash"
 
+    # FinanceBench Settings
+    FINANCEBENCH_ROOT: str = r"C:\Abdullah files\datasets\financebench"
+    FINANCEBENCH_PDF_DIR: str = r"C:\Abdullah files\datasets\financebench\pdfs"
+    FINANCEBENCH_DATASET: str = r"C:\Abdullah files\datasets\financebench\data\financebench_open_source.jsonl"
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

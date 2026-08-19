@@ -8,6 +8,7 @@ from app.core.config import settings
 from app.services.chunker import RecursiveTextChunker
 from app.services.embedder import embedding_service
 from app.services.bm25_search import bm25_service
+from app.services.hybrid_retriever import hybrid_retriever
 from app.db.vectorstore import vector_store
 from app.evaluation.metrics import (
     RetrievalEvaluator,
@@ -24,7 +25,7 @@ RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results")
 
 
 class EvaluationRunner:
-    """Executes evaluation runs against the V1 Dense Retrieval or V2.1 BM25 Lexical engine."""
+    """Executes evaluation runs against V1 Dense, V2.1 BM25, or V2.2 Hybrid engines."""
 
     def __init__(self, dataset_path: str = DATASET_PATH):
         self.dataset_path = dataset_path
@@ -38,7 +39,14 @@ class EvaluationRunner:
 
     def run_evaluation(self, top_k: int = 10, retrieval_mode: str = "dense") -> EvaluationRunResult:
         mode = retrieval_mode.lower()
-        version_name = "v2_1_bm25" if mode == "bm25" else "v1_baseline"
+        if mode == "hybrid":
+            version_name = "v2_2_hybrid"
+        elif mode == "bm25":
+            version_name = "v2_1_bm25"
+        else:
+            mode = "dense"
+            version_name = "v1_baseline"
+
         logger.info(f"Starting NEXUS RAG Evaluation Run (Mode: '{mode}', Version: '{version_name}')...")
         os.makedirs(RESULTS_DIR, exist_ok=True)
         dataset = self.load_dataset()
@@ -61,7 +69,13 @@ class EvaluationRunner:
 
             # Measure isolated retrieval latency
             start_time = time.time()
-            if mode == "bm25":
+            if mode == "hybrid":
+                raw_citations = hybrid_retriever.search(
+                    query=question,
+                    top_k=top_k,
+                    document_ids=[doc_id] if doc_id else None,
+                )
+            elif mode == "bm25":
                 raw_citations = bm25_service.search(
                     query=question,
                     top_k=top_k,
@@ -90,11 +104,21 @@ class EvaluationRunner:
             mrr10 = RetrievalEvaluator.calculate_mrr_at_k(retrieved_texts, expected_snippets, k=10)
             ndcg10 = RetrievalEvaluator.calculate_ndcg_at_k(retrieved_texts, expected_snippets, k=10)
 
+            # Debug rank / score details if available from citations
+            first_citation = raw_citations[0] if raw_citations else None
+            dense_rank = getattr(first_citation, "dense_rank", None) if first_citation else None
+            bm25_rank = getattr(first_citation, "bm25_rank", None) if first_citation else None
+            rrf_score = getattr(first_citation, "rrf_score", None) if first_citation else None
+
             q_res = QuestionEvalResult(
                 question_id=q_id,
                 question=question,
                 category=category,
                 first_relevant_rank=first_rank,
+                dense_rank=dense_rank,
+                bm25_rank=bm25_rank,
+                hybrid_rank=first_rank if mode == "hybrid" else None,
+                rrf_score=rrf_score,
                 recall_at_1=r1,
                 recall_at_3=r3,
                 recall_at_5=r5,
@@ -121,6 +145,9 @@ class EvaluationRunner:
             dataset_version=dataset.get("version", "v1_baseline"),
             evaluation_version=version_name,
             retrieval_mode=mode,
+            bm25=True if mode in ["bm25", "hybrid"] else False,
+            fusion_method="RRF" if mode == "hybrid" else None,
+            rrf_k=60 if mode == "hybrid" else None,
             timestamp=now_iso,
             embedding_model="N/A (BM25 Lexical Search)" if mode == "bm25" else settings.EMBEDDING_MODEL_NAME,
             chunk_size=settings.CHUNK_SIZE,
@@ -140,7 +167,14 @@ class EvaluationRunner:
         # Atomic Result Persistence Strategy
         timestamp_str = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         versioned_file = os.path.join(RESULTS_DIR, f"{version_name}_{timestamp_str}.json")
-        latest_file_name = "v2_1_bm25_latest.json" if mode == "bm25" else "latest.json"
+
+        if mode == "hybrid":
+            latest_file_name = "v2_2_hybrid_latest.json"
+        elif mode == "bm25":
+            latest_file_name = "v2_1_bm25_latest.json"
+        else:
+            latest_file_name = "latest.json"
+
         latest_file = os.path.join(RESULTS_DIR, latest_file_name)
         temp_latest_file = os.path.join(RESULTS_DIR, f"{latest_file_name}.tmp")
 
@@ -150,7 +184,7 @@ class EvaluationRunner:
         with open(versioned_file, "w", encoding="utf-8") as f:
             json.dump(result_dict, f, indent=2)
 
-        # 2. Write latest.json atomically with schema validation
+        # 2. Write latest file atomically with schema validation
         try:
             with open(temp_latest_file, "w", encoding="utf-8") as f:
                 json.dump(result_dict, f, indent=2)
@@ -162,7 +196,7 @@ class EvaluationRunner:
             os.replace(temp_latest_file, latest_file)
             logger.info(f"Evaluation run complete! Saved {versioned_file} and updated {latest_file} atomically.")
         except Exception as e:
-            logger.error(f"Atomic update of latest.json failed: {str(e)}. Preserving previous latest.json.")
+            logger.error(f"Atomic update of {latest_file_name} failed: {str(e)}. Preserving previous state.")
             if os.path.exists(temp_latest_file):
                 os.remove(temp_latest_file)
             raise e
@@ -227,9 +261,9 @@ class EvaluationRunner:
 
 if __name__ == "__main__":
     runner = EvaluationRunner()
-    res = runner.run_evaluation(top_k=10)
+    res = runner.run_evaluation(top_k=10, retrieval_mode="hybrid")
     print("=" * 60)
-    print("NEXUS RAG V1 DENSE RETRIEVAL BASELINE RESULTS")
+    print("NEXUS RAG V2.2 HYBRID RETRIEVAL EVALUATION RESULTS")
     print("=" * 60)
     print(f"Timestamp: {res.timestamp}")
     print(f"Embedding Model: {res.embedding_model}")

@@ -1,0 +1,227 @@
+{
+  "version": "v2_diagnostic",
+  "name": "NEXUS RAG V2 Diagnostic Evaluation Dataset",
+  "document_id": "doc_eval_attention_paper",
+  "document_name": "attention_paper.txt",
+  "total_questions": 36,
+  "description": "36 diagnostic test questions across 12 categories grounded in Attention Is All You Need paper for evaluating Dense, BM25, and Hybrid RRF retrieval performance.",
+  "test_cases": [
+    {
+      "question_id": "D01",
+      "category": "Conceptual",
+      "question": "Why does the Transformer avoid recurrence in sequence transduction?",
+      "expected_snippets": ["dispensing with recurrence", "relying entirely on an attention mechanism", "eschewing recurrence"]
+    },
+    {
+      "question_id": "D02",
+      "category": "Conceptual",
+      "question": "How do attention mechanisms allow drawing global dependencies?",
+      "expected_snippets": ["draw global dependencies between input and output", "attention mechanisms"]
+    },
+    {
+      "question_id": "D03",
+      "category": "Conceptual",
+      "question": "What is the primary architectural difference between recurrent neural networks and the Transformer?",
+      "expected_snippets": ["dispensing with recurrence and convolutions entirely", "solely on attention mechanisms"]
+    },
+    {
+      "question_id": "D04",
+      "category": "Factual",
+      "question": "What BLEU score did the big Transformer model achieve on WMT 2014 English-to-German?",
+      "expected_snippets": ["28.4", "BLEU score of 28.4"]
+    },
+    {
+      "question_id": "D05",
+      "category": "Factual",
+      "question": "What BLEU score was achieved on the WMT 2014 English-to-French translation task?",
+      "expected_snippets": ["41.8", "BLEU score of 41.8"]
+    },
+    {
+      "question_id": "D06",
+      "category": "Factual",
+      "question": "How long was the base model trained on 8 NVIDIA P100 GPUs?",
+      "expected_snippets": ["12 hours", "single machine with 8 NVIDIA P100 GPUs"]
+    },
+    {
+      "question_id": "D07",
+      "category": "Exact Entity / Name Lookup",
+      "question": "Who is Mitchell P. Marcus?",
+      "expected_keywords": ["Mitchell P. Marcus", "Building a large annotated corpus of English"],
+      "expected_snippets": ["Mitchell P. Marcus", "Penn Treebank"]
+    },
+    {
+      "question_id": "D08",
+      "category": "Exact Entity / Name Lookup",
+      "question": "Who are the lead authors of the Attention Is All You Need paper?",
+      "expected_snippets": ["Ashish Vaswani", "Noam Shazeer", "Niki Parmar", "Jakob Uszkoreit"]
+    },
+    {
+      "question_id": "D09",
+      "category": "Exact Entity / Name Lookup",
+      "question": "Who co-authored the Penn Treebank paper with Mitchell P. Marcus?",
+      "expected_snippets": ["Mary Ann Marcinkiewicz", "Beatrice Santorini"]
+    },
+    {
+      "question_id": "D10",
+      "category": "Section-Number Lookup",
+      "question": "What is discussed in Section 3.2.3?",
+      "expected_snippets": ["3.2.3 Applications of Attention in our Model", "Multi-Head Attention in three different ways"]
+    },
+    {
+      "question_id": "D11",
+      "category": "Section-Number Lookup",
+      "question": "Which section describes Scaled Dot-Product Attention?",
+      "expected_snippets": ["3.2.1 Scaled Dot-Product Attention", "softmax function"]
+    },
+    {
+      "question_id": "D12",
+      "category": "Section-Number Lookup",
+      "question": "What topic is covered in Section 5.4?",
+      "expected_snippets": ["5.4 Maximum Path Lengths", "computational complexity"]
+    },
+    {
+      "question_id": "D13",
+      "category": "Number / Value Lookup",
+      "question": "How many GPUs were used for training the big Transformer model?",
+      "expected_snippets": ["8 NVIDIA P100 GPUs", "300,000 steps"]
+    },
+    {
+      "question_id": "D14",
+      "category": "Number / Value Lookup",
+      "question": "What was the step time for the big models during training?",
+      "expected_snippets": ["1.0 seconds", "step time was 1.0 seconds"]
+    },
+    {
+      "question_id": "D15",
+      "category": "Number / Value Lookup",
+      "question": "By how much did the big model outperform existing models on English-to-German?",
+      "expected_snippets": ["over 2.0 BLEU", "28.4"]
+    },
+    {
+      "question_id": "D16",
+      "category": "Acronym Lookup",
+      "question": "What does WMT stand for?",
+      "expected_snippets": ["WMT stands for Workshop on Statistical Machine Translation", "Workshop on Statistical Machine Translation"]
+    },
+    {
+      "question_id": "D17",
+      "category": "Acronym Lookup",
+      "question": "What recurrent neural network variations are mentioned in Introduction?",
+      "expected_snippets": ["long short-term memory", "gated recurrent neural networks"]
+    },
+    {
+      "question_id": "D18",
+      "category": "Acronym Lookup",
+      "question": "What conference proceedings published the Attention is All You Need paper in 2017?",
+      "expected_snippets": ["NIPS", "In NIPS, 2017"]
+    },
+    {
+      "question_id": "D19",
+      "category": "Citation / Reference Lookup",
+      "question": "What paper is cited as reference [2]?",
+      "expected_snippets": ["[2] Mitchell P. Marcus", "Penn Treebank"]
+    },
+    {
+      "question_id": "D20",
+      "category": "Citation / Reference Lookup",
+      "question": "Which citation corresponds to the Attention Is All You Need paper itself?",
+      "expected_snippets": ["[1] Ashish Vaswani", "In NIPS, 2017"]
+    },
+    {
+      "question_id": "D21",
+      "category": "Citation / Reference Lookup",
+      "question": "In what journal was the Penn Treebank paper published?",
+      "expected_snippets": ["Computational Linguistics", "19(2):313-330"]
+    },
+    {
+      "question_id": "D22",
+      "category": "Technical Terminology Lookup",
+      "question": "How is Scaled Dot-Product Attention calculated?",
+      "expected_snippets": ["dot products of the query with all keys", "divide each by sqrt(dk)", "apply a softmax function"]
+    },
+    {
+      "question_id": "D23",
+      "category": "Technical Terminology Lookup",
+      "question": "What is the purpose of Positional Encoding in the Transformer?",
+      "expected_snippets": ["inject some information about the relative or absolute position of the tokens", "no recurrence and no convolution"]
+    },
+    {
+      "question_id": "D24",
+      "category": "Technical Terminology Lookup",
+      "question": "Why does multi-head attention outperform a single attention head?",
+      "expected_snippets": ["jointly attend to information from different representation subspaces", "averaging inhibits this"]
+    },
+    {
+      "question_id": "D25",
+      "category": "Multi-Part Questions",
+      "question": "What are the three distinct ways multi-head attention is used in the Transformer model?",
+      "expected_snippets": ["encoder-decoder attention layers", "encoder contains self-attention layers", "decoder allow each position"]
+    },
+    {
+      "question_id": "D26",
+      "category": "Multi-Part Questions",
+      "question": "What are the key inputs and dimensions involved in computing attention weights?",
+      "expected_snippets": ["queries and keys of dimension dk", "values of dimension dv"]
+    },
+    {
+      "question_id": "D27",
+      "category": "Multi-Part Questions",
+      "question": "How do self-attention layers differ between the encoder and the decoder?",
+      "expected_snippets": ["encoder contains self-attention layers", "decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position"]
+    },
+    {
+      "question_id": "D28",
+      "category": "Cross-Section Questions",
+      "question": "How does avoiding recurrence enable parallelization during model training?",
+      "expected_snippets": ["Avoiding recurrence allows full parallelization", "draw global dependencies between input and output"]
+    },
+    {
+      "question_id": "D29",
+      "category": "Cross-Section Questions",
+      "question": "How does maximum path length in self-attention compare to recurrent layers?",
+      "expected_snippets": ["constant O(1) number of sequentially executed operations", "recurrent layer requires O(n) sequential operations"]
+    },
+    {
+      "question_id": "D30",
+      "category": "Cross-Section Questions",
+      "question": "What relationship exists between sequence length n and representation dimensionality d for self-attention speed?",
+      "expected_snippets": ["faster than recurrent layers when sequence length n is smaller than representation dimensionality d", "computational complexity per layer"]
+    },
+    {
+      "question_id": "D31",
+      "category": "Exact Wording Matters",
+      "question": "What exact phrase describes the network architecture proposed in the paper?",
+      "expected_snippets": ["Transformer, based solely on attention mechanisms", "dispensing with recurrence and convolutions entirely"]
+    },
+    {
+      "question_id": "D32",
+      "category": "Exact Wording Matters",
+      "question": "What phrase is used to describe drawing global dependencies in the introduction?",
+      "expected_snippets": ["relying entirely on an attention mechanism to draw global dependencies", "input and output"]
+    },
+    {
+      "question_id": "D33",
+      "category": "Exact Wording Matters",
+      "question": "How is the scaling factor in dot-product attention explicitly written?",
+      "expected_snippets": ["divide each by sqrt(dk)", "softmax function"]
+    },
+    {
+      "question_id": "D34",
+      "category": "Semantic Understanding",
+      "question": "Why are Transformer models superior in quality while requiring less training time?",
+      "expected_snippets": ["superior in quality while being more parallelizable", "requiring significantly less time to train"]
+    },
+    {
+      "question_id": "D35",
+      "category": "Semantic Understanding",
+      "question": "Why must positional encodings be added if sequence order information is needed?",
+      "expected_snippets": ["model contains no recurrence and no convolution", "make use of the order of the sequence"]
+    },
+    {
+      "question_id": "D36",
+      "category": "Semantic Understanding",
+      "question": "What advantage does constant path length provide for experimental training efficiency?",
+      "expected_snippets": ["constant O(1) number of sequentially executed operations", "enables high parallelization and experimental training efficiency"]
+    }
+  ]
+}

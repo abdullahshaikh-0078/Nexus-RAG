@@ -8,6 +8,10 @@ class QuestionEvalResult(BaseModel):
     question: str
     category: str
     first_relevant_rank: Optional[int] = None  # None if not found in top K
+    dense_rank: Optional[int] = None
+    bm25_rank: Optional[int] = None
+    hybrid_rank: Optional[int] = None
+    rrf_score: Optional[float] = None
     recall_at_1: float
     recall_at_3: float
     recall_at_5: float
@@ -23,6 +27,9 @@ class EvaluationRunResult(BaseModel):
     dataset_version: str = "v1_baseline"
     evaluation_version: str = "v1_baseline"
     retrieval_mode: str = "dense"
+    bm25: Optional[bool] = None
+    fusion_method: Optional[str] = None
+    rrf_k: Optional[int] = None
     timestamp: str
     embedding_model: str
     chunk_size: int

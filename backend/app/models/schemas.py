@@ -48,6 +48,9 @@ class SourceCitation(BaseModel):
     chunk_index: int
     score: float
     content: str
+    dense_rank: Optional[int] = None
+    bm25_rank: Optional[int] = None
+    rrf_score: Optional[float] = None
 
 
 class ChatQueryRequest(BaseModel):
@@ -55,7 +58,7 @@ class ChatQueryRequest(BaseModel):
     top_k: int = Field(default=4, ge=1, le=20, description="Number of context chunks to retrieve.")
     document_ids: Optional[List[str]] = Field(default=None, description="Filter search to specific documents.")
     retrieval_mode: Optional[str] = Field(
-        default="dense", description="Retrieval mode: 'dense' (V1 vector search) or 'bm25' (V2.1 lexical search)."
+        default="hybrid", description="Retrieval mode: 'dense', 'bm25', or 'hybrid' (Dense + BM25 + RRF)."
     )
 
 
@@ -63,10 +66,12 @@ class ChatQueryResponse(BaseModel):
     query: str
     answer: str
     sources: List[SourceCitation]
-    retrieval_mode: str = "dense"
+    retrieval_mode: str = "hybrid"
     llm_provider: str
     model_name: str
     processing_time_seconds: float
+    evaluation_id: Optional[str] = None
+    latency_breakdown: Optional[Dict[str, float]] = None
 
 
 # --- System Status Schemas ---
