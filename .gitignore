@@ -57,3 +57,5 @@ data/
 # Explicitly keep evaluation results tracked
 !backend/app/evaluation/results/*.json
 !backend/app/evaluation/results/README.md
+
+*.tsbuildinfo
