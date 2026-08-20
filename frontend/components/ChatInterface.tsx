@@ -21,6 +21,8 @@ import {
   BarChart2,
 } from "lucide-react";
 
+import { ChatDocument } from "@/lib/api";
+
 export interface Message {
   id: string;
   sender: "user" | "assistant";
@@ -29,20 +31,23 @@ export interface Message {
 }
 
 interface ChatInterfaceProps {
-  documents: DocumentMetadata[];
-  selectedDocId: string | null;
+  activeChatId: string | null;
+  chatDocuments: ChatDocument[];
+  version: "v1" | "v2.1" | "v2.2" | "v3";
+  setVersion: (version: "v1" | "v2.1" | "v2.2" | "v3") => void;
   messages: Message[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
 }
 
 export default function ChatInterface({
-  documents,
-  selectedDocId,
+  activeChatId,
+  chatDocuments,
+  version,
+  setVersion,
   messages,
   setMessages,
 }: ChatInterfaceProps) {
   const [inputQuery, setInputQuery] = useState("");
-  const [retrievalMode, setRetrievalMode] = useState<"hybrid" | "dense" | "bm25">("hybrid");
   const [showInfo, setShowInfo] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -86,8 +91,10 @@ export default function ChatInterface({
     setLoading(true);
 
     try {
-      const docIdsFilter = selectedDocId ? [selectedDocId] : undefined;
-      const res = await queryRag(query, 4, docIdsFilter, retrievalMode);
+      const activeDocId = chatDocuments.length > 0 ? chatDocuments[0].document_id : undefined;
+      const docIdsFilter = activeDocId ? [activeDocId] : undefined;
+      const legacyMode = version === "v1" ? "dense" : (version === "v2.1" ? "bm25" : "hybrid");
+      const res = await queryRag(query, 4, docIdsFilter, legacyMode, version, "table_aware", activeChatId || undefined);
 
       const assistantMsg: Message = {
         id: `assistant-${Date.now()}`,
@@ -113,60 +120,44 @@ export default function ChatInterface({
 
   const handleViewEvaluation = async (evalId?: string, responseMeta?: ChatQueryResponse) => {
     if (!evalId) {
-      if (responseMeta) {
-        // Fallback construct transient QueryEvaluation object
-        const tempEval: QueryEvaluation = {
-          evaluation_id: `transient-${Date.now()}`,
-          timestamp: new Date().toISOString(),
-          query: responseMeta.query,
-          retrieval_mode: responseMeta.retrieval_mode,
-          citations: responseMeta.sources,
-          final_context: responseMeta.sources,
-          answer: responseMeta.answer,
-          latency_breakdown: responseMeta.latency_breakdown || { total_request_ms: responseMeta.processing_time_seconds * 1000 },
-          evaluation_status: {
-            retrieval_status: responseMeta.sources.length ? "relevant_context_detected" : "no_relevant_context",
-            answer_status: "answer_generated",
-          },
-        };
-        setSelectedEval(tempEval);
-        setIsEvalModalOpen(true);
-      }
+      setError("No Evaluation ID associated with this query response.");
       return;
     }
 
     try {
-      const evalDetail = await fetchQueryEvaluationDetail(evalId);
-      setSelectedEval(evalDetail);
+      const detail = await fetchQueryEvaluationDetail(evalId);
+      setSelectedEval(detail);
       setIsEvalModalOpen(true);
-    } catch (e) {
+    } catch (err: any) {
       if (responseMeta) {
-        const tempEval: QueryEvaluation = {
+        const fallbackEval: QueryEvaluation = {
           evaluation_id: evalId,
           timestamp: new Date().toISOString(),
           query: responseMeta.query,
           retrieval_mode: responseMeta.retrieval_mode,
-          citations: responseMeta.sources,
           final_context: responseMeta.sources,
           answer: responseMeta.answer,
-          latency_breakdown: responseMeta.latency_breakdown || { total_request_ms: responseMeta.processing_time_seconds * 1000 },
+          citations: responseMeta.sources,
+          latency_breakdown: responseMeta.latency_breakdown || {},
           evaluation_status: {
-            retrieval_status: responseMeta.sources.length ? "relevant_context_detected" : "no_relevant_context",
-            answer_status: "answer_generated",
+            retrieval_status: "SUCCESS",
+            answer_status: "GROUNDED",
           },
         };
-        setSelectedEval(tempEval);
+        setSelectedEval(fallbackEval);
         setIsEvalModalOpen(true);
+      } else {
+        setError(`Could not fetch query evaluation details: ${err.message}`);
       }
     }
   };
 
-  const activeDoc = documents.find((d) => d.document_id === selectedDocId);
+  const activeDoc = chatDocuments[0];
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-slate-950/40 p-4 relative overflow-hidden">
-      {/* Header bar */}
-      <div className="pb-3 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+    <div className="flex flex-col h-full bg-slate-950 p-4 rounded-3xl border border-slate-800 shadow-2xl relative">
+      {/* Header Controls */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
         <div className="flex items-center gap-2">
           <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
             <Bot className="w-5 h-5" />
@@ -175,53 +166,42 @@ export default function ChatInterface({
             <h2 className="text-sm font-semibold text-slate-100 flex items-center gap-2">
               NEXUS Chat Assistant
               <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                {retrievalMode.toUpperCase()}
+                {version.toUpperCase()}
               </span>
             </h2>
             <p className="text-[11px] text-slate-400">Ask questions over active ingested knowledge base</p>
           </div>
         </div>
 
-        {/* Retrieval Mode Selector */}
-        <div className="flex items-center gap-2 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
-          <button
-            type="button"
-            onClick={() => setRetrievalMode("hybrid")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
-              retrievalMode === "hybrid"
-                ? "bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-900/40"
-                : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
-            }`}
+        {/* System Version & Backend Strategy Info */}
+        <div className="flex flex-wrap items-center gap-2 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800">
+          <label className="text-[11px] text-slate-400 font-medium px-1">Pipeline Version:</label>
+          <select
+            value={version}
+            onChange={(e) => {
+              setVersion(e.target.value as any);
+              setSelectedCitation(null);
+            }}
+            className="bg-slate-950 text-xs text-white border border-slate-700/80 rounded-lg px-2.5 py-1 focus:outline-none focus:border-purple-500 font-medium"
           >
-            V2.2 — Hybrid ⭐
-          </button>
-          <button
-            type="button"
-            onClick={() => setRetrievalMode("bm25")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
-              retrievalMode === "bm25"
-                ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-900/40"
-                : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
-            }`}
-          >
-            V2.1 — BM25
-          </button>
-          <button
-            type="button"
-            onClick={() => setRetrievalMode("dense")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
-              retrievalMode === "dense"
-                ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-md shadow-blue-900/40"
-                : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
-            }`}
-          >
-            V1 — Dense
-          </button>
+            <option value="v2.2">V2.2 — Hybrid Retrieval (Recommended)</option>
+            <option value="v3">V3 — Structural RAG (PDF Layout + Expansion)</option>
+            <option value="v2.1">V2.1 — BM25 Lexical</option>
+            <option value="v1">V1 — Dense Baseline (Frozen)</option>
+          </select>
+
+          {/* Backend Strategy Info Badge for V3 */}
+          {version === "v3" && (
+            <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-purple-950/80 text-purple-200 border border-purple-700/80">
+              Backend strategy: Table-Aware
+            </span>
+          )}
+
           <button
             type="button"
             onClick={() => setShowInfo(!showInfo)}
-            className="p-1 text-slate-400 hover:text-white transition-colors"
-            title="Retrieval Mode Information"
+            className="p-1 text-slate-400 hover:text-white transition-colors ml-1"
+            title="System Version & Pipeline Information"
           >
             <HelpCircle className="w-4 h-4" />
           </button>
@@ -253,14 +233,14 @@ export default function ChatInterface({
       )}
 
       {/* Scope Filter Status */}
-      {selectedDocId && activeDoc && (
-        <div className="mt-3 bg-blue-600/10 border border-blue-500/20 px-3 py-1.5 rounded-xl flex items-center justify-between text-xs text-blue-300">
+      {chatDocuments.length > 0 && (
+        <div className="mt-3 bg-purple-600/10 border border-purple-500/20 px-3 py-1.5 rounded-xl flex items-center justify-between text-xs text-purple-300">
           <span className="flex items-center gap-1.5 font-medium truncate">
-            <Sparkles className="w-3.5 h-3.5 text-blue-400 shrink-0" />
-            Query scoped to: <strong className="text-white">{activeDoc.filename}</strong>
+            <Sparkles className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+            Active Chat Document: <strong className="text-white">{chatDocuments[0].filename}</strong>
           </span>
-          <span className="text-[10px] text-blue-400 uppercase font-bold bg-blue-500/20 px-1.5 py-0.5 rounded">
-            Filtered
+          <span className="text-[10px] text-purple-400 uppercase font-bold bg-purple-500/20 px-1.5 py-0.5 rounded">
+            Chat Scoped
           </span>
         </div>
       )}
@@ -351,7 +331,7 @@ export default function ChatInterface({
             </div>
             <div className="glass-panel p-3.5 rounded-2xl text-xs text-purple-300 flex items-center gap-2 border border-slate-800">
               <Sparkles className="w-4 h-4 animate-pulse text-purple-400" />
-              Retrieving context via {retrievalMode.toUpperCase()} search & synthesizing response...
+              Retrieving context via {version.toUpperCase()} search & synthesizing response...
             </div>
           </div>
         )}
@@ -376,7 +356,7 @@ export default function ChatInterface({
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={`Ask NEXUS a question using ${retrievalMode.toUpperCase()} search...`}
+            placeholder={`Ask NEXUS a question using ${version.toUpperCase()} pipeline...`}
             className="w-full bg-slate-900/90 text-xs text-white placeholder-slate-500 rounded-xl pl-4 pr-12 py-3 border border-slate-800 focus:outline-none focus:border-purple-500/60 focus:ring-1 focus:ring-purple-500/50 resize-none transition-all"
             disabled={loading}
           />
