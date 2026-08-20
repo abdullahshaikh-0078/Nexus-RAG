@@ -1,3 +1,4 @@
+import os
 import uuid
 import logging
 from fastapi import APIRouter, UploadFile, File, HTTPException, status
@@ -12,6 +13,10 @@ from app.models.schemas import (
     DocumentUploadResponse,
     DocumentListResponse,
     DocumentMetadata,
+    DocumentRepresentation,
+    RepresentationListResponse,
+    MaterializeRepresentationRequest,
+    MaterializeRepresentationResponse,
 )
 
 router = APIRouter()
@@ -40,13 +45,20 @@ async def upload_document(file: UploadFile = File(...)):
                 detail="Uploaded file is empty.",
             )
 
-        # 1. Parse text
+        # Save raw file to disk for V3 layout parsing
+        upload_dir = os.path.abspath("./data/uploads")
+        os.makedirs(upload_dir, exist_ok=True)
+        raw_file_path = os.path.join(upload_dir, filename)
+        with open(raw_file_path, "wb") as f_out:
+            f_out.write(content_bytes)
+
+        # 1. Parse text (Legacy V1/V2 path)
         text, file_type = UnifiedDocumentParser.extract_text(content_bytes, filename)
 
         document_id = f"doc_{uuid.uuid4().hex[:12]}"
         char_count = len(text)
 
-        # 2. Chunk text
+        # 2. Chunk text (Legacy V1/V2 path)
         chunker = RecursiveTextChunker(
             chunk_size=settings.CHUNK_SIZE,
             chunk_overlap=settings.CHUNK_OVERLAP,
@@ -63,17 +75,30 @@ async def upload_document(file: UploadFile = File(...)):
         chunk_texts = [c.text for c in chunks]
         embeddings = embedding_service.embed_batch(chunk_texts)
 
-        # 4. Save to Qdrant
+        # 4. Save to Qdrant (Legacy V1/V2)
         vector_store.upsert_chunks(
             chunks=chunks,
             embeddings=embeddings,
             filename=filename,
         )
 
-        # 5. Index in BM25 search service
+        # 5. Index in BM25 search service (Legacy V1/V2)
         bm25_service.index_chunks(chunks=chunks, filename=filename)
 
-        # 6. Save metadata to MongoDB
+        # 6. Trigger V3 Structural PDF Parsing & Chunking for PDFs
+        if filename.lower().endswith(".pdf"):
+            try:
+                from app.v3.ingestion.ingestion_service import v3_ingestion_service
+                v3_ingestion_service.ingest_pdf(
+                    pdf_path=raw_file_path,
+                    document_id=document_id,
+                    document_name=filename,
+                    strategy="table_aware",
+                )
+            except Exception as v3_err:
+                logger.warning(f"V3 structural ingestion deferred/failed for '{filename}': {str(v3_err)}")
+
+        # 7. Save metadata to MongoDB
         doc_metadata = DocumentMetadata(
             document_id=document_id,
             filename=filename,
@@ -112,6 +137,57 @@ async def list_documents():
     """Returns metadata for all ingested documents."""
     docs = await mongo_db.list_documents()
     return DocumentListResponse(total=len(docs), documents=docs)
+
+
+@router.get("/{document_id}/representations", response_model=RepresentationListResponse)
+async def get_document_representations(document_id: str):
+    """Retrieves all representations (V1, V2, V3 strategies) for a specific document."""
+    from app.v3.ingestion.ingestion_service import v3_ingestion_service
+
+    doc = await mongo_db.get_document(document_id)
+    doc_name = doc.filename if doc else document_id
+
+    reps = await v3_ingestion_service.list_representations(document_id)
+
+    # Ensure baseline representation info is populated if not yet recorded
+    existing_versions = {r.version: r for r in reps}
+    if "v1" not in existing_versions:
+        v1_rep = await v3_ingestion_service.materialize_representation(document_id, version="v1")
+        reps.append(v1_rep)
+    if "v2.2" not in existing_versions:
+        v2_rep = await v3_ingestion_service.materialize_representation(document_id, version="v2.2")
+        reps.append(v2_rep)
+
+    return RepresentationListResponse(
+        document_id=document_id,
+        document_name=doc_name,
+        representations=reps,
+    )
+
+
+@router.post("/{document_id}/representations/materialize", response_model=MaterializeRepresentationResponse)
+async def materialize_document_representation(
+    document_id: str,
+    req: MaterializeRepresentationRequest,
+):
+    """
+    Lazy materialization endpoint:
+    Checks if requested representation exists and is READY; if not, triggers V3 layout parse & strategy chunking.
+    """
+    from app.v3.ingestion.ingestion_service import v3_ingestion_service
+
+    rep = await v3_ingestion_service.materialize_representation(
+        document_id=document_id,
+        version=req.version,
+        strategy=req.chunking_strategy,
+    )
+
+    msg = f"Representation '{rep.representation_id}' is {rep.status} ({rep.chunk_count} chunks)."
+    return MaterializeRepresentationResponse(
+        success=(rep.status == "READY"),
+        message=msg,
+        representation=rep,
+    )
 
 
 @router.delete("/{document_id}")

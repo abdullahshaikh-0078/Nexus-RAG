@@ -33,7 +33,11 @@ class QdrantVectorStore:
             storage_path = os.path.abspath(settings.QDRANT_STORAGE_PATH)
             os.makedirs(storage_path, exist_ok=True)
             logger.info(f"Initializing local disk Qdrant store at {storage_path}")
-            self.client = QdrantClient(path=storage_path)
+            try:
+                self.client = QdrantClient(path=storage_path)
+            except Exception as e:
+                logger.warning(f"Qdrant local storage path locked by another process ({e}). Falling back to memory mode for test context.")
+                self.client = QdrantClient(":memory:")
 
         self._ensure_collection()
 
@@ -81,8 +85,35 @@ class QdrantVectorStore:
         except Exception as e:
             logger.debug(f"Note on chunk_index payload index: {str(e)}")
 
+        try:
+            self.client.create_payload_index(
+                collection_name=self.collection_name,
+                field_name="version",
+                field_schema=qmodels.PayloadSchemaType.KEYWORD,
+            )
+        except Exception as e:
+            logger.debug(f"Note on version payload index: {str(e)}")
+
+        try:
+            self.client.create_payload_index(
+                collection_name=self.collection_name,
+                field_name="chunking_strategy",
+                field_schema=qmodels.PayloadSchemaType.KEYWORD,
+            )
+        except Exception as e:
+            logger.debug(f"Note on chunking_strategy payload index: {str(e)}")
+
+        try:
+            self.client.create_payload_index(
+                collection_name=self.collection_name,
+                field_name="chat_id",
+                field_schema=qmodels.PayloadSchemaType.KEYWORD,
+            )
+        except Exception as e:
+            logger.debug(f"Note on chat_id payload index: {str(e)}")
+
     def upsert_chunks(
-        self, chunks: List[DocumentChunk], embeddings: List[List[float]], filename: str
+        self, chunks: List[DocumentChunk], embeddings: List[List[float]], filename: str, chat_id: Optional[str] = None
     ) -> bool:
         """Stores chunks and vectors into Qdrant."""
         self.initialize()
@@ -94,13 +125,107 @@ class QdrantVectorStore:
             payload = {
                 "document_id": chunk.document_id,
                 "document_name": filename,
+                "chat_id": chat_id,
                 "chunk_id": chunk.chunk_id,
                 "chunk_index": chunk.chunk_index,
                 "content": chunk.text,
                 "start_char": chunk.start_char,
                 "end_char": chunk.end_char,
             }
-            point_uuid = str(uuid.uuid5(uuid.NAMESPACE_DNS, chunk.chunk_id))
+            point_uuid = str(uuid.uuid5(uuid.NAMESPACE_DNS, f"{chat_id or ''}_{chunk.chunk_id}"))
+            points.append(
+                qmodels.PointStruct(
+                    id=point_uuid,
+                    vector=vector,
+                    payload=payload,
+                )
+            )
+
+        self.client.upsert(
+            collection_name=self.collection_name,
+            points=points,
+        )
+        return True
+
+    def delete_v3_chunks(self, document_id: str, strategy: str, chat_id: Optional[str] = None) -> bool:
+        """Deletes existing V3 chunks for a specific document, chunking strategy, and chat_id (Idempotency guard)."""
+        self.initialize()
+        if not self.client:
+            return False
+        try:
+            must_conds = [
+                qmodels.FieldCondition(key="document_id", match=qmodels.MatchValue(value=document_id)),
+                qmodels.FieldCondition(key="version", match=qmodels.MatchValue(value="v3")),
+                qmodels.FieldCondition(key="chunking_strategy", match=qmodels.MatchValue(value=strategy)),
+            ]
+            if chat_id:
+                must_conds.append(qmodels.FieldCondition(key="chat_id", match=qmodels.MatchValue(value=chat_id)))
+
+            filter_cond = qmodels.Filter(must=must_conds)
+            self.client.delete(
+                collection_name=self.collection_name,
+                points_selector=qmodels.FilterSelector(filter=filter_cond),
+            )
+            return True
+        except Exception as e:
+            logger.warning(f"Error deleting V3 chunks for document '{document_id}', strategy '{strategy}': {str(e)}")
+            return False
+
+    def delete_chat_chunks(self, chat_id: str) -> bool:
+        """Deletes all vector points associated with chat_id."""
+        self.initialize()
+        if not self.client:
+            return False
+        try:
+            filter_cond = qmodels.Filter(
+                must=[qmodels.FieldCondition(key="chat_id", match=qmodels.MatchValue(value=chat_id))]
+            )
+            self.client.delete(
+                collection_name=self.collection_name,
+                points_selector=qmodels.FilterSelector(filter=filter_cond),
+            )
+            return True
+        except Exception as e:
+            logger.warning(f"Error deleting Qdrant points for chat '{chat_id}': {str(e)}")
+            return False
+
+    def upsert_v3_chunks(
+        self, chunks: Any, embeddings: List[List[float]], filename: str, strategy: str, chat_id: Optional[str] = None
+    ) -> bool:
+        """Stores V3 structural chunks and vectors into Qdrant with isolated V3 payload metadata and chat_id."""
+        self.initialize()
+        if not chunks or not self.client:
+            return False
+
+        if len(chunks) > 0:
+            doc_id = getattr(chunks[0], "document_id", "")
+            if doc_id:
+                self.delete_v3_chunks(doc_id, strategy, chat_id=chat_id)
+
+        points = []
+        for idx, (chunk, vector) in enumerate(zip(chunks, embeddings)):
+            bbox_dict = chunk.bbox.model_dump() if getattr(chunk, "bbox", None) else None
+            payload = {
+                "version": "v3",
+                "chunking_strategy": strategy,
+                "document_id": chunk.document_id,
+                "document_name": filename,
+                "chat_id": chat_id,
+                "chunk_id": chunk.chunk_id,
+                "chunk_index": idx,
+                "content": chunk.content,
+                "page_number": getattr(chunk, "page_start", getattr(chunk, "page_number", 1)),
+                "section": getattr(chunk, "section", None),
+                "content_type": getattr(chunk, "chunk_type", "paragraph"),
+                "table_id": getattr(chunk, "table_id", None),
+                "table_title": getattr(chunk, "table_title", None),
+                "row_range": getattr(chunk, "row_range", None),
+                "column_range": getattr(chunk, "column_range", None),
+                "bbox": bbox_dict,
+                "parent_chunk_id": getattr(chunk, "parent_chunk_id", None),
+                "child_chunk_ids": getattr(chunk, "child_chunk_ids", []),
+            }
+            point_uuid = str(uuid.uuid5(uuid.NAMESPACE_DNS, f"{chat_id or ''}_{chunk.chunk_id}"))
             points.append(
                 qmodels.PointStruct(
                     id=point_uuid,
@@ -116,23 +241,56 @@ class QdrantVectorStore:
         return True
 
     def search_similar(
-        self, query_vector: List[float], top_k: int = 4, document_ids: Optional[List[str]] = None
+        self,
+        query_vector: List[float],
+        top_k: int = 4,
+        document_ids: Optional[List[str]] = None,
+        version: Optional[str] = None,
+        chunking_strategy: Optional[str] = None,
+        chat_id: Optional[str] = None,
     ) -> List[SourceCitation]:
-        """Searches nearest neighbor chunks for a query vector."""
+        """Searches nearest neighbor chunks for a query vector, with optional V3 version, strategy, and chat_id filtering."""
         self.initialize()
         if not self.client:
             return []
 
-        query_filter = None
-        if document_ids:
-            query_filter = qmodels.Filter(
-                must=[
-                    qmodels.FieldCondition(
-                        key="document_id",
-                        match=qmodels.MatchAny(any=document_ids),
-                    )
-                ]
+        must_conditions = []
+        must_not_conditions = []
+
+        if chat_id:
+            must_conditions.append(
+                qmodels.FieldCondition(
+                    key="chat_id",
+                    match=qmodels.MatchValue(value=chat_id),
+                )
             )
+
+        if document_ids:
+            must_conditions.append(
+                qmodels.FieldCondition(
+                    key="document_id",
+                    match=qmodels.MatchAny(any=document_ids),
+                )
+            )
+
+        if version == "v3":
+            must_conditions.append(
+                qmodels.FieldCondition(key="version", match=qmodels.MatchValue(value="v3"))
+            )
+            if chunking_strategy:
+                must_conditions.append(
+                    qmodels.FieldCondition(key="chunking_strategy", match=qmodels.MatchValue(value=chunking_strategy))
+                )
+        else:
+            # For V1/V2 legacy queries, exclude V3 points
+            must_not_conditions.append(
+                qmodels.FieldCondition(key="version", match=qmodels.MatchValue(value="v3"))
+            )
+
+        query_filter = qmodels.Filter(
+            must=must_conditions if must_conditions else None,
+            must_not=must_not_conditions if must_not_conditions else None,
+        )
 
         if hasattr(self.client, "query_points"):
             response = self.client.query_points(
@@ -155,6 +313,10 @@ class QdrantVectorStore:
         citations = []
         for hit in search_results:
             payload = getattr(hit, "payload", {}) or {}
+            p_chat_id = payload.get("chat_id")
+            if chat_id and p_chat_id != chat_id:
+                continue
+
             citation = SourceCitation(
                 document_id=payload.get("document_id", ""),
                 document_name=payload.get("document_name", "Unknown"),
@@ -162,6 +324,17 @@ class QdrantVectorStore:
                 chunk_index=payload.get("chunk_index", 0),
                 score=round(float(getattr(hit, "score", 0.0)), 4),
                 content=payload.get("content", ""),
+                chat_id=p_chat_id,
+                page_number=payload.get("page_number", 1),
+                section=payload.get("section"),
+                content_type=payload.get("content_type"),
+                table_id=payload.get("table_id"),
+                table_title=payload.get("table_title"),
+                row_range=payload.get("row_range"),
+                column_range=payload.get("column_range"),
+                bbox=payload.get("bbox"),
+                strategy=payload.get("chunking_strategy"),
+                version=payload.get("version"),
             )
             citations.append(citation)
 

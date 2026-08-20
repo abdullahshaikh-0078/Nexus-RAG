@@ -29,6 +29,7 @@ class HybridRetriever:
         document_ids: Optional[List[str]] = None,
         rrf_k: int = 60,
         fetch_k: int = 20,
+        chat_id: Optional[str] = None,
     ) -> List[SourceCitation]:
         """
         Executes Dense + BM25 retrieval, performs Reciprocal Rank Fusion (RRF),
@@ -45,6 +46,7 @@ class HybridRetriever:
             query_vector=query_vector,
             top_k=fetch_k,
             document_ids=document_ids,
+            chat_id=chat_id,
         )
 
         # 2. Retrieve BM25 candidate list (fetch_k)
@@ -52,6 +54,7 @@ class HybridRetriever:
             query=query_str,
             top_k=fetch_k,
             document_ids=document_ids,
+            chat_id=chat_id,
         )
 
         # 3. Reciprocal Rank Fusion (RRF) & Chunk Deduplication

@@ -72,7 +72,7 @@ class BM25IndexService:
         self.corpus_tokens: List[List[str]] = []
         self.bm25: Optional[RobustBM25] = None
 
-    def index_chunks(self, chunks: List[DocumentChunk], filename: str):
+    def index_chunks(self, chunks: List[DocumentChunk], filename: str, chat_id: Optional[str] = None):
         """Indexes document chunks into the BM25 lexical corpus."""
         if not chunks:
             return
@@ -81,6 +81,7 @@ class BM25IndexService:
             payload = {
                 "document_id": chunk.document_id,
                 "document_name": filename,
+                "chat_id": chat_id,
                 "chunk_id": chunk.chunk_id,
                 "chunk_index": chunk.chunk_index,
                 "content": chunk.text,
@@ -92,7 +93,78 @@ class BM25IndexService:
             self.corpus_tokens.append(tokens)
 
         self._rebuild_index()
-        logger.info(f"Indexed {len(chunks)} chunks into BM25 store for '{filename}'. Total corpus size: {len(self.chunk_payloads)}")
+        logger.info(f"Indexed {len(chunks)} chunks into BM25 store for '{filename}'. Total corpus: {len(self.chunk_payloads)}")
+
+    def index_v3_chunks(self, chunks: Any, filename: str, strategy: str, chat_id: Optional[str] = None):
+        """Indexes V3 structural chunks into BM25 store with version, strategy, and chat_id payload tags."""
+        if not chunks:
+            return
+
+        doc_id = getattr(chunks[0], "document_id", "")
+        if doc_id:
+            self.delete_v3_chunks(doc_id, strategy, chat_id=chat_id)
+
+        for idx, chunk in enumerate(chunks):
+            bbox_dict = chunk.bbox.model_dump() if getattr(chunk, "bbox", None) else None
+            payload = {
+                "version": "v3",
+                "chunking_strategy": strategy,
+                "document_id": chunk.document_id,
+                "document_name": filename,
+                "chat_id": chat_id,
+                "chunk_id": chunk.chunk_id,
+                "chunk_index": idx,
+                "content": chunk.content,
+                "page_number": getattr(chunk, "page_start", getattr(chunk, "page_number", 1)),
+                "section": getattr(chunk, "section", None),
+                "content_type": getattr(chunk, "chunk_type", "paragraph"),
+                "table_id": getattr(chunk, "table_id", None),
+                "table_title": getattr(chunk, "table_title", None),
+                "row_range": getattr(chunk, "row_range", None),
+                "column_range": getattr(chunk, "column_range", None),
+                "bbox": bbox_dict,
+            }
+            tokens = default_tokenize(chunk.content)
+            self.chunk_payloads.append(payload)
+            self.corpus_tokens.append(tokens)
+
+        self._rebuild_index()
+        logger.info(f"Indexed {len(chunks)} V3 chunks ({strategy}) into BM25 store for '{filename}'. Total corpus: {len(self.chunk_payloads)}")
+
+    def delete_v3_chunks(self, document_id: str, strategy: str, chat_id: Optional[str] = None) -> bool:
+        """Removes existing V3 chunks for a specific document, strategy, and chat_id from BM25 index."""
+        new_payloads = []
+        new_corpus = []
+        for p, c in zip(self.chunk_payloads, self.corpus_tokens):
+            if (
+                p.get("document_id") == document_id
+                and p.get("version") == "v3"
+                and p.get("chunking_strategy") == strategy
+            ):
+                if chat_id is None or p.get("chat_id") == chat_id:
+                    continue
+            new_payloads.append(p)
+            new_corpus.append(c)
+
+        self.chunk_payloads = new_payloads
+        self.corpus_tokens = new_corpus
+        self._rebuild_index()
+        return True
+
+    def delete_chat_documents(self, chat_id: str) -> bool:
+        """Removes all BM25 corpus entries associated with chat_id."""
+        new_payloads = []
+        new_corpus = []
+        for p, c in zip(self.chunk_payloads, self.corpus_tokens):
+            if p.get("chat_id") == chat_id:
+                continue
+            new_payloads.append(p)
+            new_corpus.append(c)
+
+        self.chunk_payloads = new_payloads
+        self.corpus_tokens = new_corpus
+        self._rebuild_index()
+        return True
 
     def hydrate_from_vector_store(self, vector_store) -> int:
         """Hydrates in-memory BM25 index from persistent Qdrant vector store chunks on application startup."""
@@ -122,11 +194,22 @@ class BM25IndexService:
                     p = {
                         "document_id": doc_id,
                         "document_name": filename,
+                        "chat_id": payload.get("chat_id"),
                         "chunk_id": chunk_id,
                         "chunk_index": chunk_index,
                         "content": content,
                         "start_char": payload.get("start_char", 0),
                         "end_char": payload.get("end_char", len(content)),
+                        "version": payload.get("version"),
+                        "chunking_strategy": payload.get("chunking_strategy"),
+                        "page_number": payload.get("page_number", 1),
+                        "section": payload.get("section"),
+                        "content_type": payload.get("content_type"),
+                        "table_id": payload.get("table_id"),
+                        "table_title": payload.get("table_title"),
+                        "row_range": payload.get("row_range"),
+                        "column_range": payload.get("column_range"),
+                        "bbox": payload.get("bbox"),
                     }
                     tokens = default_tokenize(content)
                     self.chunk_payloads.append(p)
@@ -147,9 +230,15 @@ class BM25IndexService:
             self.bm25 = None
 
     def search(
-        self, query: str, top_k: int = 4, document_ids: Optional[List[str]] = None
+        self,
+        query: str,
+        top_k: int = 4,
+        document_ids: Optional[List[str]] = None,
+        version: Optional[str] = None,
+        chunking_strategy: Optional[str] = None,
+        chat_id: Optional[str] = None,
     ) -> List[SourceCitation]:
-        """Searches BM25 lexical index for top K matching chunks."""
+        """Searches BM25 lexical index for top K matching chunks with optional version, strategy, and chat_id filtering."""
         if not self.bm25 or not self.chunk_payloads:
             # Lazy hydration check if backend restarted
             from app.db.vectorstore import vector_store
@@ -158,18 +247,32 @@ class BM25IndexService:
         if not self.bm25 or not self.chunk_payloads:
             return []
 
+        if len(self.corpus_tokens) != len(self.chunk_payloads) or self.bm25.corpus_size != len(self.chunk_payloads):
+            self._rebuild_index()
+
         tokenized_query = default_tokenize(query)
-        if not tokenized_query:
+        if not tokenized_query or not self.bm25:
             return []
 
         raw_scores = self.bm25.get_scores(tokenized_query)
 
-        # Filter candidate indices by document_ids if provided
+        # Filter candidate indices by document_ids, version, strategy, and chat_id
         candidate_indices = []
         for idx, payload in enumerate(self.chunk_payloads):
+            if chat_id and payload.get("chat_id") != chat_id:
+                continue
             if document_ids and payload.get("document_id") not in document_ids:
                 continue
-            score = float(raw_scores[idx])
+            if version == "v3":
+                if payload.get("version") != "v3":
+                    continue
+                if chunking_strategy and payload.get("chunking_strategy") != chunking_strategy:
+                    continue
+            else:
+                if payload.get("version") == "v3":
+                    continue
+
+            score = float(raw_scores[idx]) if idx < len(raw_scores) else 0.0
             # Only include hits with positive BM25 relevance score
             if score > 0.0:
                 candidate_indices.append((idx, score))
@@ -193,6 +296,16 @@ class BM25IndexService:
                 chunk_index=payload.get("chunk_index", 0),
                 score=norm_score,
                 content=payload.get("content", ""),
+                page_number=payload.get("page_number", 1),
+                section=payload.get("section"),
+                content_type=payload.get("content_type"),
+                table_id=payload.get("table_id"),
+                table_title=payload.get("table_title"),
+                row_range=payload.get("row_range"),
+                column_range=payload.get("column_range"),
+                bbox=payload.get("bbox"),
+                strategy=payload.get("chunking_strategy"),
+                version=payload.get("version"),
             )
             citations.append(citation)
 
