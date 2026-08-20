@@ -1,0 +1,55 @@
+{
+  "evaluation_id": "b8ae77ef-2a7f-461a-8d9a-e25bf20902e5",
+  "timestamp": "2026-08-19T22:35:39.661946+00:00",
+  "query": "Quantum Computing algorithms",
+  "document_ids": [
+    "doc_e2e506282a0e"
+  ],
+  "retrieval_mode": "hybrid",
+  "dense_results": [],
+  "bm25_results": [],
+  "hybrid_results": [],
+  "final_context": [
+    {
+      "document_id": "doc_e2e506282a0e",
+      "document_name": "doc_a.txt",
+      "chunk_id": "doc_e2e506282a0e_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document A contains information about Quantum Computing algorithms.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "answer": "Based on **doc_a.txt**, here is what was found regarding 'Quantum Computing algorithms':\n\n\"NEXUS RAG document A contains information about Quantum Computing algorithms....\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.032787)*",
+  "citations": [
+    {
+      "document_id": "doc_e2e506282a0e",
+      "document_name": "doc_a.txt",
+      "chunk_id": "doc_e2e506282a0e_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document A contains information about Quantum Computing algorithms.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "latency_breakdown": {
+    "rrf_fusion_ms": 582.13,
+    "total_request_ms": 1060.0,
+    "context_expansion_ms": 477.94,
+    "llm_generation_ms": 0.0
+  },
+  "evaluation_status": {
+    "retrieval_status": "relevant_context_detected",
+    "answer_status": "answer_generated"
+  },
+  "failure_category": null,
+  "groundedness_score": null,
+  "answer_correctness_score": null,
+  "ground_truth": null,
+  "retrieval_metrics": null,
+  "answer_metrics": null
+}

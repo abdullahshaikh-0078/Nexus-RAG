@@ -1,0 +1,73 @@
+{
+  "evaluation_id": "3064cb7f-c180-4551-949a-b1260d0bf5e3",
+  "timestamp": "2026-08-19T23:51:42.519850+00:00",
+  "query": "What vector database does NEXUS RAG use?",
+  "document_ids": null,
+  "retrieval_mode": "hybrid",
+  "dense_results": [],
+  "bm25_results": [],
+  "hybrid_results": [],
+  "final_context": [
+    {
+      "document_id": "doc_eadf6c6f1ed4",
+      "document_name": "nexus_specs.txt",
+      "chunk_id": "doc_eadf6c6f1ed4_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "Project NEXUS RAG Version 1.0 specifications.\nNEXUS RAG uses Qdrant for vector storage and Hugging Face sentence transformers for embeddings.\nThe architecture features FastAPI on the backend and Next.js 15 on the frontend.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null,
+      "page_number": 1,
+      "section": null,
+      "content_type": null,
+      "table_id": null,
+      "table_title": null,
+      "row_range": null,
+      "column_range": null,
+      "bbox": null,
+      "strategy": null,
+      "version": null
+    }
+  ],
+  "answer": "Based on **nexus_specs.txt**, here is what was found regarding 'What vector database does NEXUS RAG use?':\n\n\"Project NEXUS RAG Version 1.0 specifications.\nNEXUS RAG uses Qdrant for vector storage and Hugging Face sentence transformers for embeddings.\nThe architecture features FastAPI on the backend and Next.js 15 on the frontend....\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.032787)*",
+  "citations": [
+    {
+      "document_id": "doc_eadf6c6f1ed4",
+      "document_name": "nexus_specs.txt",
+      "chunk_id": "doc_eadf6c6f1ed4_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "Project NEXUS RAG Version 1.0 specifications.\nNEXUS RAG uses Qdrant for vector storage and Hugging Face sentence transformers for embeddings.\nThe architecture features FastAPI on the backend and Next.js 15 on the frontend.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null,
+      "page_number": 1,
+      "section": null,
+      "content_type": null,
+      "table_id": null,
+      "table_title": null,
+      "row_range": null,
+      "column_range": null,
+      "bbox": null,
+      "strategy": null,
+      "version": null
+    }
+  ],
+  "latency_breakdown": {
+    "rrf_fusion_ms": 25.26,
+    "total_request_ms": 26.0,
+    "context_expansion_ms": 1.0,
+    "llm_generation_ms": 0.0
+  },
+  "evaluation_status": {
+    "retrieval_status": "relevant_context_detected",
+    "answer_status": "answer_generated"
+  },
+  "failure_category": null,
+  "groundedness_score": null,
+  "answer_correctness_score": null,
+  "ground_truth": null,
+  "retrieval_metrics": null,
+  "answer_metrics": null
+}

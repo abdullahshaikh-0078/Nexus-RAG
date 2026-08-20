@@ -1,0 +1,77 @@
+{
+  "evaluation_id": "bff6363c-39b0-40c5-ba79-db6063c03d1d",
+  "timestamp": "2026-08-20T17:14:41.648179+00:00",
+  "query": "Quantum Computing algorithms",
+  "document_ids": [
+    "doc_40fd23ec92b7"
+  ],
+  "retrieval_mode": "hybrid",
+  "dense_results": [],
+  "bm25_results": [],
+  "hybrid_results": [],
+  "final_context": [
+    {
+      "document_id": "doc_40fd23ec92b7",
+      "document_name": "doc_a.txt",
+      "chunk_id": "doc_40fd23ec92b7_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document A contains information about Quantum Computing algorithms.",
+      "chat_id": null,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null,
+      "page_number": 1,
+      "section": null,
+      "content_type": null,
+      "table_id": null,
+      "table_title": null,
+      "row_range": null,
+      "column_range": null,
+      "bbox": null,
+      "strategy": null,
+      "version": null
+    }
+  ],
+  "answer": "Based on **doc_a.txt**, here is what was found regarding 'Quantum Computing algorithms':\n\n\"NEXUS RAG document A contains information about Quantum Computing algorithms....\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.032787)*",
+  "citations": [
+    {
+      "document_id": "doc_40fd23ec92b7",
+      "document_name": "doc_a.txt",
+      "chunk_id": "doc_40fd23ec92b7_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document A contains information about Quantum Computing algorithms.",
+      "chat_id": null,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null,
+      "page_number": 1,
+      "section": null,
+      "content_type": null,
+      "table_id": null,
+      "table_title": null,
+      "row_range": null,
+      "column_range": null,
+      "bbox": null,
+      "strategy": null,
+      "version": null
+    }
+  ],
+  "latency_breakdown": {
+    "rrf_fusion_ms": 1247.13,
+    "total_request_ms": 2348.0,
+    "context_expansion_ms": 1100.77,
+    "llm_generation_ms": 0.0
+  },
+  "evaluation_status": {
+    "retrieval_status": "relevant_context_detected",
+    "answer_status": "answer_generated"
+  },
+  "failure_category": null,
+  "groundedness_score": null,
+  "answer_correctness_score": null,
+  "ground_truth": null,
+  "retrieval_metrics": null,
+  "answer_metrics": null
+}

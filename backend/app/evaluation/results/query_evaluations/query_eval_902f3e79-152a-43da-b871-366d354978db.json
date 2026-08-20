@@ -1,0 +1,97 @@
+{
+  "evaluation_id": "902f3e79-152a-43da-b871-366d354978db",
+  "timestamp": "2026-08-19T11:22:53.189270+00:00",
+  "query": "Quantum Computing algorithms",
+  "document_ids": null,
+  "retrieval_mode": "hybrid",
+  "dense_results": [],
+  "bm25_results": [],
+  "hybrid_results": [],
+  "final_context": [
+    {
+      "document_id": "doc_efe4643795be",
+      "document_name": "doc_a.txt",
+      "chunk_id": "doc_efe4643795be_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document A contains information about Quantum Computing algorithms.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_financebench_3M_2018_10K",
+      "document_name": "3M_2018_10K.pdf",
+      "chunk_id": "doc_financebench_3M_2018_10K_merged_314_317",
+      "chunk_index": 314,
+      "score": 0.014706,
+      "content": "The amended and new disclosure requirements primarily relate to Level 3 fair value\n\nmeasurements. For 3M, the ASU is effective as of January 1, 2020. The removal and amendment of certain disclosures may be early adopted with\n retrospective application while the new disclosure requirements are to be applied\n\nTable of Contents prospectively. As this ASU relates only to disclosures, there will be no impact to the Company\u2019s consolidated results of operations and financial condition. In August 2018, the FASB issued ASU No. 2018-14, Changes to the Disclosure Requirements for Defined Benefit Plans, which makes minor changes to the disclosure requirements related to defined benefit pension and other postretirement plans. The ASU requires a retrospective transition approach. The Company elected to early adopt this ASU in the fourth quarter 2018 on a retrospective basis. As this ASU relates only to disclosures, there was no impact to the Company\u2019s consolidated results of operations and financial condition. In August 2018, the FASB issued ASU No. 2018-15, Customer\u2019s Accounting for Implementation Costs Incurred in a Cloud Computing Arrangement That Is a Service Contract, which aligns the accounting for implementation costs incurred in a cloud computing arrangement that is a service arrangement (i.e.\n\nhosting arrangement) with the guidance on capitalizing costs in ASC 350-40, Internal-Use Software. The ASU permits either a prospective or retrospective\n transition approach. For 3M, the ASU is effective as of January 1, 2020. The Company is currently assessing this standard\u2019s impact on its consolidated results of operations and financial condition. In October 2018, the FASB issued ASU No. 2018-16, Inclusion of the Secured Overnight Financing Rate (SOFR) Overnight Index Swap (OIS) Rate as a Benchmark Interest Rate for Hedge Accounting Purposes, which adds the OIS rate based on the SOFR to the list of US benchmark interest rates in ASC 815 that are eligible to be hedged. This ASU has the same transition requirements and effective date as ASU No. 2017-12, which for 3M is January 1, 2019. The Company does not expect this ASU to have a material impact on its consolidated results of operations and financial condition.\n\nIn October 2018, the FASB issued ASU No. 2018-17, Targeted Improvements to Related Party Guidance for Variable Interest Entities, which changes how\n entities evaluate decision-making fees under the variable interest guidance. Entities will consider indirect interests held through related parties under common control on a proportionate basis rather than in their entirety. For 3M, the ASU is effective as of January 1, 2020. 3M does not have significant involvement with entities subject to consolidation considerations impacted by variable interest entity model factors. As a result, the Company does not expect this ASU to have a material impact on its consolidated results of operations and financial condition. In November 2018, the FASB issued ASU No. 2018-18, Clarifying the Interaction between Topic 808 and Topic 606, which clarifies that certain",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_eval_attention_paper",
+      "document_name": "attention_paper.txt",
+      "chunk_id": "doc_eval_attention_paper_merged_2_4",
+      "chunk_index": 2,
+      "score": 0.0125,
+      "content": "model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.\n\n3.2.3 Applications of Attention in our Model\nThe Transformer uses multi-head attention in three different ways:\n1. In encoder-decoder attention layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder. This allows every position in the decoder to attend over all positions in the input sequence.\n2. The encoder contains self-attention layers. In a self-attention layer all of the keys, values and queries come from the same place, in this case, the output of the previous layer in the encoder.\n3. Similarly, self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.\n\n3.2.2 Multi-Head Attention\nMulti-head attention allows the model to jointly attend to information from different representation subspaces at different positions. With a single attention head, averaging inhibits this.\n\n3.5 Positional Encoding\nSince our model contains no recurrence and no convolution, in order for the model to make use of the order of the sequence, we must inject some information about the relative or absolute position of the tokens in the sequence.\n\n5.4 Maximum Path Lengths\nA self-attention layer connects all positions with a constant number of sequentially executed operations, whereas a recurrent layer requires O(n) sequential operations. In terms of computational complexity, self-attention layers are faster than recurrent layers when the sequence length n is smaller than the representation dimensionality d.\n\nself-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.\n\n3.5 Positional Encoding\nSince our model contains no recurrence and no convolution, in order for the model to make use of the order of the sequence, we must inject some information about the relative or absolute position of the tokens in the sequence.\n\n5.4 Maximum Path Lengths\nA self-attention layer connects all positions with a constant O(1) number of sequentially executed operations, whereas a recurrent layer requires O(n) sequential operations. In terms of computational complexity per layer, self-attention layers are faster than recurrent layers when sequence length n is smaller than representation dimensionality d. This constant path length enables high parallelization and experimental training efficiency.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "answer": "Based on **doc_a.txt**, here is what was found regarding 'Quantum Computing algorithms':\n\n\"NEXUS RAG document A contains information about Quantum Computing algorithms....\"\n\n*(Retrieved 3 relevant chunk(s) with highest similarity score of 0.032787)*",
+  "citations": [
+    {
+      "document_id": "doc_efe4643795be",
+      "document_name": "doc_a.txt",
+      "chunk_id": "doc_efe4643795be_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document A contains information about Quantum Computing algorithms.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_financebench_3M_2018_10K",
+      "document_name": "3M_2018_10K.pdf",
+      "chunk_id": "doc_financebench_3M_2018_10K_merged_314_317",
+      "chunk_index": 314,
+      "score": 0.014706,
+      "content": "The amended and new disclosure requirements primarily relate to Level 3 fair value\n\nmeasurements. For 3M, the ASU is effective as of January 1, 2020. The removal and amendment of certain disclosures may be early adopted with\n retrospective application while the new disclosure requirements are to be applied\n\nTable of Contents prospectively. As this ASU relates only to disclosures, there will be no impact to the Company\u2019s consolidated results of operations and financial condition. In August 2018, the FASB issued ASU No. 2018-14, Changes to the Disclosure Requirements for Defined Benefit Plans, which makes minor changes to the disclosure requirements related to defined benefit pension and other postretirement plans. The ASU requires a retrospective transition approach. The Company elected to early adopt this ASU in the fourth quarter 2018 on a retrospective basis. As this ASU relates only to disclosures, there was no impact to the Company\u2019s consolidated results of operations and financial condition. In August 2018, the FASB issued ASU No. 2018-15, Customer\u2019s Accounting for Implementation Costs Incurred in a Cloud Computing Arrangement That Is a Service Contract, which aligns the accounting for implementation costs incurred in a cloud computing arrangement that is a service arrangement (i.e.\n\nhosting arrangement) with the guidance on capitalizing costs in ASC 350-40, Internal-Use Software. The ASU permits either a prospective or retrospective\n transition approach. For 3M, the ASU is effective as of January 1, 2020. The Company is currently assessing this standard\u2019s impact on its consolidated results of operations and financial condition. In October 2018, the FASB issued ASU No. 2018-16, Inclusion of the Secured Overnight Financing Rate (SOFR) Overnight Index Swap (OIS) Rate as a Benchmark Interest Rate for Hedge Accounting Purposes, which adds the OIS rate based on the SOFR to the list of US benchmark interest rates in ASC 815 that are eligible to be hedged. This ASU has the same transition requirements and effective date as ASU No. 2017-12, which for 3M is January 1, 2019. The Company does not expect this ASU to have a material impact on its consolidated results of operations and financial condition.\n\nIn October 2018, the FASB issued ASU No. 2018-17, Targeted Improvements to Related Party Guidance for Variable Interest Entities, which changes how\n entities evaluate decision-making fees under the variable interest guidance. Entities will consider indirect interests held through related parties under common control on a proportionate basis rather than in their entirety. For 3M, the ASU is effective as of January 1, 2020. 3M does not have significant involvement with entities subject to consolidation considerations impacted by variable interest entity model factors. As a result, the Company does not expect this ASU to have a material impact on its consolidated results of operations and financial condition. In November 2018, the FASB issued ASU No. 2018-18, Clarifying the Interaction between Topic 808 and Topic 606, which clarifies that certain",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_eval_attention_paper",
+      "document_name": "attention_paper.txt",
+      "chunk_id": "doc_eval_attention_paper_merged_2_4",
+      "chunk_index": 2,
+      "score": 0.0125,
+      "content": "model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.\n\n3.2.3 Applications of Attention in our Model\nThe Transformer uses multi-head attention in three different ways:\n1. In encoder-decoder attention layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder. This allows every position in the decoder to attend over all positions in the input sequence.\n2. The encoder contains self-attention layers. In a self-attention layer all of the keys, values and queries come from the same place, in this case, the output of the previous layer in the encoder.\n3. Similarly, self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.\n\n3.2.2 Multi-Head Attention\nMulti-head attention allows the model to jointly attend to information from different representation subspaces at different positions. With a single attention head, averaging inhibits this.\n\n3.5 Positional Encoding\nSince our model contains no recurrence and no convolution, in order for the model to make use of the order of the sequence, we must inject some information about the relative or absolute position of the tokens in the sequence.\n\n5.4 Maximum Path Lengths\nA self-attention layer connects all positions with a constant number of sequentially executed operations, whereas a recurrent layer requires O(n) sequential operations. In terms of computational complexity, self-attention layers are faster than recurrent layers when the sequence length n is smaller than the representation dimensionality d.\n\nself-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.\n\n3.5 Positional Encoding\nSince our model contains no recurrence and no convolution, in order for the model to make use of the order of the sequence, we must inject some information about the relative or absolute position of the tokens in the sequence.\n\n5.4 Maximum Path Lengths\nA self-attention layer connects all positions with a constant O(1) number of sequentially executed operations, whereas a recurrent layer requires O(n) sequential operations. In terms of computational complexity per layer, self-attention layers are faster than recurrent layers when sequence length n is smaller than representation dimensionality d. This constant path length enables high parallelization and experimental training efficiency.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "latency_breakdown": {
+    "embedding_ms": 0.0,
+    "dense_search_ms": 0.0,
+    "bm25_search_ms": 0.0,
+    "rrf_fusion_ms": 23.51,
+    "context_expansion_ms": 231.21,
+    "llm_generation_ms": 0.0,
+    "total_request_ms": 256.0
+  },
+  "evaluation_status": {
+    "retrieval_status": "relevant_context_detected",
+    "answer_status": "answer_generated"
+  },
+  "ground_truth": null,
+  "retrieval_metrics": null,
+  "answer_metrics": null
+}

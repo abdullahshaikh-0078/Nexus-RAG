@@ -1,0 +1,75 @@
+{
+  "evaluation_id": "5f675ce3-a9a6-4069-89db-49911ea3fc21",
+  "timestamp": "2026-08-19T21:10:18.033429+00:00",
+  "query": "Applications of Multi-Head Attention",
+  "document_ids": null,
+  "retrieval_mode": "hybrid",
+  "dense_results": [],
+  "bm25_results": [],
+  "hybrid_results": [],
+  "final_context": [
+    {
+      "document_id": "doc_e79d6044e626",
+      "document_name": "hybrid_spec.txt",
+      "chunk_id": "doc_e79d6044e626_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "Section 3.2.3 Applications of Multi-Head Attention in the Transformer model.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_eval_attention_paper",
+      "document_name": "attention_paper.txt",
+      "chunk_id": "doc_eval_attention_paper_merged_1_3",
+      "chunk_index": 1,
+      "score": 0.027652,
+      "content": "machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particularly long short-term memory and gated recurrent neural networks, have been firmly established as state of the art approaches in sequence modeling and transduction problems. In this work we offer the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.\n\n3.2.3 Applications of Attention in our Model\nThe Transformer uses multi-head attention in three different ways:\n1. In encoder-decoder attention layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder. This allows every position in the decoder to attend over all positions in the input sequence.\n2. The encoder contains self-attention layers. In a self-attention layer all of the keys, values and queries come from the same place, in this case, the output of the previous layer in the encoder.\n3. Similarly, self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.\n\n3.2.2 Multi-Head Attention\nMulti-head attention allows the model to jointly attend to information from different representation subspaces at different positions. With a single attention head, averaging inhibits this.\n\n3.5 Positional Encoding\nSince our model contains no recurrence and no convolution, in order for the model to make use of the order of the sequence, we must inject some information about the relative or absolute position of the tokens in the sequence.\n\n5.4 Maximum Path Lengths\nA self-attention layer connects all positions with a constant number of sequentially executed operations, whereas a recurrent layer requires O(n) sequential operations. In terms of computational complexity, self-attention layers are faster than recurrent layers when the sequence length n is smaller than the representation dimensionality d.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "answer": "Based on **hybrid_spec.txt**, here is what was found regarding 'Applications of Multi-Head Attention':\n\n\"Section 3.2.3 Applications of Multi-Head Attention in the Transformer model....\"\n\n*(Retrieved 2 relevant chunk(s) with highest similarity score of 0.032787)*",
+  "citations": [
+    {
+      "document_id": "doc_e79d6044e626",
+      "document_name": "hybrid_spec.txt",
+      "chunk_id": "doc_e79d6044e626_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "Section 3.2.3 Applications of Multi-Head Attention in the Transformer model.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_eval_attention_paper",
+      "document_name": "attention_paper.txt",
+      "chunk_id": "doc_eval_attention_paper_merged_1_3",
+      "chunk_index": 1,
+      "score": 0.027652,
+      "content": "machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particularly long short-term memory and gated recurrent neural networks, have been firmly established as state of the art approaches in sequence modeling and transduction problems. In this work we offer the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.\n\n3.2.3 Applications of Attention in our Model\nThe Transformer uses multi-head attention in three different ways:\n1. In encoder-decoder attention layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder. This allows every position in the decoder to attend over all positions in the input sequence.\n2. The encoder contains self-attention layers. In a self-attention layer all of the keys, values and queries come from the same place, in this case, the output of the previous layer in the encoder.\n3. Similarly, self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.\n\n3.2.2 Multi-Head Attention\nMulti-head attention allows the model to jointly attend to information from different representation subspaces at different positions. With a single attention head, averaging inhibits this.\n\n3.5 Positional Encoding\nSince our model contains no recurrence and no convolution, in order for the model to make use of the order of the sequence, we must inject some information about the relative or absolute position of the tokens in the sequence.\n\n5.4 Maximum Path Lengths\nA self-attention layer connects all positions with a constant number of sequentially executed operations, whereas a recurrent layer requires O(n) sequential operations. In terms of computational complexity, self-attention layers are faster than recurrent layers when the sequence length n is smaller than the representation dimensionality d.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "latency_breakdown": {
+    "rrf_fusion_ms": 224.75,
+    "total_request_ms": 2557.0,
+    "context_expansion_ms": 2332.61,
+    "llm_generation_ms": 0.0
+  },
+  "evaluation_status": {
+    "retrieval_status": "relevant_context_detected",
+    "answer_status": "answer_generated"
+  },
+  "failure_category": null,
+  "groundedness_score": null,
+  "answer_correctness_score": null,
+  "ground_truth": null,
+  "retrieval_metrics": null,
+  "answer_metrics": null
+}

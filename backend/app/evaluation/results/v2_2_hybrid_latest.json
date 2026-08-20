@@ -1,0 +1,299 @@
+{
+  "dataset_version": "v1_baseline",
+  "evaluation_version": "v2_2_hybrid",
+  "retrieval_mode": "hybrid",
+  "bm25": true,
+  "fusion_method": "RRF",
+  "rrf_k": 60,
+  "timestamp": "2026-08-20T17:15:17.375140+00:00",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_size": 1000,
+  "chunk_overlap": 150,
+  "retrieval_top_k": 10,
+  "total_questions": 12,
+  "aggregate_recall_at_1": 0.9167,
+  "aggregate_recall_at_3": 0.9167,
+  "aggregate_recall_at_5": 0.9167,
+  "aggregate_recall_at_10": 0.9167,
+  "aggregate_mrr_at_10": 0.9167,
+  "aggregate_ndcg_at_10": 0.7692,
+  "average_retrieval_latency_ms": 42.43,
+  "question_results": [
+    {
+      "question_id": "q01",
+      "question": "What is the Transformer architecture based on?",
+      "category": "Factual",
+      "first_relevant_rank": 1,
+      "dense_rank": 1,
+      "bm25_rank": 3,
+      "hybrid_rank": 1,
+      "rrf_score": 0.032266,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 0.6131471927654584,
+      "retrieval_latency_ms": 61.01,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q02",
+      "question": "What are the three ways multi-head attention is used in section 3.2.3?",
+      "category": "Section-Specific",
+      "first_relevant_rank": 1,
+      "dense_rank": 1,
+      "bm25_rank": 1,
+      "hybrid_rank": 1,
+      "rrf_score": 0.032787,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 0.3903800499921017,
+      "retrieval_latency_ms": 50.57,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q03",
+      "question": "Why does the Transformer eschew recurrent and convolutional neural networks?",
+      "category": "Conceptual",
+      "first_relevant_rank": 1,
+      "dense_rank": 3,
+      "bm25_rank": 1,
+      "hybrid_rank": 1,
+      "rrf_score": 0.032266,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 0.6131471927654584,
+      "retrieval_latency_ms": 54.1,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q04",
+      "question": "What sequence transduction tasks were evaluated in the experiments?",
+      "category": "Factual",
+      "first_relevant_rank": 1,
+      "dense_rank": 1,
+      "bm25_rank": 1,
+      "hybrid_rank": 1,
+      "rrf_score": 0.032787,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 0.6131471927654584,
+      "retrieval_latency_ms": 30.98,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q05",
+      "question": "How do encoder-decoder attention layers obtain their queries, keys, and values?",
+      "category": "Section-Specific",
+      "first_relevant_rank": 1,
+      "dense_rank": 1,
+      "bm25_rank": 1,
+      "hybrid_rank": 1,
+      "rrf_score": 0.032787,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 28.08,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q06",
+      "question": "How does self-attention operate within the encoder layers?",
+      "category": "Conceptual",
+      "first_relevant_rank": 1,
+      "dense_rank": 1,
+      "bm25_rank": 1,
+      "hybrid_rank": 1,
+      "rrf_score": 0.032787,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 35.66,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q07",
+      "question": "How is self-attention restricted in the decoder to prevent leftward information flow?",
+      "category": "Section-Specific",
+      "first_relevant_rank": 1,
+      "dense_rank": 1,
+      "bm25_rank": 2,
+      "hybrid_rank": 1,
+      "rrf_score": 0.032522,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 48.84,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q08",
+      "question": "What neural network approaches were traditionally state of the art for sequence modeling before the Transformer?",
+      "category": "Multi-Part",
+      "first_relevant_rank": 1,
+      "dense_rank": 1,
+      "bm25_rank": 1,
+      "hybrid_rank": 1,
+      "rrf_score": 0.032787,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 45.46,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q09",
+      "question": "What mechanism allows the Transformer to draw global dependencies between input and output?",
+      "category": "Conceptual",
+      "first_relevant_rank": 1,
+      "dense_rank": 1,
+      "bm25_rank": 1,
+      "hybrid_rank": 1,
+      "rrf_score": 0.032787,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 30.64,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q10",
+      "question": "How does multi-head attention allow the model to jointly attend to information from different representation subspaces?",
+      "category": "Cross-Section",
+      "first_relevant_rank": 1,
+      "dense_rank": 1,
+      "bm25_rank": 2,
+      "hybrid_rank": 1,
+      "rrf_score": 0.032522,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 42.82,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q11",
+      "question": "Who are the authors of the Attention Is All You Need paper?",
+      "category": "Factual",
+      "first_relevant_rank": 1,
+      "dense_rank": 1,
+      "bm25_rank": 1,
+      "hybrid_rank": 1,
+      "rrf_score": 0.032787,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 38.99,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q12",
+      "question": "What advantages does self-attention offer over recurrent layers in terms of computational complexity and maximum path length?",
+      "category": "Complex",
+      "first_relevant_rank": null,
+      "dense_rank": 1,
+      "bm25_rank": 1,
+      "hybrid_rank": null,
+      "rrf_score": 0.032787,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.0,
+      "recall_at_5": 0.0,
+      "recall_at_10": 0.0,
+      "mrr_at_10": 0.0,
+      "ndcg_at_10": 0.0,
+      "retrieval_latency_ms": 42.06,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_3"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    }
+  ]
+}

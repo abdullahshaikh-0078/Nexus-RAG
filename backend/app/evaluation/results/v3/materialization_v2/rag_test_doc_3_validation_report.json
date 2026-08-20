@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-08-20T20:33:34Z",
+  "document_name": "RAG TEST DOC 3.pdf",
+  "original_pdf_path": "C:\\Abdullah files\\01 AIML,DATA SCIENCE PROJECTS\\Nexus RAG\\data\\uploads\\RAG TEST DOC 3.pdf",
+  "original_legacy_chunk_count": 324,
+  "v3_representation_status": "READY",
+  "v3_selected_strategy": "table_aware",
+  "v3_chunk_count": 1376,
+  "parser_metrics": {
+    "total_pages": 160,
+    "paragraphs": 910,
+    "sections": 0,
+    "tables": 632,
+    "footnotes": 0
+  },
+  "idempotent_reuse_duration_ms": 5.47,
+  "query_evaluations": [
+    {
+      "query_number": 1,
+      "query": "Summarize the key information and structure in this document.",
+      "version": "v3",
+      "strategy": "table_aware",
+      "retrieved_chunk_count": 4,
+      "retrieved_chunk_ids": [
+        "RAG TEST DOC 3.pdf_ta_p_29",
+        "RAG TEST DOC 3.pdf_ta_p_38",
+        "RAG TEST DOC 3.pdf_ta_p_1142",
+        "RAG TEST DOC 3.pdf_ta_p_26"
+      ],
+      "contamination_status": "CLEAN_V3_ONLY",
+      "latency_ms": 100540.94,
+      "top_score": 0.027584
+    },
+    {
+      "query_number": 2,
+      "query": "What are the specific financial metrics, income figures, or balance sheet totals listed?",
+      "version": "v3",
+      "strategy": "table_aware",
+      "retrieved_chunk_count": 4,
+      "retrieved_chunk_ids": [
+        "RAG TEST DOC 3.pdf_tbl_854",
+        "RAG TEST DOC 3.pdf_ta_p_36",
+        "RAG TEST DOC 3.pdf_ta_p_160",
+        "RAG TEST DOC 3.pdf_ta_p_429"
+      ],
+      "contamination_status": "CLEAN_V3_ONLY",
+      "latency_ms": 74487.18,
+      "top_score": 0.029324
+    },
+    {
+      "query_number": 3,
+      "query": "What exact operating segments, products, or technical categories are detailed?",
+      "version": "v3",
+      "strategy": "table_aware",
+      "retrieved_chunk_count": 4,
+      "retrieved_chunk_ids": [
+        "RAG TEST DOC 3.pdf_tbl_422",
+        "RAG TEST DOC 3.pdf_ta_p_286",
+        "RAG TEST DOC 3.pdf_ta_p_46",
+        "RAG TEST DOC 3.pdf_ta_p_285"
+      ],
+      "contamination_status": "CLEAN_V3_ONLY",
+      "latency_ms": 93657.71,
+      "top_score": 0.029877
+    },
+    {
+      "query_number": 4,
+      "query": "What is the net revenue or operating performance trend documented?",
+      "version": "v3",
+      "strategy": "table_aware",
+      "retrieved_chunk_count": 4,
+      "retrieved_chunk_ids": [
+        "RAG TEST DOC 3.pdf_ta_p_353",
+        "RAG TEST DOC 3.pdf_ta_p_138",
+        "RAG TEST DOC 3.pdf_ta_p_1104",
+        "RAG TEST DOC 3.pdf_ta_p_630"
+      ],
+      "contamination_status": "CLEAN_V3_ONLY",
+      "latency_ms": 71077.31,
+      "top_score": 0.030159
+    }
+  ],
+  "contamination_check": "0 CONTAMINATED CHUNKS (100% V3 ISOLATED)",
+  "version_switch_test": "PASSED (V2.2 <-> V3 bidirectional preservation)"
+}

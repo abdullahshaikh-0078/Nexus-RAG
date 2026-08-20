@@ -1,0 +1,299 @@
+{
+  "dataset_version": "v1_baseline",
+  "evaluation_version": "v1_baseline",
+  "retrieval_mode": "dense",
+  "bm25": false,
+  "fusion_method": null,
+  "rrf_k": null,
+  "timestamp": "2026-08-19T11:43:34.000406+00:00",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_size": 1000,
+  "chunk_overlap": 150,
+  "retrieval_top_k": 5,
+  "total_questions": 12,
+  "aggregate_recall_at_1": 0.9167,
+  "aggregate_recall_at_3": 0.9167,
+  "aggregate_recall_at_5": 0.9167,
+  "aggregate_recall_at_10": 0.9167,
+  "aggregate_mrr_at_10": 0.9167,
+  "aggregate_ndcg_at_10": 0.7692,
+  "average_retrieval_latency_ms": 558.02,
+  "question_results": [
+    {
+      "question_id": "q01",
+      "question": "What is the Transformer architecture based on?",
+      "category": "Factual",
+      "first_relevant_rank": 1,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 0.6131471927654584,
+      "retrieval_latency_ms": 561.37,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_1_3"
+      ],
+      "retrieved_snippets": [
+        "machine translation tasks show these models to be superior in quality while being more parallelizable and requiring sign"
+      ]
+    },
+    {
+      "question_id": "q02",
+      "question": "What are the three ways multi-head attention is used in section 3.2.3?",
+      "category": "Section-Specific",
+      "first_relevant_rank": 1,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 0.3903800499921017,
+      "retrieval_latency_ms": 610.79,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_2_4"
+      ],
+      "retrieved_snippets": [
+        "model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependenci"
+      ]
+    },
+    {
+      "question_id": "q03",
+      "question": "Why does the Transformer eschew recurrent and convolutional neural networks?",
+      "category": "Conceptual",
+      "first_relevant_rank": 1,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 0.6131471927654584,
+      "retrieval_latency_ms": 605.22,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_1_3"
+      ],
+      "retrieved_snippets": [
+        "machine translation tasks show these models to be superior in quality while being more parallelizable and requiring sign"
+      ]
+    },
+    {
+      "question_id": "q04",
+      "question": "What sequence transduction tasks were evaluated in the experiments?",
+      "category": "Factual",
+      "first_relevant_rank": 1,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 0.6131471927654584,
+      "retrieval_latency_ms": 620.65,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_1"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q05",
+      "question": "How do encoder-decoder attention layers obtain their queries, keys, and values?",
+      "category": "Section-Specific",
+      "first_relevant_rank": 1,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 538.49,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_1_3"
+      ],
+      "retrieved_snippets": [
+        "machine translation tasks show these models to be superior in quality while being more parallelizable and requiring sign"
+      ]
+    },
+    {
+      "question_id": "q06",
+      "question": "How does self-attention operate within the encoder layers?",
+      "category": "Conceptual",
+      "first_relevant_rank": 1,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 507.43,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_1_3"
+      ],
+      "retrieved_snippets": [
+        "machine translation tasks show these models to be superior in quality while being more parallelizable and requiring sign"
+      ]
+    },
+    {
+      "question_id": "q07",
+      "question": "How is self-attention restricted in the decoder to prevent leftward information flow?",
+      "category": "Section-Specific",
+      "first_relevant_rank": 1,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 495.37,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_2_4"
+      ],
+      "retrieved_snippets": [
+        "model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependenci"
+      ]
+    },
+    {
+      "question_id": "q08",
+      "question": "What neural network approaches were traditionally state of the art for sequence modeling before the Transformer?",
+      "category": "Multi-Part",
+      "first_relevant_rank": 1,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 492.78,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_2"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q09",
+      "question": "What mechanism allows the Transformer to draw global dependencies between input and output?",
+      "category": "Conceptual",
+      "first_relevant_rank": 1,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 546.63,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_1_3"
+      ],
+      "retrieved_snippets": [
+        "machine translation tasks show these models to be superior in quality while being more parallelizable and requiring sign"
+      ]
+    },
+    {
+      "question_id": "q10",
+      "question": "How does multi-head attention allow the model to jointly attend to information from different representation subspaces?",
+      "category": "Cross-Section",
+      "first_relevant_rank": 1,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 630.98,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_2_4"
+      ],
+      "retrieved_snippets": [
+        "model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependenci"
+      ]
+    },
+    {
+      "question_id": "q11",
+      "question": "Who are the authors of the Attention Is All You Need paper?",
+      "category": "Factual",
+      "first_relevant_rank": 1,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "retrieval_latency_ms": 564.18,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_0_1"
+      ],
+      "retrieved_snippets": [
+        "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukas"
+      ]
+    },
+    {
+      "question_id": "q12",
+      "question": "What advantages does self-attention offer over recurrent layers in terms of computational complexity and maximum path length?",
+      "category": "Complex",
+      "first_relevant_rank": null,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.0,
+      "recall_at_5": 0.0,
+      "recall_at_10": 0.0,
+      "mrr_at_10": 0.0,
+      "ndcg_at_10": 0.0,
+      "retrieval_latency_ms": 522.35,
+      "retrieved_chunk_ids": [
+        "doc_eval_attention_paper_merged_2_4"
+      ],
+      "retrieved_snippets": [
+        "model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependenci"
+      ]
+    }
+  ]
+}

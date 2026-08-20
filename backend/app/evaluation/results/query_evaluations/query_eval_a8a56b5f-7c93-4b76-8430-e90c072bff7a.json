@@ -1,0 +1,119 @@
+{
+  "evaluation_id": "a8a56b5f-7c93-4b76-8430-e90c072bff7a",
+  "timestamp": "2026-08-19T22:35:38.596805+00:00",
+  "query": "Quantum Computing algorithms",
+  "document_ids": null,
+  "retrieval_mode": "hybrid",
+  "dense_results": [],
+  "bm25_results": [],
+  "hybrid_results": [],
+  "final_context": [
+    {
+      "document_id": "doc_e2e506282a0e",
+      "document_name": "doc_a.txt",
+      "chunk_id": "doc_e2e506282a0e_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document A contains information about Quantum Computing algorithms.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K",
+      "document_name": "ACTIVISIONBLIZZARD_2019_10K.pdf",
+      "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_389_391",
+      "chunk_index": 389,
+      "score": 0.015873,
+      "content": "balance sheet at January 1, 2019, was as follows (amounts in millions): Consolidated Balance Sheet: Balance at December 31, Adjustments due to\n\nadoption of new lease\n accounting standard Balance at January 1, Assets Other current assets $ $ (8) $ Other assets Liabilities Accrued expenses and other liabilities $ $ 54 $ Other liabilities 1,167 1,357 The adoption of this standard did not have an impact on our consolidated statement of operations or consolidated statements of cash flows. Recent Accounting Pronouncements Not Yet Adopted Goodwill In January 2017, the FASB issued new guidance that eliminates Step 2 from the goodwill impairment test. Instead, if an entity forgoes a Step 0 test, that entity will be required to perform its annual or interim goodwill impairment test by (1) comparing the fair value of a reporting unit, as determined in Step 1 from the goodwill impairment test, with its carrying amount and (2) recognizing an impairment charge, if any, for the amount by which the carrying amount exceeds the reporting unit\u2019s\n\nfair value, not to exceed the total amount of goodwill allocated to the reporting unit. The new standard is effective for fiscal years beginning after December 15, 2019,\n and should be applied prospectively. Early adoption is permitted. The effect of adoption should be reflected as of the beginning of the fiscal year of adoption. This standard is effective for us beginning with the first quarter of 2020 and we do not expect it to have an impact on our financial statements and related disclosures upon adoption. Cloud Computing Arrangements In August 2018, the FASB issued new guidance related to a customer\u2019s accounting for implementation costs incurred in a cloud computing arrangement (i.e., hosting arrangement) that is a service contract. The new guidance requires customers to capitalize implementation costs for these arrangements by applying the same\n\ncriteria that are utilized for existing internal-use software guidance. The capitalized costs are required to be amortized over the associated term of the arrangement,\n generally on a straight-line basis, with amortization of these costs presented in the same financial statement line item as other costs associated with the arrangement. The new standard is effective for fiscal years beginning after December 15, 2019, and can be applied retrospectively or prospectively. Early adoption is permitted. This standard is effective for us beginning with the first quarter of 2020 and will be applied prospectively. We do not expect it to have a material impact on our financial statements and related disclosures upon adoption. F-23",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K",
+      "document_name": "ACTIVISIONBLIZZARD_2019_10K.pdf",
+      "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_590_592",
+      "chunk_index": 590,
+      "score": 0.015873,
+      "content": "(b) Prior to any relevant taxable or tax withholding event, as applicable, Grantee agrees to make adequate\n\narrangements satisfactory to the Company and/or the Employer to satisfy all Withholding Taxes resulting from the vesting of any Restricted\n Share Units, the issuance or transfer of any Vested Shares or otherwise in connection with the Award at the time such Withholding Taxes become due. In this regard, Grantee authorizes the Company and/or the Employer, or their respective agents to satisfy any applicable withholding obligations with regard to all Withholding Taxes by one or a combination of the following: (i) by delivery to the Company of a bank check or certified check or wire transfer of immediately available funds; (ii) A-C Global Online PSU Grant Award Agreement (2019 Annual Grant)\n\nthrough the delivery of irrevocable written instructions, in a form acceptable to the Company, that the Company withhold Vested Shares otherwise then deliverable having a value equal to the aggregate amount of the Withholding Taxes (valued in the same manner used in computing the amount of such Withholding Taxes); (iii) arranging for the sale, on Grantee\u2019s behalf, of Vested Shares otherwise then deliverable to Grantee (valued in the same manner used in computing the amount of such Withholding Taxes); or (iv) by any combination of (i), (ii) or (iii) above. Further, any entity in the Company Group shall have the right to require Grantee to satisfy any Withholding Taxes contemplated by this Section 4 by any of the aforementioned methods or by withholding from Grantee\u2019s wages or other cash compensation. (c) The Company Group may withhold or account for Withholding Taxes contemplated by this Section 4 by reference\n\nto applicable withholding rates, including minimum or maximum applicable statutory rates in Grantee\u2019s jurisdiction(s) of employment\n and/or residency, and if the Company Group withholds more than the amount necessary to satisfy the liability, Grantee may receive a refund of any over-withheld amount in cash and will have no entitlement to the equivalent Shares. If the obligation for Withholding Taxes is satisfied by withholding in Shares, for tax purposes, Grantee will be deemed to have been issued the full number of Vested Shares underlying the Restricted Share Units, notwithstanding that a number of the Shares is held back solely for the purpose of paying the Withholding Taxes. No fractional Shares will be withheld or issued pursuant to the settlement of the Restricted Share Units and the Withholding Taxes thereunder. 5. Deemed Agreement. By accepting the Award, Grantee is deemed to be bound by the terms and conditions set forth in the Plan, the Grant Notice and these Award Terms. 6.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_financebench_ADOBE_2017_10K",
+      "document_name": "ADOBE_2017_10K.pdf",
+      "chunk_id": "doc_financebench_ADOBE_2017_10K_merged_67_69",
+      "chunk_index": 67,
+      "score": 0.015625,
+      "content": "With Adobe Media Optimizer DSP, customers can intelligently target their most valuable\n\nTable of Contents audiences by optimizing display ad campaigns in real time. Adobe Media Optimizer DSP\u2019s programmatic TV buying solution extends many of the benefits digital buying offers - like targeting and reporting insights - to television advertising. It helps advertisers plan campaigns holistically, across every screen, while providing more flexibility to shift spend and optimize reach and frequency. Adobe Media Optimizer DSP also provides users with the tools to create, manage, optimize and scale ads for Facebook and Instagram. Adobe Media Optimizer Dynamic Creative Optimization (DCO) Adobe Media Optimizer DCO enables advertisers to reach specific audiences with flexible creative content that\u2019s personalized in real time based on site actions, customer and partner data, and third-party demographic data. Adobe Media Optimizer DCO provides customers with robust campaign options, from retargeting and loyalty programs to prospecting and\n\nawareness campaigns; site visitor, partner, third-party and location data to improve audience targeting; flexibility to deliver the \n right content across device types; and reports and algorithms to help optimize creative elements. Other Products and Services We also offer a broad range of other enterprise and digital media products and services. Information about other products not referenced here can be found on our corporate website, www.adobe.com. OPERATIONS Marketing and Sales We market and license our products directly using our sales force and certain local offices and through our own website at www.adobe.com. We also market and distribute our products through sales channels, which include distributors, retailers, software developers, SIs, ISVs and VARs, as well as through OEM and hardware bundle customers. Our local field offices include locations in Australia, Austria, Belgium, Brazil, Canada, Chile, China, Columbia, Czech\n\nRepublic, Denmark, Finland, France, Germany, Hong Kong, India, Ireland, Israel, Italy, Japan, Mexico, Moldova, the Netherlands, \n New Zealand, Norway, Poland, Romania, Singapore, South Africa, South Korea, Spain, Sweden, Switzerland, Taiwan, United Arab Emirates, the United Kingdom and the United States. We sell the majority of our products through a software subscription model where our customers purchase access to a product for a specific period of time during which they always have rights to use the most recent version of that product. We also license perpetual versions of our software with maintenance and support, which includes rights to upgrades, when and if available, support, updates and enhancements. For fiscal 2017, 2016 and 2015, there were no customers that represented at least 10% of net revenue. As of fiscal year end 2017 and 2016, no single customer was responsible for over 10% of our trade receivables. Services and Support",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "answer": "Based on **doc_a.txt**, here is what was found regarding 'Quantum Computing algorithms':\n\n\"NEXUS RAG document A contains information about Quantum Computing algorithms....\"\n\n*(Retrieved 4 relevant chunk(s) with highest similarity score of 0.032787)*",
+  "citations": [
+    {
+      "document_id": "doc_e2e506282a0e",
+      "document_name": "doc_a.txt",
+      "chunk_id": "doc_e2e506282a0e_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document A contains information about Quantum Computing algorithms.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K",
+      "document_name": "ACTIVISIONBLIZZARD_2019_10K.pdf",
+      "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_389_391",
+      "chunk_index": 389,
+      "score": 0.015873,
+      "content": "balance sheet at January 1, 2019, was as follows (amounts in millions): Consolidated Balance Sheet: Balance at December 31, Adjustments due to\n\nadoption of new lease\n accounting standard Balance at January 1, Assets Other current assets $ $ (8) $ Other assets Liabilities Accrued expenses and other liabilities $ $ 54 $ Other liabilities 1,167 1,357 The adoption of this standard did not have an impact on our consolidated statement of operations or consolidated statements of cash flows. Recent Accounting Pronouncements Not Yet Adopted Goodwill In January 2017, the FASB issued new guidance that eliminates Step 2 from the goodwill impairment test. Instead, if an entity forgoes a Step 0 test, that entity will be required to perform its annual or interim goodwill impairment test by (1) comparing the fair value of a reporting unit, as determined in Step 1 from the goodwill impairment test, with its carrying amount and (2) recognizing an impairment charge, if any, for the amount by which the carrying amount exceeds the reporting unit\u2019s\n\nfair value, not to exceed the total amount of goodwill allocated to the reporting unit. The new standard is effective for fiscal years beginning after December 15, 2019,\n and should be applied prospectively. Early adoption is permitted. The effect of adoption should be reflected as of the beginning of the fiscal year of adoption. This standard is effective for us beginning with the first quarter of 2020 and we do not expect it to have an impact on our financial statements and related disclosures upon adoption. Cloud Computing Arrangements In August 2018, the FASB issued new guidance related to a customer\u2019s accounting for implementation costs incurred in a cloud computing arrangement (i.e., hosting arrangement) that is a service contract. The new guidance requires customers to capitalize implementation costs for these arrangements by applying the same\n\ncriteria that are utilized for existing internal-use software guidance. The capitalized costs are required to be amortized over the associated term of the arrangement,\n generally on a straight-line basis, with amortization of these costs presented in the same financial statement line item as other costs associated with the arrangement. The new standard is effective for fiscal years beginning after December 15, 2019, and can be applied retrospectively or prospectively. Early adoption is permitted. This standard is effective for us beginning with the first quarter of 2020 and will be applied prospectively. We do not expect it to have a material impact on our financial statements and related disclosures upon adoption. F-23",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K",
+      "document_name": "ACTIVISIONBLIZZARD_2019_10K.pdf",
+      "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_590_592",
+      "chunk_index": 590,
+      "score": 0.015873,
+      "content": "(b) Prior to any relevant taxable or tax withholding event, as applicable, Grantee agrees to make adequate\n\narrangements satisfactory to the Company and/or the Employer to satisfy all Withholding Taxes resulting from the vesting of any Restricted\n Share Units, the issuance or transfer of any Vested Shares or otherwise in connection with the Award at the time such Withholding Taxes become due. In this regard, Grantee authorizes the Company and/or the Employer, or their respective agents to satisfy any applicable withholding obligations with regard to all Withholding Taxes by one or a combination of the following: (i) by delivery to the Company of a bank check or certified check or wire transfer of immediately available funds; (ii) A-C Global Online PSU Grant Award Agreement (2019 Annual Grant)\n\nthrough the delivery of irrevocable written instructions, in a form acceptable to the Company, that the Company withhold Vested Shares otherwise then deliverable having a value equal to the aggregate amount of the Withholding Taxes (valued in the same manner used in computing the amount of such Withholding Taxes); (iii) arranging for the sale, on Grantee\u2019s behalf, of Vested Shares otherwise then deliverable to Grantee (valued in the same manner used in computing the amount of such Withholding Taxes); or (iv) by any combination of (i), (ii) or (iii) above. Further, any entity in the Company Group shall have the right to require Grantee to satisfy any Withholding Taxes contemplated by this Section 4 by any of the aforementioned methods or by withholding from Grantee\u2019s wages or other cash compensation. (c) The Company Group may withhold or account for Withholding Taxes contemplated by this Section 4 by reference\n\nto applicable withholding rates, including minimum or maximum applicable statutory rates in Grantee\u2019s jurisdiction(s) of employment\n and/or residency, and if the Company Group withholds more than the amount necessary to satisfy the liability, Grantee may receive a refund of any over-withheld amount in cash and will have no entitlement to the equivalent Shares. If the obligation for Withholding Taxes is satisfied by withholding in Shares, for tax purposes, Grantee will be deemed to have been issued the full number of Vested Shares underlying the Restricted Share Units, notwithstanding that a number of the Shares is held back solely for the purpose of paying the Withholding Taxes. No fractional Shares will be withheld or issued pursuant to the settlement of the Restricted Share Units and the Withholding Taxes thereunder. 5. Deemed Agreement. By accepting the Award, Grantee is deemed to be bound by the terms and conditions set forth in the Plan, the Grant Notice and these Award Terms. 6.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    },
+    {
+      "document_id": "doc_financebench_ADOBE_2017_10K",
+      "document_name": "ADOBE_2017_10K.pdf",
+      "chunk_id": "doc_financebench_ADOBE_2017_10K_merged_67_69",
+      "chunk_index": 67,
+      "score": 0.015625,
+      "content": "With Adobe Media Optimizer DSP, customers can intelligently target their most valuable\n\nTable of Contents audiences by optimizing display ad campaigns in real time. Adobe Media Optimizer DSP\u2019s programmatic TV buying solution extends many of the benefits digital buying offers - like targeting and reporting insights - to television advertising. It helps advertisers plan campaigns holistically, across every screen, while providing more flexibility to shift spend and optimize reach and frequency. Adobe Media Optimizer DSP also provides users with the tools to create, manage, optimize and scale ads for Facebook and Instagram. Adobe Media Optimizer Dynamic Creative Optimization (DCO) Adobe Media Optimizer DCO enables advertisers to reach specific audiences with flexible creative content that\u2019s personalized in real time based on site actions, customer and partner data, and third-party demographic data. Adobe Media Optimizer DCO provides customers with robust campaign options, from retargeting and loyalty programs to prospecting and\n\nawareness campaigns; site visitor, partner, third-party and location data to improve audience targeting; flexibility to deliver the \n right content across device types; and reports and algorithms to help optimize creative elements. Other Products and Services We also offer a broad range of other enterprise and digital media products and services. Information about other products not referenced here can be found on our corporate website, www.adobe.com. OPERATIONS Marketing and Sales We market and license our products directly using our sales force and certain local offices and through our own website at www.adobe.com. We also market and distribute our products through sales channels, which include distributors, retailers, software developers, SIs, ISVs and VARs, as well as through OEM and hardware bundle customers. Our local field offices include locations in Australia, Austria, Belgium, Brazil, Canada, Chile, China, Columbia, Czech\n\nRepublic, Denmark, Finland, France, Germany, Hong Kong, India, Ireland, Israel, Italy, Japan, Mexico, Moldova, the Netherlands, \n New Zealand, Norway, Poland, Romania, Singapore, South Africa, South Korea, Spain, Sweden, Switzerland, Taiwan, United Arab Emirates, the United Kingdom and the United States. We sell the majority of our products through a software subscription model where our customers purchase access to a product for a specific period of time during which they always have rights to use the most recent version of that product. We also license perpetual versions of our software with maintenance and support, which includes rights to upgrades, when and if available, support, updates and enhancements. For fiscal 2017, 2016 and 2015, there were no customers that represented at least 10% of net revenue. As of fiscal year end 2017 and 2016, no single customer was responsible for over 10% of our trade receivables. Services and Support",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "latency_breakdown": {
+    "rrf_fusion_ms": 120.77,
+    "total_request_ms": 1473.0,
+    "context_expansion_ms": 1351.74,
+    "llm_generation_ms": 0.0
+  },
+  "evaluation_status": {
+    "retrieval_status": "relevant_context_detected",
+    "answer_status": "answer_generated"
+  },
+  "failure_category": null,
+  "groundedness_score": null,
+  "answer_correctness_score": null,
+  "ground_truth": null,
+  "retrieval_metrics": null,
+  "answer_metrics": null
+}

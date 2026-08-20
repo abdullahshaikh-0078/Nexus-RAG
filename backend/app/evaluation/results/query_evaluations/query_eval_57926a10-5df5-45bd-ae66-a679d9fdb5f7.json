@@ -1,0 +1,32 @@
+{
+  "evaluation_id": "57926a10-5df5-45bd-ae66-a679d9fdb5f7",
+  "timestamp": "2026-08-19T11:45:14.217217+00:00",
+  "query": "test query",
+  "document_ids": null,
+  "retrieval_mode": "bm25",
+  "dense_results": [],
+  "bm25_results": [],
+  "hybrid_results": [],
+  "final_context": [],
+  "answer": "No document context found for your query: 'test query'. Please upload a document to get started.",
+  "citations": [],
+  "latency_breakdown": {
+    "embedding_ms": 0.0,
+    "dense_search_ms": 0.0,
+    "bm25_search_ms": 651.36,
+    "rrf_fusion_ms": 0.0,
+    "context_expansion_ms": 0.0,
+    "llm_generation_ms": 0.0,
+    "total_request_ms": 651.0
+  },
+  "evaluation_status": {
+    "retrieval_status": "no_relevant_context",
+    "answer_status": "answer_generated"
+  },
+  "failure_category": null,
+  "groundedness_score": null,
+  "answer_correctness_score": null,
+  "ground_truth": null,
+  "retrieval_metrics": null,
+  "answer_metrics": null
+}

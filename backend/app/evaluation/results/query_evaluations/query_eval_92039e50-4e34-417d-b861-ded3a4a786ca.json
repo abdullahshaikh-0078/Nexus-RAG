@@ -1,0 +1,58 @@
+{
+  "evaluation_id": "92039e50-4e34-417d-b861-ded3a4a786ca",
+  "timestamp": "2026-08-19T12:56:49.595936+00:00",
+  "query": "Applications of Attention in our Model",
+  "document_ids": [
+    "doc_d0cc5ab29e5f"
+  ],
+  "retrieval_mode": "hybrid",
+  "dense_results": [],
+  "bm25_results": [],
+  "hybrid_results": [],
+  "final_context": [
+    {
+      "document_id": "doc_d0cc5ab29e5f",
+      "document_name": "attention_paper.txt",
+      "chunk_id": "doc_d0cc5ab29e5f_merged_0_2",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particularly long short-term memory and gated recurrent neural networks, have been firmly established as state of the art approaches in sequence modeling and transduction problems. In this work we offer the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.\n\n3.2.3 Applications of Attention in our Model\nThe Transformer uses multi-head attention in three different ways:\n1. In encoder-decoder attention layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder. This allows every position in the decoder to attend over all positions in the input sequence.\n2. The encoder contains self-attention layers. In a self-attention layer all of the keys, values and queries come from the same place, in this case, the output of the previous layer in the encoder.\n3. Similarly, self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "answer": "Based on **attention_paper.txt**, here is what was found regarding 'Applications of Attention in our Model':\n\n\"Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.032787)*",
+  "citations": [
+    {
+      "document_id": "doc_d0cc5ab29e5f",
+      "document_name": "attention_paper.txt",
+      "chunk_id": "doc_d0cc5ab29e5f_merged_0_2",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "Attention Is All You Need\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, \u0141ukasz Kaiser, Illia Polosukhin\n\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.\n\n1 Introduction\nRecurrent neural networks, particularly long short-term memory and gated recurrent neural networks, have been firmly established as state of the art approaches in sequence modeling and transduction problems. In this work we offer the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.\n\n3.2.3 Applications of Attention in our Model\nThe Transformer uses multi-head attention in three different ways:\n1. In encoder-decoder attention layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder. This allows every position in the decoder to attend over all positions in the input sequence.\n2. The encoder contains self-attention layers. In a self-attention layer all of the keys, values and queries come from the same place, in this case, the output of the previous layer in the encoder.\n3. Similarly, self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "latency_breakdown": {
+    "embedding_ms": 0.0,
+    "dense_search_ms": 0.0,
+    "bm25_search_ms": 0.0,
+    "rrf_fusion_ms": 453.15,
+    "context_expansion_ms": 323.38,
+    "llm_generation_ms": 0.0,
+    "total_request_ms": 777.0
+  },
+  "evaluation_status": {
+    "retrieval_status": "relevant_context_detected",
+    "answer_status": "answer_generated"
+  },
+  "failure_category": null,
+  "groundedness_score": null,
+  "answer_correctness_score": null,
+  "ground_truth": null,
+  "retrieval_metrics": null,
+  "answer_metrics": null
+}

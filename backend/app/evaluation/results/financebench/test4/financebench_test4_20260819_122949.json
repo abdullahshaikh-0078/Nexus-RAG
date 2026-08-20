@@ -1,0 +1,3147 @@
+{
+  "summary": {
+    "benchmark_name": "FINANCEBENCH_TEST4",
+    "test_number": 4,
+    "timestamp": "2026-08-19T12:29:49.419168+00:00",
+    "total_documents": 6,
+    "documents_evaluated": [
+      "3M_2018_10K",
+      "3M_2022_10K",
+      "3M_2023Q2_10Q",
+      "ACTIVISIONBLIZZARD_2019_10K",
+      "ADOBE_2015_10K",
+      "AES_2022_10K"
+    ],
+    "total_questions": 10,
+    "question_ids": [
+      "financebench_id_03029",
+      "financebench_id_04672",
+      "financebench_id_04735",
+      "financebench_id_07966",
+      "financebench_id_00499",
+      "financebench_id_00941",
+      "financebench_id_01865",
+      "financebench_id_01226",
+      "financebench_id_01319",
+      "financebench_id_01858"
+    ],
+    "modes_evaluated": [
+      "dense",
+      "bm25",
+      "hybrid"
+    ],
+    "total_runs": 30,
+    "official_v1_baseline_untouched": true,
+    "mode_evidence_stats": {
+      "dense": {
+        "evidence_at_1_pct": 30.0,
+        "evidence_at_3_pct": 30.0,
+        "evidence_at_5_pct": 30.0,
+        "evidence_at_10_pct": 30.0,
+        "avg_retrieval_ms": 684.52,
+        "avg_generation_ms": 0.4,
+        "avg_total_ms": 684.92
+      },
+      "bm25": {
+        "evidence_at_1_pct": 10.0,
+        "evidence_at_3_pct": 20.0,
+        "evidence_at_5_pct": 60.0,
+        "evidence_at_10_pct": 70.0,
+        "avg_retrieval_ms": 475.62,
+        "avg_generation_ms": 0.0,
+        "avg_total_ms": 475.62
+      },
+      "hybrid": {
+        "evidence_at_1_pct": 10.0,
+        "evidence_at_3_pct": 30.0,
+        "evidence_at_5_pct": 50.0,
+        "evidence_at_10_pct": 60.0,
+        "avg_retrieval_ms": 736.72,
+        "avg_generation_ms": 0.1,
+        "avg_total_ms": 736.82
+      }
+    }
+  },
+  "runs": [
+    {
+      "question_id": "financebench_id_03029",
+      "document_name": "3M_2018_10K",
+      "diagnostic_category": "Q1 \u2014 Exact financial number",
+      "question": "What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement.",
+      "retrieval_mode": "dense",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **3M_2018_10K.pdf**, here is what was found regarding 'What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement.':\n\n\"Cash Flows from Investing Activities:\n\nYears ended December 31\n (Millions) Purchases of property, plant and equipment (PP&E) $ (1,577) $ (1,373) $ (1,420) Proceeds from sale of PP&E and other assets Acquisitions, net of cash acquired (2,023) (16) Purchases and proceeds from maturities and sale of ma...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.6008)*",
+      "ground_truth_answer": "$1577.00",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": true,
+      "primary_failure": "table_fragmentation",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2018_10K_merged_198_200"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_198_200",
+          "chunk_index": 198,
+          "score": 0.6008,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Cash Flows from Investing Activities:\n\nYears ended December 31\n (Millions) Purchases of property, plant and equipment (PP&E) $ (1,577) $ (1,373) $ (1,420) Proceeds from sale of PP&E and other assets Acquisitions, net of cash acquired (2,023) (16) Pur"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 35.31,
+        "dense_search_ms": 484.83,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 428.36,
+        "retrieval_ms": 949.5,
+        "generation_ms": 1.0,
+        "total_ms": 950.5
+      }
+    },
+    {
+      "question_id": "financebench_id_03029",
+      "document_name": "3M_2018_10K",
+      "diagnostic_category": "Q1 \u2014 Exact financial number",
+      "question": "What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement.",
+      "retrieval_mode": "bm25",
+      "evidence_at_1": false,
+      "evidence_at_3": true,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2018_10K.pdf**, here is what was found regarding 'What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement.':\n\n\"As discussed in Note 10, this expense was finalized in the fourth quarter of 2018. NEW ACCOUNTING PRONOUNCEM ENTS\n\nInformation regarding new accounting pronouncements is included in Note 1 to the Consolidated Financial Statements....\"\n\n*(Retrieved 8 relevant chunk(s) with highest similarity score of 1.0)*",
+      "ground_truth_answer": "$1577.00",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "ranking_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2018_10K_merged_180_180",
+        "doc_financebench_3M_2018_10K_merged_182_182",
+        "doc_financebench_3M_2018_10K_merged_208_212",
+        "doc_financebench_3M_2018_10K_merged_263_265",
+        "doc_financebench_3M_2018_10K_merged_354_360",
+        "doc_financebench_3M_2018_10K_merged_438_438",
+        "doc_financebench_3M_2018_10K_merged_440_440",
+        "doc_financebench_3M_2018_10K_merged_569_571"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_180_180",
+          "chunk_index": 180,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "As discussed in Note 10, this expense was finalized in the fourth quarter of 2018. NEW ACCOUNTING PRONOUNCEM ENTS\n\nInformation regarding new accounting pronouncements is included in Note 1 to the Consolidated Financial Statements."
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_182_182",
+          "chunk_index": 182,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "acquisitions and other items as needed. The TCJA creates additional repatriation opportunities\n\nfor 3M to access international cash positions on a continual and on-going basis and will help support U.S. capital deployments needs. For those\n internati"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_208_212",
+          "chunk_index": 208,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "This program has no pre-established end date. In 2018, the Company purchased $4.9 billion of its own\n\nstock, compared to purchases of $2.1 billion and $3.8 billion in 2017 and 2016, respectively. The Company expects full-year 2019 gross share repurch"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_263_265",
+          "chunk_index": 263,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "3M has chosen not to apply Step 0 for its annual goodwill assessments.\n\nIntangible assets: Intangible asset types include customer related, patents, other technology-based, tradenames and other intangible assets acquired from an\n independent party. I"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_354_360",
+          "chunk_index": 354,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Employee benefits Contingent liability claims and other Capital lease obligations Deferred income taxes Other Total other liabilities $ 3,010 $ 2,962\n\nTable of Contents NOTE 8. Supplemental Equity and Comprehensive Income Information Common stock ($."
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_438_438",
+          "chunk_index": 438,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The maturity dates of these derivative and nonderivative instruments designated in net investment hedges range from 2019 to\n 2031.\n\nTable of Contents The location in the consolidated statements of income and comprehensive income and amounts of gains "
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_440_440",
+          "chunk_index": 440,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "These derivative instruments are not\n\ndesignated in hedging relationships; therefore, fair value gains and losses on these contracts are recorded in earnings. The Company does not hold or issue\n derivative financial instruments for trading purposes."
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_569_571",
+          "chunk_index": 569,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "application, along with the internal controls over financial reporting included in this process, was appropriately considered within the testing for\n\neffectiveness with respect to the implementation in these instances. We concluded, as part of its ev"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 64.93,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 398.18,
+        "retrieval_ms": 463.11,
+        "generation_ms": 0.0,
+        "total_ms": 463.11
+      }
+    },
+    {
+      "question_id": "financebench_id_03029",
+      "document_name": "3M_2018_10K",
+      "diagnostic_category": "Q1 \u2014 Exact financial number",
+      "question": "What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement.",
+      "retrieval_mode": "hybrid",
+      "evidence_at_1": false,
+      "evidence_at_3": true,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2018_10K.pdf**, here is what was found regarding 'What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement.':\n\n\"As discussed in Note 10, this expense was finalized in the fourth quarter of 2018. NEW ACCOUNTING PRONOUNCEM ENTS\n\nInformation regarding new accounting pronouncements is included in Note 1 to the Consolidated Financial Statements....\"\n\n*(Retrieved 8 relevant chunk(s) with highest similarity score of 0.016393)*",
+      "ground_truth_answer": "$1577.00",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "ranking_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2018_10K_merged_180_180",
+        "doc_financebench_3M_2018_10K_merged_182_182",
+        "doc_financebench_3M_2018_10K_merged_208_212",
+        "doc_financebench_3M_2018_10K_merged_263_265",
+        "doc_financebench_3M_2018_10K_merged_354_360",
+        "doc_financebench_3M_2018_10K_merged_438_438",
+        "doc_financebench_3M_2018_10K_merged_440_440",
+        "doc_financebench_3M_2018_10K_merged_569_571"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_180_180",
+          "chunk_index": 180,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "As discussed in Note 10, this expense was finalized in the fourth quarter of 2018. NEW ACCOUNTING PRONOUNCEM ENTS\n\nInformation regarding new accounting pronouncements is included in Note 1 to the Consolidated Financial Statements."
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_182_182",
+          "chunk_index": 182,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "acquisitions and other items as needed. The TCJA creates additional repatriation opportunities\n\nfor 3M to access international cash positions on a continual and on-going basis and will help support U.S. capital deployments needs. For those\n internati"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_208_212",
+          "chunk_index": 208,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "This program has no pre-established end date. In 2018, the Company purchased $4.9 billion of its own\n\nstock, compared to purchases of $2.1 billion and $3.8 billion in 2017 and 2016, respectively. The Company expects full-year 2019 gross share repurch"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_263_265",
+          "chunk_index": 263,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "3M has chosen not to apply Step 0 for its annual goodwill assessments.\n\nIntangible assets: Intangible asset types include customer related, patents, other technology-based, tradenames and other intangible assets acquired from an\n independent party. I"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_354_360",
+          "chunk_index": 354,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Employee benefits Contingent liability claims and other Capital lease obligations Deferred income taxes Other Total other liabilities $ 3,010 $ 2,962\n\nTable of Contents NOTE 8. Supplemental Equity and Comprehensive Income Information Common stock ($."
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_438_438",
+          "chunk_index": 438,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The maturity dates of these derivative and nonderivative instruments designated in net investment hedges range from 2019 to\n 2031.\n\nTable of Contents The location in the consolidated statements of income and comprehensive income and amounts of gains "
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_440_440",
+          "chunk_index": 440,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "These derivative instruments are not\n\ndesignated in hedging relationships; therefore, fair value gains and losses on these contracts are recorded in earnings. The Company does not hold or issue\n derivative financial instruments for trading purposes."
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_569_571",
+          "chunk_index": 569,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "application, along with the internal controls over financial reporting included in this process, was appropriately considered within the testing for\n\neffectiveness with respect to the implementation in these instances. We concluded, as part of its ev"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 415.78,
+        "context_expansion_ms": 425.0,
+        "retrieval_ms": 840.78,
+        "generation_ms": 0.0,
+        "total_ms": 840.78
+      }
+    },
+    {
+      "question_id": "financebench_id_04672",
+      "document_name": "3M_2018_10K",
+      "diagnostic_category": "Q2 \u2014 Financial table lookup",
+      "question": "Assume that you are a public equities analyst. Answer the following question by primarily using information that is shown in the balance sheet: what is the year end FY2018 net PPNE for 3M? Answer in USD billions.",
+      "retrieval_mode": "dense",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **3M_2018_10K.pdf**, here is what was found regarding 'Assume that you are a public equities analyst. Answer the following question by primarily using information that is shown in the balance sheet: what is the year end FY2018 net PPNE for 3M? Answer in USD billions.':\n\n\"Cash Flows from Investing Activities:\n\nYears ended December 31\n (Millions) Purchases of property, plant and equipment (PP&E) $ (1,577) $ (1,373) $ (1,420) Proceeds from sale of PP&E and other assets Acquisitions, net of cash acquired (2,023) (16) Purchases and proceeds from maturities and sale of ma...\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.5186)*",
+      "ground_truth_answer": "$8.70",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": true,
+      "primary_failure": "table_fragmentation",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2018_10K_merged_198_200"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_198_200",
+          "chunk_index": 198,
+          "score": 0.5186,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Cash Flows from Investing Activities:\n\nYears ended December 31\n (Millions) Purchases of property, plant and equipment (PP&E) $ (1,577) $ (1,373) $ (1,420) Proceeds from sale of PP&E and other assets Acquisitions, net of cash acquired (2,023) (16) Pur"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 22.49,
+        "dense_search_ms": 315.52,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 371.25,
+        "retrieval_ms": 709.26,
+        "generation_ms": 0.98,
+        "total_ms": 710.24
+      }
+    },
+    {
+      "question_id": "financebench_id_04672",
+      "document_name": "3M_2018_10K",
+      "diagnostic_category": "Q2 \u2014 Financial table lookup",
+      "question": "Assume that you are a public equities analyst. Answer the following question by primarily using information that is shown in the balance sheet: what is the year end FY2018 net PPNE for 3M? Answer in USD billions.",
+      "retrieval_mode": "bm25",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **3M_2018_10K.pdf**, here is what was found regarding 'Assume that you are a public equities analyst. Answer the following question by primarily using information that is shown in the balance sheet: what is the year end FY2018 net PPNE for 3M? Answer in USD billions.':\n\n\"These instruments are utilized in connection with normal business activities.\n\nTable of Contents Cash, Cash Equivalents and Marketable Securities: At December 31, 2018, 3M had $3.3 billion of cash, cash equivalents and marketable securities, of which approximately $3.1 billion was held by the Compan...\"\n\n*(Retrieved 8 relevant chunk(s) with highest similarity score of 1.0)*",
+      "ground_truth_answer": "$8.70",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "table_fragmentation",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2018_10K_merged_187_189",
+        "doc_financebench_3M_2018_10K_merged_321_323",
+        "doc_financebench_3M_2018_10K_merged_340_342",
+        "doc_financebench_3M_2018_10K_merged_416_421",
+        "doc_financebench_3M_2018_10K_merged_440_441",
+        "doc_financebench_3M_2018_10K_merged_445_447",
+        "doc_financebench_3M_2018_10K_merged_450_452",
+        "doc_financebench_3M_2018_10K_merged_455_456"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_187_189",
+          "chunk_index": 187,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "These instruments are utilized in connection with normal business activities.\n\nTable of Contents Cash, Cash Equivalents and Marketable Securities: At December 31, 2018, 3M had $3.3 billion of cash, cash equivalents and marketable securities, of which"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_321_323",
+          "chunk_index": 321,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "to the cumulative net impact of adopting ASC 606, the January 1, 2018 balance of retained earnings was increased by less than $2 million, primarily\n\nTable of Contents relating to the accelerated recognition for software installation service and train"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_340_342",
+          "chunk_index": 340,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Operating income and held for sale amounts\n\nThe aggregate operating income of these businesses was approximately $25 million, $40 million, and $50 million in 2018, 2017, and 2016, respectively.\n The approximate amounts of major assets and liabilities"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_416_421",
+          "chunk_index": 416,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Corporate debt instruments are valued at either the yields currently available on comparable securities of issuers with similar credit\n\nTable of Contents ratings or valued under a discounted cash flow approach that utilizes observable inputs, such as"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_440_441",
+          "chunk_index": 440,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "These derivative instruments are not\n\ndesignated in hedging relationships; therefore, fair value gains and losses on these contracts are recorded in earnings. The Company does not hold or issue\n derivative financial instruments for trading purposes.\n"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_445_447",
+          "chunk_index": 445,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "each counterparty to net settle amounts owed between a 3M entity and the counterparty as a result of multiple, separate derivative transactions.\n\nAs of December 31, 2018, 3M has International Swaps and Derivatives Association (ISDA) agreements with 1"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_450_452",
+          "chunk_index": 450,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "fair value that maximizes the use of observable inputs and minimizes the use of unobservable inputs by requiring that the most observable inputs\n\nbe used when available. Observable inputs are inputs market participants would use in valuing the asset "
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_455_456",
+          "chunk_index": 455,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Net investment hedges that use foreign currency denominated debt to\n\nhedge 3M\u2019s net investment are not impacted by the fair value measurement standard under ASC 820, as the debt used as the hedging instrument is marked\n to a value with respect to cha"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 73.42,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 477.9,
+        "retrieval_ms": 551.32,
+        "generation_ms": 0.0,
+        "total_ms": 551.32
+      }
+    },
+    {
+      "question_id": "financebench_id_04672",
+      "document_name": "3M_2018_10K",
+      "diagnostic_category": "Q2 \u2014 Financial table lookup",
+      "question": "Assume that you are a public equities analyst. Answer the following question by primarily using information that is shown in the balance sheet: what is the year end FY2018 net PPNE for 3M? Answer in USD billions.",
+      "retrieval_mode": "hybrid",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **3M_2018_10K.pdf**, here is what was found regarding 'Assume that you are a public equities analyst. Answer the following question by primarily using information that is shown in the balance sheet: what is the year end FY2018 net PPNE for 3M? Answer in USD billions.':\n\n\"These instruments are utilized in connection with normal business activities.\n\nTable of Contents Cash, Cash Equivalents and Marketable Securities: At December 31, 2018, 3M had $3.3 billion of cash, cash equivalents and marketable securities, of which approximately $3.1 billion was held by the Compan...\"\n\n*(Retrieved 8 relevant chunk(s) with highest similarity score of 0.016393)*",
+      "ground_truth_answer": "$8.70",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "table_fragmentation",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2018_10K_merged_187_189",
+        "doc_financebench_3M_2018_10K_merged_321_323",
+        "doc_financebench_3M_2018_10K_merged_340_342",
+        "doc_financebench_3M_2018_10K_merged_416_421",
+        "doc_financebench_3M_2018_10K_merged_440_441",
+        "doc_financebench_3M_2018_10K_merged_445_447",
+        "doc_financebench_3M_2018_10K_merged_450_452",
+        "doc_financebench_3M_2018_10K_merged_455_456"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_187_189",
+          "chunk_index": 187,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "These instruments are utilized in connection with normal business activities.\n\nTable of Contents Cash, Cash Equivalents and Marketable Securities: At December 31, 2018, 3M had $3.3 billion of cash, cash equivalents and marketable securities, of which"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_321_323",
+          "chunk_index": 321,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "to the cumulative net impact of adopting ASC 606, the January 1, 2018 balance of retained earnings was increased by less than $2 million, primarily\n\nTable of Contents relating to the accelerated recognition for software installation service and train"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_340_342",
+          "chunk_index": 340,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Operating income and held for sale amounts\n\nThe aggregate operating income of these businesses was approximately $25 million, $40 million, and $50 million in 2018, 2017, and 2016, respectively.\n The approximate amounts of major assets and liabilities"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_416_421",
+          "chunk_index": 416,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Corporate debt instruments are valued at either the yields currently available on comparable securities of issuers with similar credit\n\nTable of Contents ratings or valued under a discounted cash flow approach that utilizes observable inputs, such as"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_440_441",
+          "chunk_index": 440,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "These derivative instruments are not\n\ndesignated in hedging relationships; therefore, fair value gains and losses on these contracts are recorded in earnings. The Company does not hold or issue\n derivative financial instruments for trading purposes.\n"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_445_447",
+          "chunk_index": 445,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "each counterparty to net settle amounts owed between a 3M entity and the counterparty as a result of multiple, separate derivative transactions.\n\nAs of December 31, 2018, 3M has International Swaps and Derivatives Association (ISDA) agreements with 1"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_450_452",
+          "chunk_index": 450,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "fair value that maximizes the use of observable inputs and minimizes the use of unobservable inputs by requiring that the most observable inputs\n\nbe used when available. Observable inputs are inputs market participants would use in valuing the asset "
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_3M_2018_10K_merged_455_456",
+          "chunk_index": 455,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Net investment hedges that use foreign currency denominated debt to\n\nhedge 3M\u2019s net investment are not impacted by the fair value measurement standard under ASC 820, as the debt used as the hedging instrument is marked\n to a value with respect to cha"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 406.17,
+        "context_expansion_ms": 442.01,
+        "retrieval_ms": 848.19,
+        "generation_ms": 0.0,
+        "total_ms": 848.19
+      }
+    },
+    {
+      "question_id": "financebench_id_00499",
+      "document_name": "3M_2022_10K",
+      "diagnostic_category": "Q5 \u2014 Terminology mismatch",
+      "question": "Is 3M a capital-intensive business based on FY2022 data?",
+      "retrieval_mode": "dense",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **3M_2022_10K.pdf**, here is what was found regarding 'Is 3M a capital-intensive business based on FY2022 data?':\n\n\"such activities will not result in unexpected consequences, such as a reduced ability to generate sales or provide the experience that our customers,\n\nsuppliers, vendors, and channel partners expect from us. In addition, the ability to adapt to business model and other changes, including responding ...\"\n\n*(Retrieved 4 relevant chunk(s) with highest similarity score of 0.6581)*",
+      "ground_truth_answer": "No, the company is managing its CAPEX and Fixed Assets pretty efficiently, which is evident from below key metrics:\nCAPEX/Revenue Ratio: 5.1%\nFixed assets/Total Assets: 20%\nReturn on Assets= 12.4%",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "terminology_mismatch",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2022_10K_merged_71_73",
+        "doc_financebench_3M_2022_10K_merged_85_87",
+        "doc_financebench_3M_2022_10K_merged_147_149",
+        "doc_financebench_3M_2022_10K_merged_163_164"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_71_73",
+          "chunk_index": 71,
+          "score": 0.6581,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "such activities will not result in unexpected consequences, such as a reduced ability to generate sales or provide the experience that our customers,\n\nsuppliers, vendors, and channel partners expect from us. In addition, the ability to adapt to busin"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_85_87",
+          "chunk_index": 85,
+          "score": 0.6581,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Item 6. [Reserved].\n\nTable of Contents Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (MD&A) is designed to provide "
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_147_149",
+          "chunk_index": 147,
+          "score": 0.6581,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "As customers move their operations from one\n\ngeographic area to another, 3M\u2019s results will follow. Thus, net sales in a particular geographic area are not indicative of end-user consumption in that geographic area. Financial\n information related to 3"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_163_164",
+          "chunk_index": 163,
+          "score": 0.6581,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "due to the complexity of some of these uncertainties, the ultimate resolution may result in a payment that is materially different from the Company\u2019s\n\ncurrent estimate of the tax liabilities. If the Company\u2019s estimate of tax liabilities proves to be "
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 12.62,
+        "dense_search_ms": 287.54,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 382.36,
+        "retrieval_ms": 682.51,
+        "generation_ms": 0.0,
+        "total_ms": 682.51
+      }
+    },
+    {
+      "question_id": "financebench_id_00499",
+      "document_name": "3M_2022_10K",
+      "diagnostic_category": "Q5 \u2014 Terminology mismatch",
+      "question": "Is 3M a capital-intensive business based on FY2022 data?",
+      "retrieval_mode": "bm25",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **3M_2022_10K.pdf**, here is what was found regarding 'Is 3M a capital-intensive business based on FY2022 data?':\n\n\"The Company places consistent emphasis on\n\nenvironmental responsibility. 3M has made, and plans to continue making, necessary expenditures for compliance with applicable laws and regulations. 3M is also involved in\n remediation actions relating to environmental matters from past operations at certai...\"\n\n*(Retrieved 10 relevant chunk(s) with highest similarity score of 1.0)*",
+      "ground_truth_answer": "No, the company is managing its CAPEX and Fixed Assets pretty efficiently, which is evident from below key metrics:\nCAPEX/Revenue Ratio: 5.1%\nFixed assets/Total Assets: 20%\nReturn on Assets= 12.4%",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "terminology_mismatch",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2022_10K_merged_27_29",
+        "doc_financebench_3M_2022_10K_merged_71_74",
+        "doc_financebench_3M_2022_10K_merged_145_147",
+        "doc_financebench_3M_2022_10K_merged_163_164",
+        "doc_financebench_3M_2022_10K_merged_171_173",
+        "doc_financebench_3M_2022_10K_merged_266_268",
+        "doc_financebench_3M_2022_10K_merged_275_276",
+        "doc_financebench_3M_2022_10K_merged_278_278",
+        "doc_financebench_3M_2022_10K_merged_282_282",
+        "doc_financebench_3M_2022_10K_merged_284_284"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_27_29",
+          "chunk_index": 27,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The Company places consistent emphasis on\n\nenvironmental responsibility. 3M has made, and plans to continue making, necessary expenditures for compliance with applicable laws and regulations. 3M is also involved in\n remediation actions relating to en"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_71_74",
+          "chunk_index": 71,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "such activities will not result in unexpected consequences, such as a reduced ability to generate sales or provide the experience that our customers,\n\nsuppliers, vendors, and channel partners expect from us. In addition, the ability to adapt to busin"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_145_147",
+          "chunk_index": 145,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "These impacts were partially offset by demand for Scotch Blue painter\u2019s tape, Scotch-Brite , and Post-it\u00ae-solutions.\n\nBusiness segment operating income margins decreased year-on-year as a result of increased raw materials, logistics and outsourced ha"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_163_164",
+          "chunk_index": 163,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "due to the complexity of some of these uncertainties, the ultimate resolution may result in a payment that is materially different from the Company\u2019s\n\ncurrent estimate of the tax liabilities. If the Company\u2019s estimate of tax liabilities proves to be "
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_171_173",
+          "chunk_index": 171,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Net Debt (non-GAAP measure):\n\nNet debt is not defined under U.S. GAAP and may not be computed the same as similarly titled measures used by other companies. The Company defines net debt as total debt\n less the total of cash, cash equivalents and curr"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_266_268",
+          "chunk_index": 266,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "to business combinations, 3M periodically acquires certain tangible and/or intangible assets and purchases interests in certain enterprises that\n\ndo not otherwise qualify for accounting as business combinations. These transactions are largely reflect"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_275_276",
+          "chunk_index": 275,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Asia Pacific included China/Hong Kong net sales to customers of $3.8 billion, $4.0 billion and $3.5 billion in 2022, 2021 and 2020, respectively.\n\nTable of Contents NOTE 3. Acquisitions and Divestitures Acquisitions: 3M makes acquisitions of certain "
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_278_278",
+          "chunk_index": 278,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Under the terms of the underlying\n\nagreements, aggregate consideration included 3M shares exchanged and $1.0 billion ($828 million after closing and other adjustments) funded from debt that became\n obligations of Neogen. The cash and non-cash conside"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_282_282",
+          "chunk_index": 282,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Further contingent consideration of less than $25 million may be\n\nrecognized depending on outcomes in the future. The business, with annual sales of approximately $85 million, consists of ballistic helmets, body armor, flat armor and related\n helmet-"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_284_284",
+          "chunk_index": 284,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "As a result, income/loss from this unconsolidated subsidiary began to be\n\nreflected in 3M\u2019s financial statements in the third quarter of 2020. Kindeva and 3M entered into certain limited-term agreements related to post-divestiture transition and supp"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 19.86,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 341.29,
+        "retrieval_ms": 361.15,
+        "generation_ms": 0.0,
+        "total_ms": 361.15
+      }
+    },
+    {
+      "question_id": "financebench_id_00499",
+      "document_name": "3M_2022_10K",
+      "diagnostic_category": "Q5 \u2014 Terminology mismatch",
+      "question": "Is 3M a capital-intensive business based on FY2022 data?",
+      "retrieval_mode": "hybrid",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **3M_2022_10K.pdf**, here is what was found regarding 'Is 3M a capital-intensive business based on FY2022 data?':\n\n\"The Company places consistent emphasis on\n\nenvironmental responsibility. 3M has made, and plans to continue making, necessary expenditures for compliance with applicable laws and regulations. 3M is also involved in\n remediation actions relating to environmental matters from past operations at certai...\"\n\n*(Retrieved 8 relevant chunk(s) with highest similarity score of 0.031281)*",
+      "ground_truth_answer": "No, the company is managing its CAPEX and Fixed Assets pretty efficiently, which is evident from below key metrics:\nCAPEX/Revenue Ratio: 5.1%\nFixed assets/Total Assets: 20%\nReturn on Assets= 12.4%",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "terminology_mismatch",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2022_10K_merged_27_29",
+        "doc_financebench_3M_2022_10K_merged_71_74",
+        "doc_financebench_3M_2022_10K_merged_85_87",
+        "doc_financebench_3M_2022_10K_merged_147_149",
+        "doc_financebench_3M_2022_10K_merged_163_164",
+        "doc_financebench_3M_2022_10K_merged_171_173",
+        "doc_financebench_3M_2022_10K_merged_275_278",
+        "doc_financebench_3M_2022_10K_merged_282_284"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_27_29",
+          "chunk_index": 27,
+          "score": 0.031281,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The Company places consistent emphasis on\n\nenvironmental responsibility. 3M has made, and plans to continue making, necessary expenditures for compliance with applicable laws and regulations. 3M is also involved in\n remediation actions relating to en"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_71_74",
+          "chunk_index": 71,
+          "score": 0.031281,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "such activities will not result in unexpected consequences, such as a reduced ability to generate sales or provide the experience that our customers,\n\nsuppliers, vendors, and channel partners expect from us. In addition, the ability to adapt to busin"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_85_87",
+          "chunk_index": 85,
+          "score": 0.031281,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Item 6. [Reserved].\n\nTable of Contents Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (MD&A) is designed to provide "
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_147_149",
+          "chunk_index": 147,
+          "score": 0.031281,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "As customers move their operations from one\n\ngeographic area to another, 3M\u2019s results will follow. Thus, net sales in a particular geographic area are not indicative of end-user consumption in that geographic area. Financial\n information related to 3"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_163_164",
+          "chunk_index": 163,
+          "score": 0.031281,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "due to the complexity of some of these uncertainties, the ultimate resolution may result in a payment that is materially different from the Company\u2019s\n\ncurrent estimate of the tax liabilities. If the Company\u2019s estimate of tax liabilities proves to be "
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_171_173",
+          "chunk_index": 171,
+          "score": 0.031281,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Net Debt (non-GAAP measure):\n\nNet debt is not defined under U.S. GAAP and may not be computed the same as similarly titled measures used by other companies. The Company defines net debt as total debt\n less the total of cash, cash equivalents and curr"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_275_278",
+          "chunk_index": 275,
+          "score": 0.031281,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Asia Pacific included China/Hong Kong net sales to customers of $3.8 billion, $4.0 billion and $3.5 billion in 2022, 2021 and 2020, respectively.\n\nTable of Contents NOTE 3. Acquisitions and Divestitures Acquisitions: 3M makes acquisitions of certain "
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_282_284",
+          "chunk_index": 282,
+          "score": 0.031281,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Further contingent consideration of less than $25 million may be\n\nrecognized depending on outcomes in the future. The business, with annual sales of approximately $85 million, consists of ballistic helmets, body armor, flat armor and related\n helmet-"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 370.31,
+        "context_expansion_ms": 329.78,
+        "retrieval_ms": 700.09,
+        "generation_ms": 0.0,
+        "total_ms": 700.09
+      }
+    },
+    {
+      "question_id": "financebench_id_01226",
+      "document_name": "3M_2022_10K",
+      "diagnostic_category": "Q8 \u2014 Cross-section reasoning",
+      "question": "What drove operating margin change as of FY2022 for 3M? If operating margin is not a useful metric for a company like this, then please state that and explain why.",
+      "retrieval_mode": "dense",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **3M_2022_10K.pdf**, here is what was found regarding 'What drove operating margin change as of FY2022 for 3M? If operating margin is not a useful metric for a company like this, then please state that and explain why.':\n\n\"Item 6. [Reserved].\n\nTable of Contents Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (MD&A) is designed to provide a reader of 3M\u2019s financial statements with a narra...\"\n\n*(Retrieved 3 relevant chunk(s) with highest similarity score of 0.6466)*",
+      "ground_truth_answer": "Operating Margin for 3M in FY2022 has decreased by 1.7% primarily due to: \n-Decrease in gross Margin\n-mostly one-off charges including Combat Arms Earplugs litigation, impairment related to exiting PFAS manufacturing, costs related to exiting Russia and divestiture-related restructuring\ncharges",
+      "answer_contains_required_value": true,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 1.0,
+      "hallucination_detected": false,
+      "primary_failure": "retrieval_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2022_10K_merged_85_88",
+        "doc_financebench_3M_2022_10K_merged_139_141",
+        "doc_financebench_3M_2022_10K_merged_145_147"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_85_88",
+          "chunk_index": 85,
+          "score": 0.6466,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Item 6. [Reserved].\n\nTable of Contents Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (MD&A) is designed to provide "
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_139_141",
+          "chunk_index": 139,
+          "score": 0.6466,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "magnified by the shutdown of certain operations in Belgium and investments in auto electrification, partially offset by selling price actions,\n\nstrong spending discipline and restructuring actions. Adjusting for special item PFAS manufacturing exit c"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_145_147",
+          "chunk_index": 145,
+          "score": 0.6466,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "These impacts were partially offset by demand for Scotch Blue painter\u2019s tape, Scotch-Brite , and Post-it\u00ae-solutions.\n\nBusiness segment operating income margins decreased year-on-year as a result of increased raw materials, logistics and outsourced ha"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 23.69,
+        "dense_search_ms": 297.36,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 298.68,
+        "retrieval_ms": 619.73,
+        "generation_ms": 0.0,
+        "total_ms": 619.73
+      }
+    },
+    {
+      "question_id": "financebench_id_01226",
+      "document_name": "3M_2022_10K",
+      "diagnostic_category": "Q8 \u2014 Cross-section reasoning",
+      "question": "What drove operating margin change as of FY2022 for 3M? If operating margin is not a useful metric for a company like this, then please state that and explain why.",
+      "retrieval_mode": "bm25",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2022_10K.pdf**, here is what was found regarding 'What drove operating margin change as of FY2022 for 3M? If operating margin is not a useful metric for a company like this, then please state that and explain why.':\n\n\"See further discussion in Note 16.\n\n3M is also impacted by the Russia-Ukraine conflict. In light of a number of factors, 3M suspended operations of its subsidiaries in Russia in March 2022, the net sales of which\n were less than one percent of 3M\u2019s consolidated net sales for 2021. Further, in Septem...\"\n\n*(Retrieved 9 relevant chunk(s) with highest similarity score of 1.0)*",
+      "ground_truth_answer": "Operating Margin for 3M in FY2022 has decreased by 1.7% primarily due to: \n-Decrease in gross Margin\n-mostly one-off charges including Combat Arms Earplugs litigation, impairment related to exiting PFAS manufacturing, costs related to exiting Russia and divestiture-related restructuring\ncharges",
+      "answer_contains_required_value": true,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 1.0,
+      "hallucination_detected": false,
+      "primary_failure": "ranking_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2022_10K_merged_91_93",
+        "doc_financebench_3M_2022_10K_merged_95_95",
+        "doc_financebench_3M_2022_10K_merged_108_110",
+        "doc_financebench_3M_2022_10K_merged_120_121",
+        "doc_financebench_3M_2022_10K_merged_183_185",
+        "doc_financebench_3M_2022_10K_merged_265_267",
+        "doc_financebench_3M_2022_10K_merged_366_368",
+        "doc_financebench_3M_2022_10K_merged_415_417",
+        "doc_financebench_3M_2022_10K_merged_564_567"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_91_93",
+          "chunk_index": 91,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "See further discussion in Note 16.\n\n3M is also impacted by the Russia-Ukraine conflict. In light of a number of factors, 3M suspended operations of its subsidiaries in Russia in March 2022, the net sales of which\n were less than one percent of 3M\u2019s c"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_95_95",
+          "chunk_index": 95,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "section below.\n\nA discussion related to the components of year-on-year changes in operating income margin and earnings per diluted share follows:\n\nTable of Contents Organic growth/productivity and other: \u2022 In 2022, the following components impacted o"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_108_110",
+          "chunk_index": 108,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "of 2022, 3M recorded a charge primarily related to impairment of net assets in Russia in connection with management's committed exit and disposal\n\nplan. Refer to Note 15 for further details.\n PFAS manufacturing exit costs: \u2022 These costs relate to 3M'"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_120_121",
+          "chunk_index": 120,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "plans in 2023. 3M expects global defined benefit pension and postretirement expense in 2023 to decrease\n\nby approximately $30 million pre-tax when compared to 2022. Refer to \u201cCritical Accounting Estimates\u201d within MD&A and Note 13 (Pension and Postret"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_183_185",
+          "chunk_index": 183,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The Company does not\n utilize derivative instruments linked to the Company\u2019s stock.\n\nTable of Contents Dividends Paid to Shareholders: 3M has paid dividends since 1916. In February 2023, 3M\u2019s Board of Directors declared a first-quarter 2023 dividend "
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_265_267",
+          "chunk_index": 265,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Categorization within the valuation hierarchy is based upon the lowest level of input that is significant to the fair value measurement.\n\nAcquisitions: The Company accounts for business acquisitions in accordance with ASC 805, Business Combinations. "
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_366_368",
+          "chunk_index": 366,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "REITS are valued at the closing price reported in the active market in which it is traded.\n\nTable of Contents Absolute return consists of private partnership interests in hedge funds, insurance contracts, derivative instruments, hedge fund of funds, "
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_415_417",
+          "chunk_index": 415,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The amended complaint seeks substantial, but unspecified,\n\ncompensatory damages primarily for reimbursement of the costs allegedly incurred by the State for worker\u2019s compensation and healthcare benefits provided to all workers with\n occupational pneu"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_564_567",
+          "chunk_index": 564,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Substantially all employees are eligible to participate in the\n\nplan. Participants are granted options at 85% of market value at the date of grant. There are no GESPP shares under option at the beginning or end of each year because options\n are grant"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 41.37,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 307.0,
+        "retrieval_ms": 348.37,
+        "generation_ms": 0.0,
+        "total_ms": 348.37
+      }
+    },
+    {
+      "question_id": "financebench_id_01226",
+      "document_name": "3M_2022_10K",
+      "diagnostic_category": "Q8 \u2014 Cross-section reasoning",
+      "question": "What drove operating margin change as of FY2022 for 3M? If operating margin is not a useful metric for a company like this, then please state that and explain why.",
+      "retrieval_mode": "hybrid",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2022_10K.pdf**, here is what was found regarding 'What drove operating margin change as of FY2022 for 3M? If operating margin is not a useful metric for a company like this, then please state that and explain why.':\n\n\"Item 6. [Reserved].\n\nTable of Contents Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (MD&A) is designed to provide a reader of 3M\u2019s financial statements with a narra...\"\n\n*(Retrieved 9 relevant chunk(s) with highest similarity score of 0.027973)*",
+      "ground_truth_answer": "Operating Margin for 3M in FY2022 has decreased by 1.7% primarily due to: \n-Decrease in gross Margin\n-mostly one-off charges including Combat Arms Earplugs litigation, impairment related to exiting PFAS manufacturing, costs related to exiting Russia and divestiture-related restructuring\ncharges",
+      "answer_contains_required_value": true,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 1.0,
+      "hallucination_detected": false,
+      "primary_failure": "ranking_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2022_10K_merged_85_88",
+        "doc_financebench_3M_2022_10K_merged_91_93",
+        "doc_financebench_3M_2022_10K_merged_95_95",
+        "doc_financebench_3M_2022_10K_merged_108_110",
+        "doc_financebench_3M_2022_10K_merged_120_121",
+        "doc_financebench_3M_2022_10K_merged_145_147",
+        "doc_financebench_3M_2022_10K_merged_183_185",
+        "doc_financebench_3M_2022_10K_merged_415_417",
+        "doc_financebench_3M_2022_10K_merged_565_567"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_85_88",
+          "chunk_index": 85,
+          "score": 0.027973,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Item 6. [Reserved].\n\nTable of Contents Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (MD&A) is designed to provide "
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_91_93",
+          "chunk_index": 91,
+          "score": 0.027973,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "See further discussion in Note 16.\n\n3M is also impacted by the Russia-Ukraine conflict. In light of a number of factors, 3M suspended operations of its subsidiaries in Russia in March 2022, the net sales of which\n were less than one percent of 3M\u2019s c"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_95_95",
+          "chunk_index": 95,
+          "score": 0.027973,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "section below.\n\nA discussion related to the components of year-on-year changes in operating income margin and earnings per diluted share follows:\n\nTable of Contents Organic growth/productivity and other: \u2022 In 2022, the following components impacted o"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_108_110",
+          "chunk_index": 108,
+          "score": 0.027973,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "of 2022, 3M recorded a charge primarily related to impairment of net assets in Russia in connection with management's committed exit and disposal\n\nplan. Refer to Note 15 for further details.\n PFAS manufacturing exit costs: \u2022 These costs relate to 3M'"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_120_121",
+          "chunk_index": 120,
+          "score": 0.027973,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "plans in 2023. 3M expects global defined benefit pension and postretirement expense in 2023 to decrease\n\nby approximately $30 million pre-tax when compared to 2022. Refer to \u201cCritical Accounting Estimates\u201d within MD&A and Note 13 (Pension and Postret"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_145_147",
+          "chunk_index": 145,
+          "score": 0.027973,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "These impacts were partially offset by demand for Scotch Blue painter\u2019s tape, Scotch-Brite , and Post-it\u00ae-solutions.\n\nBusiness segment operating income margins decreased year-on-year as a result of increased raw materials, logistics and outsourced ha"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_183_185",
+          "chunk_index": 183,
+          "score": 0.027973,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The Company does not\n utilize derivative instruments linked to the Company\u2019s stock.\n\nTable of Contents Dividends Paid to Shareholders: 3M has paid dividends since 1916. In February 2023, 3M\u2019s Board of Directors declared a first-quarter 2023 dividend "
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_415_417",
+          "chunk_index": 415,
+          "score": 0.027973,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The amended complaint seeks substantial, but unspecified,\n\ncompensatory damages primarily for reimbursement of the costs allegedly incurred by the State for worker\u2019s compensation and healthcare benefits provided to all workers with\n occupational pneu"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_565_567",
+          "chunk_index": 565,
+          "score": 0.027973,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "3M manages its operations\n\nin four business segments: Safety and Industrial; Transportation and Electronics; Health Care; and Consumer. 3M\u2019s four business segments bring together common or related\n 3M technologies, enhancing the development of innova"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 350.6,
+        "context_expansion_ms": 320.78,
+        "retrieval_ms": 671.38,
+        "generation_ms": 0.0,
+        "total_ms": 671.38
+      }
+    },
+    {
+      "question_id": "financebench_id_01865",
+      "document_name": "3M_2022_10K",
+      "diagnostic_category": "Q7 \u2014 Segment/table analysis",
+      "question": "If we exclude the impact of M&A, which segment has dragged down 3M's overall growth in 2022?",
+      "retrieval_mode": "dense",
+      "evidence_at_1": true,
+      "evidence_at_3": true,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2022_10K.pdf**, here is what was found regarding 'If we exclude the impact of M&A, which segment has dragged down 3M's overall growth in 2022?':\n\n\"Item 6. [Reserved].\n\nTable of Contents Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (MD&A) is designed to provide a reader of 3M\u2019s financial statements with a narra...\"\n\n*(Retrieved 3 relevant chunk(s) with highest similarity score of 0.6085)*",
+      "ground_truth_answer": "The consumer segment shrunk by 0.9% organically.",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "no_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2022_10K_merged_85_88",
+        "doc_financebench_3M_2022_10K_merged_90_92",
+        "doc_financebench_3M_2022_10K_merged_147_149"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_85_88",
+          "chunk_index": 85,
+          "score": 0.6085,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Item 6. [Reserved].\n\nTable of Contents Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (MD&A) is designed to provide "
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_90_92",
+          "chunk_index": 90,
+          "score": 0.6085,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "See Certain amounts adjusted for special items - (non-GAAP measures) section below for additional discussion of these and other special items.\n\nTable of Contents 3M Belgium has experienced interruptions to portions of the manufacturing at its site in"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_147_149",
+          "chunk_index": 147,
+          "score": 0.6085,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "As customers move their operations from one\n\ngeographic area to another, 3M\u2019s results will follow. Thus, net sales in a particular geographic area are not indicative of end-user consumption in that geographic area. Financial\n information related to 3"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 13.32,
+        "dense_search_ms": 301.41,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 308.9,
+        "retrieval_ms": 623.63,
+        "generation_ms": 1.0,
+        "total_ms": 624.63
+      }
+    },
+    {
+      "question_id": "financebench_id_01865",
+      "document_name": "3M_2022_10K",
+      "diagnostic_category": "Q7 \u2014 Segment/table analysis",
+      "question": "If we exclude the impact of M&A, which segment has dragged down 3M's overall growth in 2022?",
+      "retrieval_mode": "bm25",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2022_10K.pdf**, here is what was found regarding 'If we exclude the impact of M&A, which segment has dragged down 3M's overall growth in 2022?':\n\n\"product demand and manufacturing, and the health and well-being of individuals and communities in which we or our suppliers or customers operate.\n\n* Unexpected events, such as those related to the coronavirus (COVID-19) public health crisis, may increase the Company's cost of doing business and disr...\"\n\n*(Retrieved 7 relevant chunk(s) with highest similarity score of 1.0)*",
+      "ground_truth_answer": "The consumer segment shrunk by 0.9% organically.",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "ranking_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2022_10K_merged_43_47",
+        "doc_financebench_3M_2022_10K_merged_85_87",
+        "doc_financebench_3M_2022_10K_merged_126_128",
+        "doc_financebench_3M_2022_10K_merged_133_135",
+        "doc_financebench_3M_2022_10K_merged_137_145",
+        "doc_financebench_3M_2022_10K_merged_229_231",
+        "doc_financebench_3M_2022_10K_merged_565_567"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_43_47",
+          "chunk_index": 43,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "product demand and manufacturing, and the health and well-being of individuals and communities in which we or our suppliers or customers operate.\n\n* Unexpected events, such as those related to the coronavirus (COVID-19) public health crisis, may incr"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_85_87",
+          "chunk_index": 85,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Item 6. [Reserved].\n\nTable of Contents Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (MD&A) is designed to provide "
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_126_128",
+          "chunk_index": 126,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Refer to Note 13 for additional details. Provision for Income Taxes:\n\n(Percent of pre-tax income)\n Effective tax rate 9.6 % 17.8 % Factors that impacted the tax rates between years are further discussed in the Overview section above and in Note 10. T"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_133_135",
+          "chunk_index": 133,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "related to 3M\u2019s business segments is presented in the tables that follow with additional context in the corresponding narrative below the tables.\n\nTable of Contents Safety and Industrial Business (33.9% of consolidated sales): Sales (millions) $ 11,6"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_137_145",
+          "chunk_index": 137,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "item costs for significant litigation (non-GAAP measure), business segment operating income margins decreased year-on-year as displayed above.\n\nTable of Contents Transportation and Electronics Business (26.0% of consolidated sales): Sales (millions) "
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_229_231",
+          "chunk_index": 229,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "at end of period $ 3,655 $ 4,564 $ 4,634 The accompanying Notes to Consolidated Financial Statements are an integral part of this statement.\n\nTable of Contents 3M Company and Subsidiaries Notes to Consolidated Financial Statements NOTE 1. Significant"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_565_567",
+          "chunk_index": 565,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "3M manages its operations\n\nin four business segments: Safety and Industrial; Transportation and Electronics; Health Care; and Consumer. 3M\u2019s four business segments bring together common or related\n 3M technologies, enhancing the development of innova"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 26.39,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 291.25,
+        "retrieval_ms": 317.64,
+        "generation_ms": 0.0,
+        "total_ms": 317.64
+      }
+    },
+    {
+      "question_id": "financebench_id_01865",
+      "document_name": "3M_2022_10K",
+      "diagnostic_category": "Q7 \u2014 Segment/table analysis",
+      "question": "If we exclude the impact of M&A, which segment has dragged down 3M's overall growth in 2022?",
+      "retrieval_mode": "hybrid",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2022_10K.pdf**, here is what was found regarding 'If we exclude the impact of M&A, which segment has dragged down 3M's overall growth in 2022?':\n\n\"product demand and manufacturing, and the health and well-being of individuals and communities in which we or our suppliers or customers operate.\n\n* Unexpected events, such as those related to the coronavirus (COVID-19) public health crisis, may increase the Company's cost of doing business and disr...\"\n\n*(Retrieved 8 relevant chunk(s) with highest similarity score of 0.030366)*",
+      "ground_truth_answer": "The consumer segment shrunk by 0.9% organically.",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "ranking_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2022_10K_merged_43_45",
+        "doc_financebench_3M_2022_10K_merged_85_87",
+        "doc_financebench_3M_2022_10K_merged_126_128",
+        "doc_financebench_3M_2022_10K_merged_133_135",
+        "doc_financebench_3M_2022_10K_merged_137_145",
+        "doc_financebench_3M_2022_10K_merged_147_149",
+        "doc_financebench_3M_2022_10K_merged_229_231",
+        "doc_financebench_3M_2022_10K_merged_565_567"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_43_45",
+          "chunk_index": 43,
+          "score": 0.030366,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "product demand and manufacturing, and the health and well-being of individuals and communities in which we or our suppliers or customers operate.\n\n* Unexpected events, such as those related to the coronavirus (COVID-19) public health crisis, may incr"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_85_87",
+          "chunk_index": 85,
+          "score": 0.030366,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Item 6. [Reserved].\n\nTable of Contents Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (MD&A) is designed to provide "
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_126_128",
+          "chunk_index": 126,
+          "score": 0.030366,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Refer to Note 13 for additional details. Provision for Income Taxes:\n\n(Percent of pre-tax income)\n Effective tax rate 9.6 % 17.8 % Factors that impacted the tax rates between years are further discussed in the Overview section above and in Note 10. T"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_133_135",
+          "chunk_index": 133,
+          "score": 0.030366,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "related to 3M\u2019s business segments is presented in the tables that follow with additional context in the corresponding narrative below the tables.\n\nTable of Contents Safety and Industrial Business (33.9% of consolidated sales): Sales (millions) $ 11,6"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_137_145",
+          "chunk_index": 137,
+          "score": 0.030366,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "item costs for significant litigation (non-GAAP measure), business segment operating income margins decreased year-on-year as displayed above.\n\nTable of Contents Transportation and Electronics Business (26.0% of consolidated sales): Sales (millions) "
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_147_149",
+          "chunk_index": 147,
+          "score": 0.030366,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "As customers move their operations from one\n\ngeographic area to another, 3M\u2019s results will follow. Thus, net sales in a particular geographic area are not indicative of end-user consumption in that geographic area. Financial\n information related to 3"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_229_231",
+          "chunk_index": 229,
+          "score": 0.030366,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "at end of period $ 3,655 $ 4,564 $ 4,634 The accompanying Notes to Consolidated Financial Statements are an integral part of this statement.\n\nTable of Contents 3M Company and Subsidiaries Notes to Consolidated Financial Statements NOTE 1. Significant"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_3M_2022_10K_merged_565_567",
+          "chunk_index": 565,
+          "score": 0.030366,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "3M manages its operations\n\nin four business segments: Safety and Industrial; Transportation and Electronics; Health Care; and Consumer. 3M\u2019s four business segments bring together common or related\n 3M technologies, enhancing the development of innova"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 335.59,
+        "context_expansion_ms": 312.35,
+        "retrieval_ms": 647.94,
+        "generation_ms": 0.0,
+        "total_ms": 647.94
+      }
+    },
+    {
+      "question_id": "financebench_id_00941",
+      "document_name": "3M_2023Q2_10Q",
+      "diagnostic_category": "Q6 \u2014 Footnote retrieval",
+      "question": "Which debt securities are registered to trade on a national securities exchange under 3M's name as of Q2 of 2023?",
+      "retrieval_mode": "dense",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **3M_2023Q2_10Q.pdf**, here is what was found regarding 'Which debt securities are registered to trade on a national securities exchange under 3M's name as of Q2 of 2023?':\n\n\"To fund cash needs in the United States, the Company relies on ongoing cash flow\n\nfrom U.S. operations, access to capital markets and repatriation of the earnings of its foreign affiliates that are not considered to be permanently reinvested. For those\n international earnings still considered to be ...\"\n\n*(Retrieved 3 relevant chunk(s) with highest similarity score of 0.6732)*",
+      "ground_truth_answer": "Following debt securities registered under 3M's name are listed to trade on the New York Stock Exchange:\n-1.500% Notes due 2026 (Trading Symbol: MMM26)\n-1.750% Notes due 2030 (Trading Symbol: MMM30)\n-1.500% Notes due 2031 (Trading Symbol: MMM31)",
+      "answer_contains_required_value": true,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 1.0,
+      "hallucination_detected": false,
+      "primary_failure": "footnote_reference",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2023Q2_10Q_merged_318_320",
+        "doc_financebench_3M_2023Q2_10Q_merged_323_325",
+        "doc_financebench_3M_2023Q2_10Q_merged_331_335"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_318_320",
+          "chunk_index": 318,
+          "score": 0.6732,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "To fund cash needs in the United States, the Company relies on ongoing cash flow\n\nfrom U.S. operations, access to capital markets and repatriation of the earnings of its foreign affiliates that are not considered to be permanently reinvested. For tho"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_323_325",
+          "chunk_index": 323,
+          "score": 0.6732,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "This is calculated (based on amounts defined in the amended agreement) as the ratio of consolidated\n\ntotal EBITDA for the four consecutive quarters then ended to total interest expense on all funded debt for the same period. At June\u00a030, 2023, this ra"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_331_335",
+          "chunk_index": 331,
+          "score": 0.6732,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "expects 2023 capital spending to be approximately $1.5\u00a0billion to $1.8\u00a0billion as 3M continues to invest in growth, productivity and sustainability.\n\n3M records capital-related government grants earned as reductions to the cost of property, plant and"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 11.63,
+        "dense_search_ms": 305.19,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 281.29,
+        "retrieval_ms": 598.1,
+        "generation_ms": 0.0,
+        "total_ms": 598.1
+      }
+    },
+    {
+      "question_id": "financebench_id_00941",
+      "document_name": "3M_2023Q2_10Q",
+      "diagnostic_category": "Q6 \u2014 Footnote retrieval",
+      "question": "Which debt securities are registered to trade on a national securities exchange under 3M's name as of Q2 of 2023?",
+      "retrieval_mode": "bm25",
+      "evidence_at_1": true,
+      "evidence_at_3": true,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2023Q2_10Q.pdf**, here is what was found regarding 'Which debt securities are registered to trade on a national securities exchange under 3M's name as of Q2 of 2023?':\n\n\"Table of Contents UNITED STATES SECURITIES AND EXCHANGE COMMISSION WASHINGTON, D.C. 20549 FORM 10-Q \u2612 QUARTERLY REPORT PURSUANT TO SECTION\u00a013 OR 15(d)\u00a0OF THE SECURITIES EXCHANGE ACT OF 1934 For the quarterly period ended June\u00a030, 2023 or o TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SEC...\"\n\n*(Retrieved 6 relevant chunk(s) with highest similarity score of 1.0)*",
+      "ground_truth_answer": "Following debt securities registered under 3M's name are listed to trade on the New York Stock Exchange:\n-1.500% Notes due 2026 (Trading Symbol: MMM26)\n-1.750% Notes due 2030 (Trading Symbol: MMM30)\n-1.500% Notes due 2031 (Trading Symbol: MMM31)",
+      "answer_contains_required_value": true,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 1.0,
+      "hallucination_detected": false,
+      "primary_failure": "evaluation_mapping_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2023Q2_10Q_merged_0_2",
+        "doc_financebench_3M_2023Q2_10Q_merged_50_52",
+        "doc_financebench_3M_2023Q2_10Q_merged_320_326",
+        "doc_financebench_3M_2023Q2_10Q_merged_331_333",
+        "doc_financebench_3M_2023Q2_10Q_merged_397_399",
+        "doc_financebench_3M_2023Q2_10Q_merged_412_415"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_0_2",
+          "chunk_index": 0,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Table of Contents UNITED STATES SECURITIES AND EXCHANGE COMMISSION WASHINGTON, D.C. 20549 FORM 10-Q \u2612 QUARTERLY REPORT PURSUANT TO SECTION\u00a013 OR 15(d)\u00a0OF THE SECURITIES EXCHANGE ACT OF 1934 For the quarterly period ended June\u00a030, 2023 or o TRANSITION"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_50_52",
+          "chunk_index": 50,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "(Millions) June 30, 2023 Due in one year or less $\n\nDue after one year through five years\n Due after five years through ten years Total marketable securities $\n\nTable of Contents NOTE 10. Long-Term Debt and Short-Term Borrowings In February 2023, 3M "
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_320_326",
+          "chunk_index": 320,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "United Kingdom\u2019s Financial Conduct Authority announced that it would no longer require banks to submit rates for the London InterBank Offered Rate\n\n(\u201cLIBOR\u201d) after 2021. In November 2020, the ICE Benchmark Administration (IBA), LIBOR\u2019s administrator,"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_331_333",
+          "chunk_index": 331,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "expects 2023 capital spending to be approximately $1.5\u00a0billion to $1.8\u00a0billion as 3M continues to invest in growth, productivity and sustainability.\n\n3M records capital-related government grants earned as reductions to the cost of property, plant and"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_397_399",
+          "chunk_index": 397,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Whether or not the spin-off is ultimately completed, the pendency of the\n\ntransaction may impose challenges on the Company and its business, including potential business disruption; the diversion of management time on matters relating to the\n transac"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_412_415",
+          "chunk_index": 412,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "to the Registrant\u2019s auditors and the audit committee of the Registrant\u2019s board of directors (or persons performing the equivalent functions):\n\n(a) All significant deficiencies and material weaknesses in the design or operation of internal control ove"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 32.9,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 290.38,
+        "retrieval_ms": 323.28,
+        "generation_ms": 0.0,
+        "total_ms": 323.28
+      }
+    },
+    {
+      "question_id": "financebench_id_00941",
+      "document_name": "3M_2023Q2_10Q",
+      "diagnostic_category": "Q6 \u2014 Footnote retrieval",
+      "question": "Which debt securities are registered to trade on a national securities exchange under 3M's name as of Q2 of 2023?",
+      "retrieval_mode": "hybrid",
+      "evidence_at_1": true,
+      "evidence_at_3": true,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2023Q2_10Q.pdf**, here is what was found regarding 'Which debt securities are registered to trade on a national securities exchange under 3M's name as of Q2 of 2023?':\n\n\"Table of Contents UNITED STATES SECURITIES AND EXCHANGE COMMISSION WASHINGTON, D.C. 20549 FORM 10-Q \u2612 QUARTERLY REPORT PURSUANT TO SECTION\u00a013 OR 15(d)\u00a0OF THE SECURITIES EXCHANGE ACT OF 1934 For the quarterly period ended June\u00a030, 2023 or o TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SEC...\"\n\n*(Retrieved 5 relevant chunk(s) with highest similarity score of 0.031025)*",
+      "ground_truth_answer": "Following debt securities registered under 3M's name are listed to trade on the New York Stock Exchange:\n-1.500% Notes due 2026 (Trading Symbol: MMM26)\n-1.750% Notes due 2030 (Trading Symbol: MMM30)\n-1.500% Notes due 2031 (Trading Symbol: MMM31)",
+      "answer_contains_required_value": true,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 1.0,
+      "hallucination_detected": false,
+      "primary_failure": "evaluation_mapping_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2023Q2_10Q_merged_0_2",
+        "doc_financebench_3M_2023Q2_10Q_merged_50_52",
+        "doc_financebench_3M_2023Q2_10Q_merged_318_326",
+        "doc_financebench_3M_2023Q2_10Q_merged_331_335",
+        "doc_financebench_3M_2023Q2_10Q_merged_397_399"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_0_2",
+          "chunk_index": 0,
+          "score": 0.031025,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Table of Contents UNITED STATES SECURITIES AND EXCHANGE COMMISSION WASHINGTON, D.C. 20549 FORM 10-Q \u2612 QUARTERLY REPORT PURSUANT TO SECTION\u00a013 OR 15(d)\u00a0OF THE SECURITIES EXCHANGE ACT OF 1934 For the quarterly period ended June\u00a030, 2023 or o TRANSITION"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_50_52",
+          "chunk_index": 50,
+          "score": 0.031025,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "(Millions) June 30, 2023 Due in one year or less $\n\nDue after one year through five years\n Due after five years through ten years Total marketable securities $\n\nTable of Contents NOTE 10. Long-Term Debt and Short-Term Borrowings In February 2023, 3M "
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_318_326",
+          "chunk_index": 318,
+          "score": 0.031025,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "To fund cash needs in the United States, the Company relies on ongoing cash flow\n\nfrom U.S. operations, access to capital markets and repatriation of the earnings of its foreign affiliates that are not considered to be permanently reinvested. For tho"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_331_335",
+          "chunk_index": 331,
+          "score": 0.031025,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "expects 2023 capital spending to be approximately $1.5\u00a0billion to $1.8\u00a0billion as 3M continues to invest in growth, productivity and sustainability.\n\n3M records capital-related government grants earned as reductions to the cost of property, plant and"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_397_399",
+          "chunk_index": 397,
+          "score": 0.031025,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Whether or not the spin-off is ultimately completed, the pendency of the\n\ntransaction may impose challenges on the Company and its business, including potential business disruption; the diversion of management time on matters relating to the\n transac"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 381.37,
+        "context_expansion_ms": 301.56,
+        "retrieval_ms": 682.93,
+        "generation_ms": 1.01,
+        "total_ms": 683.94
+      }
+    },
+    {
+      "question_id": "financebench_id_01858",
+      "document_name": "3M_2023Q2_10Q",
+      "diagnostic_category": "Q10 \u2014 Normal conceptual question",
+      "question": "Does 3M maintain a stable trend of dividend distribution?",
+      "retrieval_mode": "dense",
+      "evidence_at_1": true,
+      "evidence_at_3": true,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2023Q2_10Q.pdf**, here is what was found regarding 'Does 3M maintain a stable trend of dividend distribution?':\n\n\"In either case, 3M\u2019s hedging approach is designed to mitigate a portion of foreign\n\ncurrency risk and reduce volatility, ultimately allowing time for 3M\u2019s businesses to respond to changes in the marketplace.\n\nTable of Contents Financial condition: Refer to the section entitled Financial Condition an...\"\n\n*(Retrieved 3 relevant chunk(s) with highest similarity score of 0.6242)*",
+      "ground_truth_answer": "Yes, not only they distribute the dividends on a routine basis, 3M has also been increasing the per share dividend for consecutive 65 years",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "evaluation_mapping_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2023Q2_10Q_merged_284_286",
+        "doc_financebench_3M_2023Q2_10Q_merged_316_318",
+        "doc_financebench_3M_2023Q2_10Q_merged_330_335"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_284_286",
+          "chunk_index": 284,
+          "score": 0.6242,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "In either case, 3M\u2019s hedging approach is designed to mitigate a portion of foreign\n\ncurrency risk and reduce volatility, ultimately allowing time for 3M\u2019s businesses to respond to changes in the marketplace.\n\nTable of Contents Financial condition: Re"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_316_318",
+          "chunk_index": 316,
+          "score": 0.6242,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "First six months 2023 results:\n\nSales in Consumer were down 5.8 percent in U.S. dollars.\n On an organic sales basis: \u2022 Sales decreased in home improvement, home health and auto care, and stationery and office. \u2022 Growth was negatively impacted as cons"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_330_335",
+          "chunk_index": 330,
+          "score": 0.6242,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "settlement agreement with public water systems in the United States regarding PFAS and $1.2 billion in 2022 related to steps toward resolving Combat\n\nArms Earplugs litigation (both discussed in Note 14) largely impacted the net income component above"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 13.26,
+        "dense_search_ms": 333.5,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 283.81,
+        "retrieval_ms": 630.57,
+        "generation_ms": 0.0,
+        "total_ms": 630.57
+      }
+    },
+    {
+      "question_id": "financebench_id_01858",
+      "document_name": "3M_2023Q2_10Q",
+      "diagnostic_category": "Q10 \u2014 Normal conceptual question",
+      "question": "Does 3M maintain a stable trend of dividend distribution?",
+      "retrieval_mode": "bm25",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2023Q2_10Q.pdf**, here is what was found regarding 'Does 3M maintain a stable trend of dividend distribution?':\n\n\"Other assets Other liabilities Interest rate contracts Other assets \u2014 \u2014 Other liabilities Total derivatives designated as hedging instruments\n\nDerivatives not designated as hedging\n instruments Foreign currency forward/option contracts 3,089 2,816 Other current assets Other current liabilities Total...\"\n\n*(Retrieved 11 relevant chunk(s) with highest similarity score of 1.0)*",
+      "ground_truth_answer": "Yes, not only they distribute the dividends on a routine basis, 3M has also been increasing the per share dividend for consecutive 65 years",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "ranking_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2023Q2_10Q_merged_66_68",
+        "doc_financebench_3M_2023Q2_10Q_merged_118_120",
+        "doc_financebench_3M_2023Q2_10Q_merged_125_127",
+        "doc_financebench_3M_2023Q2_10Q_merged_168_170",
+        "doc_financebench_3M_2023Q2_10Q_merged_243_243",
+        "doc_financebench_3M_2023Q2_10Q_merged_245_245",
+        "doc_financebench_3M_2023Q2_10Q_merged_267_269",
+        "doc_financebench_3M_2023Q2_10Q_merged_284_286",
+        "doc_financebench_3M_2023Q2_10Q_merged_333_335",
+        "doc_financebench_3M_2023Q2_10Q_merged_354_356",
+        "doc_financebench_3M_2023Q2_10Q_merged_367_369"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_66_68",
+          "chunk_index": 66,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Other assets Other liabilities Interest rate contracts Other assets \u2014 \u2014 Other liabilities Total derivatives designated as hedging instruments\n\nDerivatives not designated as hedging\n instruments Foreign currency forward/option contracts 3,089 2,816 Ot"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_118_120",
+          "chunk_index": 118,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "of the Company, has been working with the Public Flemish Waste Agency (\"OVAM\") for several years to investigate and remediate historical PFAS\n\ncontamination at and near the 3M Belgium facility in Zwijndrecht, Antwerp, Belgium. In connection with a ri"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_125_127",
+          "chunk_index": 125,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "3M Belgium thereupon commenced an appeal process to the\n\nCouncil of States, seeking, among other things, urgent suspension of the safety measure during the pendency of the appeal process. At the same time, 3M Belgium complied\n with the safety measure"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_168_170",
+          "chunk_index": 168,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "in part before the PWS Settlement\u2019s effective date and that relate to PFAS or any product (including AFFF) manufactured with or containing PFAS.\n\nTable of Contents If the court approves the PWS Settlement and all conditions in the PWS Settlement are "
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_243_243",
+          "chunk_index": 243,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The Company has retained outside counsel and a forensic accounting firm to assist with the\n\ninvestigation. In July 2019, the Company voluntarily disclosed this investigation to both the Department of Justice and Securities and Exchange Commission and"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_245_245",
+          "chunk_index": 245,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The change to business segment operating income\n\n(loss) aligns with the update to how the CODM assesses performance and allocates resources for the Company\u2019s business segments. The changes included the items described\n below. The financial informatio"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_267_269",
+          "chunk_index": 267,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Net costs related to respirator mask/asbestos are reflected as special items in the Safety and\n\nIndustrial business segment while those impacting operating income (loss) associated with PFAS-related other environmental and Combat Arms Earplugs matter"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_284_286",
+          "chunk_index": 284,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "In either case, 3M\u2019s hedging approach is designed to mitigate a portion of foreign\n\ncurrency risk and reduce volatility, ultimately allowing time for 3M\u2019s businesses to respond to changes in the marketplace.\n\nTable of Contents Financial condition: Re"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_333_335",
+          "chunk_index": 333,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "(maturities greater than 90 days) (1,802) (1,179) Proceeds from debt (maturities greater than 90 days) 1,107 Total cash change in debt (44) (834)\n\nPurchases of treasury stock\n (29) (773) Proceeds from issuances of treasury stock pursuant to stock opt"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_354_356",
+          "chunk_index": 354,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "product demand and manufacturing, and the health and well-being of individuals and communities in which we or our suppliers or customers operate.\n\nTable of Contents * Unexpected events, such as those related to the coronavirus (COVID-19) public healt"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_367_369",
+          "chunk_index": 367,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "including in some jurisdictions that pose potentially elevated risks of fraud or corruption or increased risk of internal control issues, and is\n\nsubject to risks related to international, federal, state, and local treaties, laws, and regulations, in"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 20.21,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 1218.23,
+        "retrieval_ms": 1238.44,
+        "generation_ms": 0.0,
+        "total_ms": 1238.44
+      }
+    },
+    {
+      "question_id": "financebench_id_01858",
+      "document_name": "3M_2023Q2_10Q",
+      "diagnostic_category": "Q10 \u2014 Normal conceptual question",
+      "question": "Does 3M maintain a stable trend of dividend distribution?",
+      "retrieval_mode": "hybrid",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **3M_2023Q2_10Q.pdf**, here is what was found regarding 'Does 3M maintain a stable trend of dividend distribution?':\n\n\"of the Company, has been working with the Public Flemish Waste Agency (\"OVAM\") for several years to investigate and remediate historical PFAS\n\ncontamination at and near the 3M Belgium facility in Zwijndrecht, Antwerp, Belgium. In connection with a ring road construction project (the Oosterweel Proje...\"\n\n*(Retrieved 11 relevant chunk(s) with highest similarity score of 0.032266)*",
+      "ground_truth_answer": "Yes, not only they distribute the dividends on a routine basis, 3M has also been increasing the per share dividend for consecutive 65 years",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "ranking_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2023Q2_10Q_merged_118_120",
+        "doc_financebench_3M_2023Q2_10Q_merged_125_127",
+        "doc_financebench_3M_2023Q2_10Q_merged_168_170",
+        "doc_financebench_3M_2023Q2_10Q_merged_243_243",
+        "doc_financebench_3M_2023Q2_10Q_merged_245_245",
+        "doc_financebench_3M_2023Q2_10Q_merged_267_269",
+        "doc_financebench_3M_2023Q2_10Q_merged_284_286",
+        "doc_financebench_3M_2023Q2_10Q_merged_316_318",
+        "doc_financebench_3M_2023Q2_10Q_merged_333_335",
+        "doc_financebench_3M_2023Q2_10Q_merged_354_356",
+        "doc_financebench_3M_2023Q2_10Q_merged_367_369"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_118_120",
+          "chunk_index": 118,
+          "score": 0.032266,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "of the Company, has been working with the Public Flemish Waste Agency (\"OVAM\") for several years to investigate and remediate historical PFAS\n\ncontamination at and near the 3M Belgium facility in Zwijndrecht, Antwerp, Belgium. In connection with a ri"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_125_127",
+          "chunk_index": 125,
+          "score": 0.032266,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "3M Belgium thereupon commenced an appeal process to the\n\nCouncil of States, seeking, among other things, urgent suspension of the safety measure during the pendency of the appeal process. At the same time, 3M Belgium complied\n with the safety measure"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_168_170",
+          "chunk_index": 168,
+          "score": 0.032266,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "in part before the PWS Settlement\u2019s effective date and that relate to PFAS or any product (including AFFF) manufactured with or containing PFAS.\n\nTable of Contents If the court approves the PWS Settlement and all conditions in the PWS Settlement are "
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_243_243",
+          "chunk_index": 243,
+          "score": 0.032266,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The Company has retained outside counsel and a forensic accounting firm to assist with the\n\ninvestigation. In July 2019, the Company voluntarily disclosed this investigation to both the Department of Justice and Securities and Exchange Commission and"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_245_245",
+          "chunk_index": 245,
+          "score": 0.032266,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The change to business segment operating income\n\n(loss) aligns with the update to how the CODM assesses performance and allocates resources for the Company\u2019s business segments. The changes included the items described\n below. The financial informatio"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_267_269",
+          "chunk_index": 267,
+          "score": 0.032266,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Net costs related to respirator mask/asbestos are reflected as special items in the Safety and\n\nIndustrial business segment while those impacting operating income (loss) associated with PFAS-related other environmental and Combat Arms Earplugs matter"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_284_286",
+          "chunk_index": 284,
+          "score": 0.032266,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "In either case, 3M\u2019s hedging approach is designed to mitigate a portion of foreign\n\ncurrency risk and reduce volatility, ultimately allowing time for 3M\u2019s businesses to respond to changes in the marketplace.\n\nTable of Contents Financial condition: Re"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_316_318",
+          "chunk_index": 316,
+          "score": 0.032266,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "First six months 2023 results:\n\nSales in Consumer were down 5.8 percent in U.S. dollars.\n On an organic sales basis: \u2022 Sales decreased in home improvement, home health and auto care, and stationery and office. \u2022 Growth was negatively impacted as cons"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_333_335",
+          "chunk_index": 333,
+          "score": 0.032266,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "(maturities greater than 90 days) (1,802) (1,179) Proceeds from debt (maturities greater than 90 days) 1,107 Total cash change in debt (44) (834)\n\nPurchases of treasury stock\n (29) (773) Proceeds from issuances of treasury stock pursuant to stock opt"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_354_356",
+          "chunk_index": 354,
+          "score": 0.032266,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "product demand and manufacturing, and the health and well-being of individuals and communities in which we or our suppliers or customers operate.\n\nTable of Contents * Unexpected events, such as those related to the coronavirus (COVID-19) public healt"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "doc_financebench_3M_2023Q2_10Q_merged_367_369",
+          "chunk_index": 367,
+          "score": 0.032266,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "including in some jurisdictions that pose potentially elevated risks of fraud or corruption or increased risk of internal control issues, and is\n\nsubject to risks related to international, federal, state, and local treaties, laws, and regulations, in"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 363.51,
+        "context_expansion_ms": 335.28,
+        "retrieval_ms": 698.78,
+        "generation_ms": 0.0,
+        "total_ms": 698.78
+      }
+    },
+    {
+      "question_id": "financebench_id_07966",
+      "document_name": "ACTIVISIONBLIZZARD_2019_10K",
+      "diagnostic_category": "Q4 \u2014 Multi-year calculation",
+      "question": "What is the FY2017 - FY2019 3 year average of capex as a % of revenue for Activision Blizzard? Answer in units of percents and round to one decimal place. Calculate (or extract) the answer from the statement of income and the cash flow statement.",
+      "retrieval_mode": "dense",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **ACTIVISIONBLIZZARD_2019_10K.pdf**, here is what was found regarding 'What is the FY2017 - FY2019 3 year average of capex as a % of revenue for Activision Blizzard? Answer in units of percents and round to one decimal place. Calculate (or extract) the answer from the statement of income and the cash flow statement.':\n\n\"The changes are primarily due to changes in the value of the U.S. dollar\n\nrelative to the euro and the British pound.\n\nTable of Contents Operating Segment Results Currently, we have three reportable segments\u2014Activision, Blizzard, and King. Our operating segments are consistent with the manner in whi...\"\n\n*(Retrieved 4 relevant chunk(s) with highest similarity score of 0.5813)*",
+      "ground_truth_answer": "1.9%",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": true,
+      "primary_failure": "multi_year_calculation",
+      "retrieved_chunk_ids": [
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_193_195",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_429_430",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_437_438",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_441_443"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_193_195",
+          "chunk_index": 193,
+          "score": 0.5813,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The changes are primarily due to changes in the value of the U.S. dollar\n\nrelative to the euro and the British pound.\n\nTable of Contents Operating Segment Results Currently, we have three reportable segments\u2014Activision, Blizzard, and King. Our operat"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_429_430",
+          "chunk_index": 429,
+          "score": 0.5813,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "We do not aggregate operating segments. F-35\n\nTable of Contents ACTIVISION BLIZZARD, INC. AND SUBSIDIARIES Notes to Consolidated Financial Statements (continued) Information on the reportable segment net revenues and segment operating income are pres"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_437_438",
+          "chunk_index": 437,
+          "score": 0.5813,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "$ 2,458 $ 2,291 $ 2,086 $ 480 $ (53) $ 7,262 Year Ended December 31, 2017 Net revenues by distribution channel: Digital online channels (1) $ 5,479\n\nRetail channels\n 1,033 Other (2) Total consolidated net revenues $ 7,017 (1) Net revenues from \u201cDigit"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_441_443",
+          "chunk_index": 441,
+          "score": 0.5813,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Year Ended December 31, 2017 Net revenues by geographic region: Americas $ 3,607 EMEA (1) 2,464 Asia Pacific Total consolidated net revenues $ 7,017\n\n(1) \u201cEMEA\u201d consists of the Europe, Middle East, and Africa geographic regions.\n (2) Intersegment rev"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 65.54,
+        "dense_search_ms": 344.71,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 256.67,
+        "retrieval_ms": 666.92,
+        "generation_ms": 1.01,
+        "total_ms": 667.93
+      }
+    },
+    {
+      "question_id": "financebench_id_07966",
+      "document_name": "ACTIVISIONBLIZZARD_2019_10K",
+      "diagnostic_category": "Q4 \u2014 Multi-year calculation",
+      "question": "What is the FY2017 - FY2019 3 year average of capex as a % of revenue for Activision Blizzard? Answer in units of percents and round to one decimal place. Calculate (or extract) the answer from the statement of income and the cash flow statement.",
+      "retrieval_mode": "bm25",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **ACTIVISIONBLIZZARD_2019_10K.pdf**, here is what was found regarding 'What is the FY2017 - FY2019 3 year average of capex as a % of revenue for Activision Blizzard? Answer in units of percents and round to one decimal place. Calculate (or extract) the answer from the statement of income and the cash flow statement.':\n\n\"Other Information PART III. Item 10. Directors, Executive Officers, and Corporate Governance Item 11. Executive Compensation Item 12.\n\nSecurity Ownership of Certain Beneficial Owners and Management and Related Stockholder Matters\n Item 13. Certain Relationships and Related Transactions, and Director...\"\n\n*(Retrieved 6 relevant chunk(s) with highest similarity score of 1.0)*",
+      "ground_truth_answer": "1.9%",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": true,
+      "primary_failure": "multi_year_calculation",
+      "retrieved_chunk_ids": [
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_5_7",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_286_288",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_486_488",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_568_570",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_625_627",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_670_678"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_5_7",
+          "chunk_index": 5,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Other Information PART III. Item 10. Directors, Executive Officers, and Corporate Governance Item 11. Executive Compensation Item 12.\n\nSecurity Ownership of Certain Beneficial Owners and Management and Related Stockholder Matters\n Item 13. Certain Re"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_286_288",
+          "chunk_index": 286,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "required by this Item is incorporated by reference to the sections of our definitive Proxy Statement for our 2020 Annual Meeting of Shareholders\n\nentitled \u201cAudit-Related Matters\u201d to be filed with the SEC.\n\nTable of Contents PART IV Item 15. EXHIBITS,"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_486_488",
+          "chunk_index": 486,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Such dividend is payable on May 6, 2020, to shareholders of\n\nrecord at the close of business on April 15, 2020.\n On February 12, 2019, our Board of Directors declared a cash dividend of $0.37 per common share. On May 9, 2019, we made an aggregate cas"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_568_570",
+          "chunk_index": 568,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "of such terms and conditions is necessary or advisable in order to comply with applicable local law or facilitate the administration of the Plan. 23.\n\nImposition of Other Requirements. The Company reserves the right to impose other requirements on th"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_625_627",
+          "chunk_index": 625,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Amount\u201d is a number of Restricted Share Units equal to one-third of the number of Restricted Share Units awarded as set forth in the Grant Notice.\n\n\u201cAOP\u201d means the annual operating plan established by the Board for the relevant year and as approved b"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_670_678",
+          "chunk_index": 670,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Except as otherwise set forth herein, you must remain continuously\n\nemployed by the Activision Blizzard Group through the date on which an Annual Bonus, if any, is paid to be eligible to receive such\n Annual Bonus. (d)    Subject to the approval of t"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 89.47,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 308.05,
+        "retrieval_ms": 397.52,
+        "generation_ms": 0.0,
+        "total_ms": 397.52
+      }
+    },
+    {
+      "question_id": "financebench_id_07966",
+      "document_name": "ACTIVISIONBLIZZARD_2019_10K",
+      "diagnostic_category": "Q4 \u2014 Multi-year calculation",
+      "question": "What is the FY2017 - FY2019 3 year average of capex as a % of revenue for Activision Blizzard? Answer in units of percents and round to one decimal place. Calculate (or extract) the answer from the statement of income and the cash flow statement.",
+      "retrieval_mode": "hybrid",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **ACTIVISIONBLIZZARD_2019_10K.pdf**, here is what was found regarding 'What is the FY2017 - FY2019 3 year average of capex as a % of revenue for Activision Blizzard? Answer in units of percents and round to one decimal place. Calculate (or extract) the answer from the statement of income and the cash flow statement.':\n\n\"Other Information PART III. Item 10. Directors, Executive Officers, and Corporate Governance Item 11. Executive Compensation Item 12.\n\nSecurity Ownership of Certain Beneficial Owners and Management and Related Stockholder Matters\n Item 13. Certain Relationships and Related Transactions, and Director...\"\n\n*(Retrieved 7 relevant chunk(s) with highest similarity score of 0.016393)*",
+      "ground_truth_answer": "1.9%",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": true,
+      "primary_failure": "multi_year_calculation",
+      "retrieved_chunk_ids": [
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_5_7",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_286_288",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_429_430",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_441_443",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_486_488",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_625_627",
+        "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_670_676"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_5_7",
+          "chunk_index": 5,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Other Information PART III. Item 10. Directors, Executive Officers, and Corporate Governance Item 11. Executive Compensation Item 12.\n\nSecurity Ownership of Certain Beneficial Owners and Management and Related Stockholder Matters\n Item 13. Certain Re"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_286_288",
+          "chunk_index": 286,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "required by this Item is incorporated by reference to the sections of our definitive Proxy Statement for our 2020 Annual Meeting of Shareholders\n\nentitled \u201cAudit-Related Matters\u201d to be filed with the SEC.\n\nTable of Contents PART IV Item 15. EXHIBITS,"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_429_430",
+          "chunk_index": 429,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "We do not aggregate operating segments. F-35\n\nTable of Contents ACTIVISION BLIZZARD, INC. AND SUBSIDIARIES Notes to Consolidated Financial Statements (continued) Information on the reportable segment net revenues and segment operating income are pres"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_441_443",
+          "chunk_index": 441,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Year Ended December 31, 2017 Net revenues by geographic region: Americas $ 3,607 EMEA (1) 2,464 Asia Pacific Total consolidated net revenues $ 7,017\n\n(1) \u201cEMEA\u201d consists of the Europe, Middle East, and Africa geographic regions.\n (2) Intersegment rev"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_486_488",
+          "chunk_index": 486,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Such dividend is payable on May 6, 2020, to shareholders of\n\nrecord at the close of business on April 15, 2020.\n On February 12, 2019, our Board of Directors declared a cash dividend of $0.37 per common share. On May 9, 2019, we made an aggregate cas"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_625_627",
+          "chunk_index": 625,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Amount\u201d is a number of Restricted Share Units equal to one-third of the number of Restricted Share Units awarded as set forth in the Grant Notice.\n\n\u201cAOP\u201d means the annual operating plan established by the Board for the relevant year and as approved b"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_ACTIVISIONBLIZZARD_2019_10K_merged_670_676",
+          "chunk_index": 670,
+          "score": 0.016393,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Except as otherwise set forth herein, you must remain continuously\n\nemployed by the Activision Blizzard Group through the date on which an Annual Bonus, if any, is paid to be eligible to receive such\n Annual Bonus. (d)    Subject to the approval of t"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 453.98,
+        "context_expansion_ms": 277.44,
+        "retrieval_ms": 731.42,
+        "generation_ms": 0.0,
+        "total_ms": 731.42
+      }
+    },
+    {
+      "question_id": "financebench_id_04735",
+      "document_name": "ADOBE_2015_10K",
+      "diagnostic_category": "Q3 \u2014 Ratio requiring calculation",
+      "question": "You are an investment banker and your only resource(s) to answer the following question is (are): the statement of financial position and the cash flow statement. Here's the question: what is the FY2015 operating cash flow ratio for Adobe? Operating cash flow ratio is defined as: cash from operations / total current liabilities. Round your answer to two decimal places.",
+      "retrieval_mode": "dense",
+      "evidence_at_1": true,
+      "evidence_at_3": true,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **ADOBE_2015_10K.pdf**, here is what was found regarding 'You are an investment banker and your only resource(s) to answer the following question is (are): the statement of financial position and the cash flow statement. Here's the question: what is the FY2015 operating cash flow ratio for Adobe? Operating cash flow ratio is defined as: cash from operations / total current liabilities. Round your answer to two decimal places.':\n\n\"Statements of Cash Flows ......................................................................................................................\n\nNotes to Consolidated Financial Statements................................................................................................................\n...\"\n\n*(Retrieved 5 relevant chunk(s) with highest similarity score of 0.5819)*",
+      "ground_truth_answer": "0.66",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "no_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_ADOBE_2015_10K_merged_318_320",
+        "doc_financebench_ADOBE_2015_10K_merged_335_337",
+        "doc_financebench_ADOBE_2015_10K_merged_395_397",
+        "doc_financebench_ADOBE_2015_10K_merged_519_521",
+        "doc_financebench_ADOBE_2015_10K_merged_523_525"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_318_320",
+          "chunk_index": 318,
+          "score": 0.5819,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Statements of Cash Flows ......................................................................................................................\n\nNotes to Consolidated Financial Statements..............................................................."
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_335_337",
+          "chunk_index": 335,
+          "score": 0.5819,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "\u2014 \u2014 \u2014 \u2014 \u2014 \u2014 (2,175) (2,175) Balances at November 27, 2015 ....... 600,834 $ $ 4,184,883 $7,253,431 $ (169,080) (103,025) $(4,267,715) $ 7,001,580\n\nSee accompanying Notes to Consolidated Financial Statements.\n\nADOBE SYSTEMS INCORPORATED CONSOLIDATED S"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_395_397",
+          "chunk_index": 395,
+          "score": 0.5819,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "19,821 \u2014 19,821 \u2014 Total assets................................................................... $\n\n3,706,723\n $ 496,911 $ 3,209,812 $ \u2014 Liabilities: Accrued expenses: Foreign currency derivatives................................ $ 2,154 $ \u2014 $ 2,154 "
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_519_521",
+          "chunk_index": 519,
+          "score": 0.5819,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "$ 64,892 $ 121,271 $ 62,938 $ 112,275\n\nNet income.................................................................................\n $ 47,046 $ 88,527 $ 44,686 $ 88,136 Basic net income per share ......................................................."
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_523_525",
+          "chunk_index": 523,
+          "score": 0.5819,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "A company\u2019s internal control over financial reporting includes those policies and procedures that\n\n(1) pertain to the maintenance of records that, in reasonable detail, accurately and fairly reflect the transactions and dispositions \n of the assets o"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 28.78,
+        "dense_search_ms": 303.18,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 337.0,
+        "retrieval_ms": 669.97,
+        "generation_ms": 0.0,
+        "total_ms": 669.97
+      }
+    },
+    {
+      "question_id": "financebench_id_04735",
+      "document_name": "ADOBE_2015_10K",
+      "diagnostic_category": "Q3 \u2014 Ratio requiring calculation",
+      "question": "You are an investment banker and your only resource(s) to answer the following question is (are): the statement of financial position and the cash flow statement. Here's the question: what is the FY2015 operating cash flow ratio for Adobe? Operating cash flow ratio is defined as: cash from operations / total current liabilities. Round your answer to two decimal places.",
+      "retrieval_mode": "bm25",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **ADOBE_2015_10K.pdf**, here is what was found regarding 'You are an investment banker and your only resource(s) to answer the following question is (are): the statement of financial position and the cash flow statement. Here's the question: what is the FY2015 operating cash flow ratio for Adobe? Operating cash flow ratio is defined as: cash from operations / total current liabilities. Round your answer to two decimal places.':\n\n\"In addition, approximately 53% of our employees are located outside the United States. Accordingly, we are exposed to\n\nchanges in laws governing our employee relationships in various U.S. and foreign jurisdictions, including laws and regulations \n regarding wage and hour requirements, fair labor sta...\"\n\n*(Retrieved 8 relevant chunk(s) with highest similarity score of 1.0)*",
+      "ground_truth_answer": "0.66",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "ranking_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_ADOBE_2015_10K_merged_160_162",
+        "doc_financebench_ADOBE_2015_10K_merged_290_293",
+        "doc_financebench_ADOBE_2015_10K_merged_308_310",
+        "doc_financebench_ADOBE_2015_10K_merged_371_373",
+        "doc_financebench_ADOBE_2015_10K_merged_382_384",
+        "doc_financebench_ADOBE_2015_10K_merged_399_401",
+        "doc_financebench_ADOBE_2015_10K_merged_403_407",
+        "doc_financebench_ADOBE_2015_10K_merged_410_412"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_160_162",
+          "chunk_index": 160,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "In addition, approximately 53% of our employees are located outside the United States. Accordingly, we are exposed to\n\nchanges in laws governing our employee relationships in various U.S. and foreign jurisdictions, including laws and regulations \n re"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_290_293",
+          "chunk_index": 290,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "During fiscal 2014, we made payments related to our restructuring plans totaling $11.0\n\nmillion which consisted of $5.7 million and $5.3 million in payments related to termination benefits and contract terminations and the closing of redundant facili"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_308_310",
+          "chunk_index": 308,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Dollar. For option contracts, the Black-Scholes option pricing model was used. A 10% increase in the value of the U.S. Dollar and\n\na corresponding decrease in the value of the hedged foreign currency asset would lead to an increase in the fair value "
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_371_373",
+          "chunk_index": 371,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "We use foreign exchange option and forward contracts for revenue denominated in Euros, British Pounds and Yen. We hedge our net recognized\n\nforeign currency assets and liabilities with foreign exchange forward contracts to reduce the risk that our ea"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_382_384",
+          "chunk_index": 382,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "We classify all of our cash equivalents and short-term investments as \u201cavailable-for-sale.\u201d In general, these investments are free of trading\n\nrestrictions. We carry these investments at fair value, based on quoted market prices or other readily avai"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_399_401",
+          "chunk_index": 399,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "procedures include controls to ensure that appropriate fair values are recorded such as comparing prices obtained from multiple independent sources.\n\nOur deferred compensation plan assets consist of prime money market funds and mutual funds.\n Assets "
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_403_407",
+          "chunk_index": 403,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Fair Value Hedging\u2014Hedges of Interest Rate Risks\n\nDuring the third quarter of fiscal 2014, we entered into interest rate swaps designated as a fair value hedge related to our \n $900 million of 4.75% fixed interest rate senior notes due February 1, 20"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_410_412",
+          "chunk_index": 410,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "follows (in thousands): Fair Value Asset Derivatives Fair Value Liability Derivatives Fair Value Asset Derivatives Fair Value Liability Derivatives\n\nDerivatives designated as hedging instruments:\n Foreign exchange option contracts (1)(3) ............"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 108.15,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 285.66,
+        "retrieval_ms": 393.82,
+        "generation_ms": 0.0,
+        "total_ms": 393.82
+      }
+    },
+    {
+      "question_id": "financebench_id_04735",
+      "document_name": "ADOBE_2015_10K",
+      "diagnostic_category": "Q3 \u2014 Ratio requiring calculation",
+      "question": "You are an investment banker and your only resource(s) to answer the following question is (are): the statement of financial position and the cash flow statement. Here's the question: what is the FY2015 operating cash flow ratio for Adobe? Operating cash flow ratio is defined as: cash from operations / total current liabilities. Round your answer to two decimal places.",
+      "retrieval_mode": "hybrid",
+      "evidence_at_1": false,
+      "evidence_at_3": true,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **ADOBE_2015_10K.pdf**, here is what was found regarding 'You are an investment banker and your only resource(s) to answer the following question is (are): the statement of financial position and the cash flow statement. Here's the question: what is the FY2015 operating cash flow ratio for Adobe? Operating cash flow ratio is defined as: cash from operations / total current liabilities. Round your answer to two decimal places.':\n\n\"During fiscal 2014, we made payments related to our restructuring plans totaling $11.0\n\nmillion which consisted of $5.7 million and $5.3 million in payments related to termination benefits and contract terminations and the closing of redundant facilities, respectively. As of November 29, 2013, we ha...\"\n\n*(Retrieved 8 relevant chunk(s) with highest similarity score of 0.027778)*",
+      "ground_truth_answer": "0.66",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "ranking_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_ADOBE_2015_10K_merged_290_293",
+        "doc_financebench_ADOBE_2015_10K_merged_308_310",
+        "doc_financebench_ADOBE_2015_10K_merged_335_337",
+        "doc_financebench_ADOBE_2015_10K_merged_382_386",
+        "doc_financebench_ADOBE_2015_10K_merged_395_397",
+        "doc_financebench_ADOBE_2015_10K_merged_399_401",
+        "doc_financebench_ADOBE_2015_10K_merged_405_407",
+        "doc_financebench_ADOBE_2015_10K_merged_523_525"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_290_293",
+          "chunk_index": 290,
+          "score": 0.027778,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "During fiscal 2014, we made payments related to our restructuring plans totaling $11.0\n\nmillion which consisted of $5.7 million and $5.3 million in payments related to termination benefits and contract terminations and the closing of redundant facili"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_308_310",
+          "chunk_index": 308,
+          "score": 0.027778,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Dollar. For option contracts, the Black-Scholes option pricing model was used. A 10% increase in the value of the U.S. Dollar and\n\na corresponding decrease in the value of the hedged foreign currency asset would lead to an increase in the fair value "
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_335_337",
+          "chunk_index": 335,
+          "score": 0.027778,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "\u2014 \u2014 \u2014 \u2014 \u2014 \u2014 (2,175) (2,175) Balances at November 27, 2015 ....... 600,834 $ $ 4,184,883 $7,253,431 $ (169,080) (103,025) $(4,267,715) $ 7,001,580\n\nSee accompanying Notes to Consolidated Financial Statements.\n\nADOBE SYSTEMS INCORPORATED CONSOLIDATED S"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_382_386",
+          "chunk_index": 382,
+          "score": 0.027778,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "We classify all of our cash equivalents and short-term investments as \u201cavailable-for-sale.\u201d In general, these investments are free of trading\n\nrestrictions. We carry these investments at fair value, based on quoted market prices or other readily avai"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_395_397",
+          "chunk_index": 395,
+          "score": 0.027778,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "19,821 \u2014 19,821 \u2014 Total assets................................................................... $\n\n3,706,723\n $ 496,911 $ 3,209,812 $ \u2014 Liabilities: Accrued expenses: Foreign currency derivatives................................ $ 2,154 $ \u2014 $ 2,154 "
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_399_401",
+          "chunk_index": 399,
+          "score": 0.027778,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "procedures include controls to ensure that appropriate fair values are recorded such as comparing prices obtained from multiple independent sources.\n\nOur deferred compensation plan assets consist of prime money market funds and mutual funds.\n Assets "
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_405_407",
+          "chunk_index": 405,
+          "score": 0.027778,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "portion of our forecasted foreign currency denominated revenue in the normal course of business and accordingly, they are not speculative in nature.\n\nTo receive hedge accounting treatment, all hedging relationships are formally documented at the ince"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_ADOBE_2015_10K_merged_523_525",
+          "chunk_index": 523,
+          "score": 0.027778,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "A company\u2019s internal control over financial reporting includes those policies and procedures that\n\n(1) pertain to the maintenance of records that, in reasonable detail, accurately and fairly reflect the transactions and dispositions \n of the assets o"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 438.57,
+        "context_expansion_ms": 284.2,
+        "retrieval_ms": 722.77,
+        "generation_ms": 0.0,
+        "total_ms": 722.77
+      }
+    },
+    {
+      "question_id": "financebench_id_01319",
+      "document_name": "AES_2022_10K",
+      "diagnostic_category": "Q9 \u2014 Exact accounting term",
+      "question": "What is the quantity of restructuring costs directly outlined in AES Corporation's income statements for FY2022? If restructuring costs are not explicitly outlined then state 0.",
+      "retrieval_mode": "dense",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **AES_2022_10K.pdf**, here is what was found regarding 'What is the quantity of restructuring costs directly outlined in AES Corporation's income statements for FY2022? If restructuring costs are not explicitly outlined then state 0.':\n\n\"INCOME (LOSS) FROM CONTINUING OPERATIONS BEFORE TAXES AND EQUITY IN EARNINGS OF AFFILIATES (169) (1,064) Income tax benefit (expense) (265) (216)\n\nNet equity in losses of affiliates\n (71) (24) (123) INCOME (LOSS) FROM CONTINUING OPERATIONS (505) (955) Gain from disposal of discontinued businesses, n...\"\n\n*(Retrieved 4 relevant chunk(s) with highest similarity score of 0.5746)*",
+      "ground_truth_answer": "0",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "table_fragmentation",
+      "retrieved_chunk_ids": [
+        "doc_financebench_AES_2022_10K_merged_595_598",
+        "doc_financebench_AES_2022_10K_merged_821_823",
+        "doc_financebench_AES_2022_10K_merged_921_923",
+        "doc_financebench_AES_2022_10K_merged_966_968"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_595_598",
+          "chunk_index": 595,
+          "score": 0.5746,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "INCOME (LOSS) FROM CONTINUING OPERATIONS BEFORE TAXES AND EQUITY IN EARNINGS OF AFFILIATES (169) (1,064) Income tax benefit (expense) (265) (216)\n\nNet equity in losses of affiliates\n (71) (24) (123) INCOME (LOSS) FROM CONTINUING OPERATIONS (505) (955"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_821_823",
+          "chunk_index": 821,
+          "score": 0.5746,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "$ (2,220) Other comprehensive income (loss) before reclassifications (37) Amount reclassified to earnings \u2014 \u2014 Other comprehensive income (loss) (37)\n\nReclassification from NCI due to share sales and repurchases\n (57) (22) (3) (82) Balance at December"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_921_923",
+          "chunk_index": 921,
+          "score": 0.5746,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The Company's Consolidated Statements of Operations included the following transactions with related parties for the periods indicated (in millions):\n\n197 | Notes to Consolidated Financial Statements\u2014(Continued) | December 31, 2022, 2021 and 2020 Yea"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_966_968",
+          "chunk_index": 966,
+          "score": 0.5746,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "(2,220) Treasury stock (1,822) (1,845) Total stockholders' equity 2,437 2,798 Total liabilities and equity $ 7,575 $ 7,525 See Notes to Schedule I.\n\nS-3 | 2022 Annual Report\nTHE AES CORPORATION\nSCHEDULE I CONDENSED FINANCIAL INFORMATION OF PARENT\nSTA"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 13.42,
+        "dense_search_ms": 358.92,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 322.64,
+        "retrieval_ms": 694.99,
+        "generation_ms": 0.0,
+        "total_ms": 694.99
+      }
+    },
+    {
+      "question_id": "financebench_id_01319",
+      "document_name": "AES_2022_10K",
+      "diagnostic_category": "Q9 \u2014 Exact accounting term",
+      "question": "What is the quantity of restructuring costs directly outlined in AES Corporation's income statements for FY2022? If restructuring costs are not explicitly outlined then state 0.",
+      "retrieval_mode": "bm25",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": true,
+      "evidence_at_10": true,
+      "context_assembly_status": "CONTEXT_PRESENT",
+      "generated_answer": "Based on **AES_2022_10K.pdf**, here is what was found regarding 'What is the quantity of restructuring costs directly outlined in AES Corporation's income statements for FY2022? If restructuring costs are not explicitly outlined then state 0.':\n\n\"Please refer to the Notes to the Consolidated Financial Statements included in Item\u00a08.\u2014Financial Statements and Supplementary Data of\n\nthis Form 10-K for further explanation of the effect of such activities. Please also refer to Item\u00a01A.\u2014Risk Factors of this Form 10-K and Note\u00a027\n \u2014Risks and Uncerta...\"\n\n*(Retrieved 6 relevant chunk(s) with highest similarity score of 1.0)*",
+      "ground_truth_answer": "0",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "ranking_failure",
+      "retrieved_chunk_ids": [
+        "doc_financebench_AES_2022_10K_merged_383_386",
+        "doc_financebench_AES_2022_10K_merged_392_394",
+        "doc_financebench_AES_2022_10K_merged_429_431",
+        "doc_financebench_AES_2022_10K_merged_522_524",
+        "doc_financebench_AES_2022_10K_merged_594_597",
+        "doc_financebench_AES_2022_10K_merged_921_925"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_383_386",
+          "chunk_index": 383,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Please refer to the Notes to the Consolidated Financial Statements included in Item\u00a08.\u2014Financial Statements and Supplementary Data of\n\nthis Form 10-K for further explanation of the effect of such activities. Please also refer to Item\u00a01A.\u2014Risk Factors"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_392_394",
+          "chunk_index": 392,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Interest income 31\u00a0% 11\u00a0% Loss on extinguishment of debt (15) (78) (186) -81\u00a0% -58\u00a0% Other expense (68) (60) (53) 13\u00a0% 13\u00a0% Other income -75\u00a0% NM\n\nLoss on disposal and sale of business interests\n (9) (1,683) (95) -99\u00a0% NM Goodwill impairment expense "
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_429_431",
+          "chunk_index": 429,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "of our equity interest in the sPower development platform to acquisition-date fair value; \u2022 Other-than-temporary impairment of OPGC in 2020; \u2022\n\nLower Parent interest expense due to realized gains on de-designated interest rate swaps and lower interes"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_522_524",
+          "chunk_index": 522,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "from minority interests at AES Clean Energy, IPALCO, and AES Andes, due to the preemptive rights offering to fund its renewable growth program. \u2022\n\nThe $142 million impact from acquisitions of noncontrolling interests is due to the 2020 acquisition of"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_594_597",
+          "chunk_index": 594,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "2,067 1,769 Total equity 4,504 4,567 TOTAL LIABILITIES AND EQUITY $ 38,363 $ 32,963 See Accompanying Notes to Consolidated Financial Statements.\n\nConsolidated Statements of Operations Years ended December 31, 2022, 2021, and 2020 (in\u00a0millions,\u00a0except"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_921_925",
+          "chunk_index": 921,
+          "score": 1.0,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The Company's Consolidated Statements of Operations included the following transactions with related parties for the periods indicated (in millions):\n\n197 | Notes to Consolidated Financial Statements\u2014(Continued) | December 31, 2022, 2021 and 2020 Yea"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 42.18,
+        "rrf_fusion_ms": 0.0,
+        "context_expansion_ms": 319.4,
+        "retrieval_ms": 361.57,
+        "generation_ms": 0.0,
+        "total_ms": 361.57
+      }
+    },
+    {
+      "question_id": "financebench_id_01319",
+      "document_name": "AES_2022_10K",
+      "diagnostic_category": "Q9 \u2014 Exact accounting term",
+      "question": "What is the quantity of restructuring costs directly outlined in AES Corporation's income statements for FY2022? If restructuring costs are not explicitly outlined then state 0.",
+      "retrieval_mode": "hybrid",
+      "evidence_at_1": false,
+      "evidence_at_3": false,
+      "evidence_at_5": false,
+      "evidence_at_10": false,
+      "context_assembly_status": "CONTEXT_MISSING",
+      "generated_answer": "Based on **AES_2022_10K.pdf**, here is what was found regarding 'What is the quantity of restructuring costs directly outlined in AES Corporation's income statements for FY2022? If restructuring costs are not explicitly outlined then state 0.':\n\n\"Please refer to the Notes to the Consolidated Financial Statements included in Item\u00a08.\u2014Financial Statements and Supplementary Data of\n\nthis Form 10-K for further explanation of the effect of such activities. Please also refer to Item\u00a01A.\u2014Risk Factors of this Form 10-K and Note\u00a027\n \u2014Risks and Uncerta...\"\n\n*(Retrieved 8 relevant chunk(s) with highest similarity score of 0.030835)*",
+      "ground_truth_answer": "0",
+      "answer_contains_required_value": false,
+      "groundedness_score": 1.0,
+      "answer_correctness_score": 0.0,
+      "hallucination_detected": false,
+      "primary_failure": "table_fragmentation",
+      "retrieved_chunk_ids": [
+        "doc_financebench_AES_2022_10K_merged_383_385",
+        "doc_financebench_AES_2022_10K_merged_392_394",
+        "doc_financebench_AES_2022_10K_merged_429_431",
+        "doc_financebench_AES_2022_10K_merged_522_524",
+        "doc_financebench_AES_2022_10K_merged_595_598",
+        "doc_financebench_AES_2022_10K_merged_821_823",
+        "doc_financebench_AES_2022_10K_merged_921_924",
+        "doc_financebench_AES_2022_10K_merged_966_968"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_383_385",
+          "chunk_index": 383,
+          "score": 0.030835,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Please refer to the Notes to the Consolidated Financial Statements included in Item\u00a08.\u2014Financial Statements and Supplementary Data of\n\nthis Form 10-K for further explanation of the effect of such activities. Please also refer to Item\u00a01A.\u2014Risk Factors"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_392_394",
+          "chunk_index": 392,
+          "score": 0.030835,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "Interest income 31\u00a0% 11\u00a0% Loss on extinguishment of debt (15) (78) (186) -81\u00a0% -58\u00a0% Other expense (68) (60) (53) 13\u00a0% 13\u00a0% Other income -75\u00a0% NM\n\nLoss on disposal and sale of business interests\n (9) (1,683) (95) -99\u00a0% NM Goodwill impairment expense "
+        },
+        {
+          "rank": 3,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_429_431",
+          "chunk_index": 429,
+          "score": 0.030835,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "of our equity interest in the sPower development platform to acquisition-date fair value; \u2022 Other-than-temporary impairment of OPGC in 2020; \u2022\n\nLower Parent interest expense due to realized gains on de-designated interest rate swaps and lower interes"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_522_524",
+          "chunk_index": 522,
+          "score": 0.030835,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "from minority interests at AES Clean Energy, IPALCO, and AES Andes, due to the preemptive rights offering to fund its renewable growth program. \u2022\n\nThe $142 million impact from acquisitions of noncontrolling interests is due to the 2020 acquisition of"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_595_598",
+          "chunk_index": 595,
+          "score": 0.030835,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "INCOME (LOSS) FROM CONTINUING OPERATIONS BEFORE TAXES AND EQUITY IN EARNINGS OF AFFILIATES (169) (1,064) Income tax benefit (expense) (265) (216)\n\nNet equity in losses of affiliates\n (71) (24) (123) INCOME (LOSS) FROM CONTINUING OPERATIONS (505) (955"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_821_823",
+          "chunk_index": 821,
+          "score": 0.030835,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "$ (2,220) Other comprehensive income (loss) before reclassifications (37) Amount reclassified to earnings \u2014 \u2014 Other comprehensive income (loss) (37)\n\nReclassification from NCI due to share sales and repurchases\n (57) (22) (3) (82) Balance at December"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_921_924",
+          "chunk_index": 921,
+          "score": 0.030835,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "The Company's Consolidated Statements of Operations included the following transactions with related parties for the periods indicated (in millions):\n\n197 | Notes to Consolidated Financial Statements\u2014(Continued) | December 31, 2022, 2021 and 2020 Yea"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "doc_financebench_AES_2022_10K_merged_966_968",
+          "chunk_index": 966,
+          "score": 0.030835,
+          "dense_rank": null,
+          "bm25_rank": null,
+          "rrf_score": null,
+          "content_preview": "(2,220) Treasury stock (1,822) (1,845) Total stockholders' equity 2,437 2,798 Total liabilities and equity $ 7,575 $ 7,525 See Notes to Schedule I.\n\nS-3 | 2022 Annual Report\nTHE AES CORPORATION\nSCHEDULE I CONDENSED FINANCIAL INFORMATION OF PARENT\nSTA"
+        }
+      ],
+      "latency_breakdown": {
+        "embedding_ms": 0.0,
+        "dense_search_ms": 0.0,
+        "bm25_search_ms": 0.0,
+        "rrf_fusion_ms": 505.07,
+        "context_expansion_ms": 317.86,
+        "retrieval_ms": 822.93,
+        "generation_ms": 0.0,
+        "total_ms": 822.93
+      }
+    }
+  ]
+}

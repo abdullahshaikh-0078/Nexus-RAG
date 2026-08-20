@@ -1,0 +1,55 @@
+{
+  "evaluation_id": "f500c98d-2011-4b97-9fd3-178578835017",
+  "timestamp": "2026-08-19T22:43:07.956890+00:00",
+  "query": "Astrophysics and Stellar Evolution",
+  "document_ids": [
+    "doc_feb8da33865d"
+  ],
+  "retrieval_mode": "hybrid",
+  "dense_results": [],
+  "bm25_results": [],
+  "hybrid_results": [],
+  "final_context": [
+    {
+      "document_id": "doc_feb8da33865d",
+      "document_name": "doc_b.txt",
+      "chunk_id": "doc_feb8da33865d_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document B contains information about Astrophysics and Stellar Evolution.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "answer": "Based on **doc_b.txt**, here is what was found regarding 'Astrophysics and Stellar Evolution':\n\n\"NEXUS RAG document B contains information about Astrophysics and Stellar Evolution....\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.032787)*",
+  "citations": [
+    {
+      "document_id": "doc_feb8da33865d",
+      "document_name": "doc_b.txt",
+      "chunk_id": "doc_feb8da33865d_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document B contains information about Astrophysics and Stellar Evolution.",
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null
+    }
+  ],
+  "latency_breakdown": {
+    "rrf_fusion_ms": 578.8,
+    "total_request_ms": 1015.0,
+    "context_expansion_ms": 435.53,
+    "llm_generation_ms": 1.0
+  },
+  "evaluation_status": {
+    "retrieval_status": "relevant_context_detected",
+    "answer_status": "answer_generated"
+  },
+  "failure_category": null,
+  "groundedness_score": null,
+  "answer_correctness_score": null,
+  "ground_truth": null,
+  "retrieval_metrics": null,
+  "answer_metrics": null
+}

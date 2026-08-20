@@ -1,0 +1,33 @@
+{
+  "evaluation_id": "3908e107-a979-486c-affd-67226218ac12",
+  "timestamp": "2026-08-20T15:28:06.292783+00:00",
+  "query": "summarize this document",
+  "document_ids": [
+    "doc_7a0b9badd53f"
+  ],
+  "retrieval_mode": "hybrid",
+  "dense_results": [],
+  "bm25_results": [],
+  "hybrid_results": [],
+  "final_context": [],
+  "answer": "The uploaded documents do not contain any content, so I am unable to provide a summary. Please upload or provide the document context, and I will be happy to summarize it for you.",
+  "citations": [],
+  "latency_breakdown": {
+    "query_expansion_ms": 14.59,
+    "rrf_fusion_ms": 67078.58,
+    "calculation_engine_ms": 0.0,
+    "total_request_ms": 72825.0,
+    "context_expansion_ms": 0.0,
+    "llm_generation_ms": 5715.03
+  },
+  "evaluation_status": {
+    "retrieval_status": "no_relevant_context",
+    "answer_status": "insufficient_evidence"
+  },
+  "failure_category": null,
+  "groundedness_score": null,
+  "answer_correctness_score": null,
+  "ground_truth": null,
+  "retrieval_metrics": null,
+  "answer_metrics": null
+}

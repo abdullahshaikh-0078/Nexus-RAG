@@ -1,0 +1,85 @@
+{
+  "dataset_version": "financebench_open_source",
+  "evaluation_version": "financebench_3M_2018_10K",
+  "retrieval_mode": "hybrid",
+  "bm25": null,
+  "fusion_method": null,
+  "rrf_k": null,
+  "timestamp": "2026-08-20T00:08:08.090152+00:00",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_size": 1000,
+  "chunk_overlap": 150,
+  "retrieval_top_k": 5,
+  "total_questions": 2,
+  "aggregate_recall_at_1": 0.0,
+  "aggregate_recall_at_3": 0.0,
+  "aggregate_recall_at_5": 0.0,
+  "aggregate_recall_at_10": 0.0,
+  "aggregate_mrr_at_10": 0.0,
+  "aggregate_ndcg_at_10": 0.0,
+  "average_retrieval_latency_ms": 308.73,
+  "question_results": [
+    {
+      "question_id": "financebench_id_03029",
+      "question": "What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement.",
+      "category": "metrics-generated",
+      "first_relevant_rank": null,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.0,
+      "recall_at_5": 0.0,
+      "recall_at_10": 0.0,
+      "mrr_at_10": 0.0,
+      "ndcg_at_10": 0.0,
+      "retrieval_latency_ms": 342.87,
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2018_10K_merged_174_176",
+        "doc_financebench_3M_2018_10K_merged_198_200",
+        "doc_financebench_3M_2018_10K_merged_208_210",
+        "doc_financebench_3M_2018_10K_merged_358_360",
+        "doc_financebench_3M_2018_10K_merged_375_377"
+      ],
+      "retrieved_snippets": [
+        "During the\n\nfirst quarter of 2018, the Company completed its assessment of any potential goodwill impairment for reporti",
+        "Cash Flows from Investing Activities:\n\nYears ended December 31\n (Millions) Purchases of property, plant and equipment (P",
+        "This program has no pre-established end date. In 2018, the Company purchased $4.9 billion of its own\n\nstock, compared to",
+        "Reclassification adjustments are made to avoid double counting in\n\ncomprehensive income items that are also recorded as ",
+        "municipal securities $ $ Non-current marketable securities $ $ Total marketable securities $ $ 1,103\n\nAt December 31, 20"
+      ]
+    },
+    {
+      "question_id": "financebench_id_04672",
+      "question": "Assume that you are a public equities analyst. Answer the following question by primarily using information that is shown in the balance sheet: what is the year end FY2018 net PPNE for 3M? Answer in USD billions.",
+      "category": "metrics-generated",
+      "first_relevant_rank": null,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.0,
+      "recall_at_5": 0.0,
+      "recall_at_10": 0.0,
+      "mrr_at_10": 0.0,
+      "ndcg_at_10": 0.0,
+      "retrieval_latency_ms": 274.58,
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2018_10K_merged_187_189",
+        "doc_financebench_3M_2018_10K_merged_198_200",
+        "doc_financebench_3M_2018_10K_merged_374_376",
+        "doc_financebench_3M_2018_10K_merged_421_423",
+        "doc_financebench_3M_2018_10K_merged_445_447"
+      ],
+      "retrieved_snippets": [
+        "These instruments are utilized in connection with normal business activities.\n\nTable of Contents Cash, Cash Equivalents ",
+        "Cash Flows from Investing Activities:\n\nYears ended December 31\n (Millions) Purchases of property, plant and equipment (P",
+        "Because of the multiple avenues in which to repatriate the earnings to minimize tax cost, and because a large\n\nportion o",
+        "as current yields of similar instruments, but includes adjustments for certain risks that may not be observable such as ",
+        "each counterparty to net settle amounts owed between a 3M entity and the counterparty as a result of multiple, separate "
+      ]
+    }
+  ]
+}

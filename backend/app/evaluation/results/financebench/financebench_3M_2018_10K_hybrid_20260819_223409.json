@@ -1,0 +1,77 @@
+{
+  "dataset_version": "financebench_open_source",
+  "evaluation_version": "financebench_3M_2018_10K",
+  "retrieval_mode": "hybrid",
+  "bm25": null,
+  "fusion_method": null,
+  "rrf_k": null,
+  "timestamp": "2026-08-19T22:34:09.426202+00:00",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_size": 1000,
+  "chunk_overlap": 150,
+  "retrieval_top_k": 5,
+  "total_questions": 2,
+  "aggregate_recall_at_1": 0.0,
+  "aggregate_recall_at_3": 0.0,
+  "aggregate_recall_at_5": 0.0,
+  "aggregate_recall_at_10": 0.0,
+  "aggregate_mrr_at_10": 0.0,
+  "aggregate_ndcg_at_10": 0.0,
+  "average_retrieval_latency_ms": 1320.06,
+  "question_results": [
+    {
+      "question_id": "financebench_id_03029",
+      "question": "What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement.",
+      "category": "metrics-generated",
+      "first_relevant_rank": null,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.0,
+      "recall_at_5": 0.0,
+      "recall_at_10": 0.0,
+      "mrr_at_10": 0.0,
+      "ndcg_at_10": 0.0,
+      "retrieval_latency_ms": 1317.15,
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2018_10K_merged_199_200",
+        "doc_financebench_3M_2018_10K_merged_208_210",
+        "doc_financebench_3M_2018_10K_merged_359_360"
+      ],
+      "retrieved_snippets": [
+        "from sale of businesses, net of cash sold 1,065 Other \u2014 net (6) (4) Net cash provided by (used in) investing activities ",
+        "This program has no pre-established end date. In 2018, the Company purchased $4.9 billion of its own\n\nstock, compared to",
+        "Total before tax (96) Tax effect (3) (39) Provision for income taxes Net of tax $ (77) $ 4 $ Total reclassifications for"
+      ]
+    },
+    {
+      "question_id": "financebench_id_04672",
+      "question": "Assume that you are a public equities analyst. Answer the following question by primarily using information that is shown in the balance sheet: what is the year end FY2018 net PPNE for 3M? Answer in USD billions.",
+      "category": "metrics-generated",
+      "first_relevant_rank": null,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "hybrid_rank": null,
+      "rrf_score": null,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.0,
+      "recall_at_5": 0.0,
+      "recall_at_10": 0.0,
+      "mrr_at_10": 0.0,
+      "ndcg_at_10": 0.0,
+      "retrieval_latency_ms": 1322.97,
+      "retrieved_chunk_ids": [
+        "doc_financebench_3M_2018_10K_merged_198_200",
+        "doc_financebench_3M_2018_10K_merged_440_441",
+        "doc_financebench_3M_2018_10K_merged_445_447"
+      ],
+      "retrieved_snippets": [
+        "Cash Flows from Investing Activities:\n\nYears ended December 31\n (Millions) Purchases of property, plant and equipment (P",
+        "These derivative instruments are not\n\ndesignated in hedging relationships; therefore, fair value gains and losses on the",
+        "each counterparty to net settle amounts owed between a 3M entity and the counterparty as a result of multiple, separate "
+      ]
+    }
+  ]
+}
