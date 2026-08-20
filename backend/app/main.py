@@ -55,6 +55,7 @@ app.add_middleware(
 app.include_router(health.router, prefix=settings.API_V1_PREFIX, tags=["System Health"])
 app.include_router(documents.router, prefix=f"{settings.API_V1_PREFIX}/documents", tags=["Document Management"])
 app.include_router(chat.router, prefix=f"{settings.API_V1_PREFIX}/chat", tags=["Chat & RAG Query"])
+app.include_router(chat.router, prefix=f"{settings.API_V1_PREFIX}/chats", tags=["Chat Sessions"])
 app.include_router(evaluation.router, prefix=f"{settings.API_V1_PREFIX}/evaluation", tags=["Evaluation Engine"])
 
 
