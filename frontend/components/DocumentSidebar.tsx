@@ -86,6 +86,35 @@ export default function DocumentSidebar({
     loadRepresentations();
   }, [activeChatId, chatDocuments]);
 
+  // Polling hook during PROCESSING status
+  useEffect(() => {
+    if (!activeChatId || chatDocuments.length === 0) return;
+    const docId = chatDocuments[0].document_id;
+    const v3Rep = repsMap[docId]?.find((r) => r.version === "v3");
+
+    if (v3Rep?.status === "PROCESSING" || convertingDocId === docId) {
+      const interval = setInterval(async () => {
+        try {
+          const res = await fetchChatDocumentRepresentations(activeChatId, docId);
+          setRepsMap((prev) => ({ ...prev, [docId]: res.representations }));
+          const updatedV3 = res.representations.find((r) => r.version === "v3");
+          if (updatedV3?.status === "READY") {
+            setConvertingDocId(null);
+            setSuccess(`V3 READY — Strategy: ${updatedV3.chunking_strategy} — Chunks: ${updatedV3.chunk_count}`);
+            onVersionChange("v3");
+            onRefresh();
+          } else if (updatedV3?.status === "FAILED") {
+            setConvertingDocId(null);
+            setError(updatedV3.error_message || "V3 Conversion failed.");
+          }
+        } catch (err) {
+          // ignore transient poll error
+        }
+      }, 2000);
+      return () => clearInterval(interval);
+    }
+  }, [activeChatId, chatDocuments, repsMap, convertingDocId, onVersionChange, onRefresh]);
+
   const handleFileUpload = async (file: File) => {
     if (!activeChatId) {
       setError("Please create or select a chat session first.");
@@ -122,16 +151,19 @@ export default function DocumentSidebar({
 
     try {
       const res = await convertChatDocumentToV3(activeChatId, docId);
-      if (res.success) {
-        setSuccess(`V3 Structural Conversion complete! ${res.representation.chunk_count} layout-aware chunks generated.`);
+      if (res.success && res.representation.status === "READY") {
+        setSuccess(`V3 READY — Strategy: ${res.representation.chunking_strategy} — Chunks: ${res.representation.chunk_count}`);
         onVersionChange("v3");
         onRefresh();
+        setConvertingDocId(null);
+      } else if (res.representation.status === "PROCESSING") {
+        setSuccess("V3 conversion initiated. Converting PDF to V3...");
       } else {
         setError(res.representation.error_message || "V3 Conversion failed.");
+        setConvertingDocId(null);
       }
     } catch (err: any) {
       setError(err.message || "Failed to convert PDF to V3.");
-    } finally {
       setConvertingDocId(null);
     }
   };
@@ -257,7 +289,7 @@ export default function DocumentSidebar({
               {activeV3Rep && activeV3Rep.status === "READY" && (
                 <div className="text-purple-300 font-medium flex items-center gap-1">
                   <Layers className="w-3 h-3 text-purple-400" />
-                  V3 {activeV3Rep.chunking_strategy || "table_aware"}: {activeV3Rep.chunk_count} chunks ✓
+                  V3 READY — Strategy: {activeV3Rep.chunking_strategy || "table_aware"} — Chunks: {activeV3Rep.chunk_count}
                 </div>
               )}
             </div>
@@ -273,17 +305,17 @@ export default function DocumentSidebar({
             Explicit V3 Structural Conversion Required
           </div>
           <p className="text-[11px] text-purple-300/90 leading-relaxed">
-            V3 will structurally parse this PDF layout with PyMuPDF, preserve financial tables, and build a V3 structural retrieval representation.
+            V3 layout-aware structural RAG parses document layout with PyMuPDF, preserving table integrity and section hierarchy.
           </p>
           <button
             onClick={() => handleTriggerV3Convert(activeDoc.document_id)}
-            disabled={convertingDocId === activeDoc.document_id}
+            disabled={convertingDocId === activeDoc.document_id || activeV3Rep?.status === "PROCESSING"}
             className="w-full py-2 px-3 bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-2 shadow-md transition-all"
           >
-            {convertingDocId === activeDoc.document_id ? (
+            {convertingDocId === activeDoc.document_id || activeV3Rep?.status === "PROCESSING" ? (
               <>
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                Converting PDF to V3 (PyMuPDF Layout Parsing)...
+                Converting PDF to V3...
               </>
             ) : (
               <>

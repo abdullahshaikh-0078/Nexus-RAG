@@ -69,6 +69,51 @@ class V3IngestionService:
 
         return None
 
+    async def find_pdf_path_async(self, document_id_or_filename: str, chat_id: Optional[str] = None) -> Optional[str]:
+        """
+        Authoritatively locates original immutable source PDF file by querying ChatDocument / DocumentMetadata.
+        """
+        clean_name = document_id_or_filename.strip()
+
+        # 1. If chat_id is provided, look up ChatDocument in MongoDB
+        if chat_id:
+            cdoc = await mongo_db.get_chat_document(chat_id, clean_name)
+            if cdoc:
+                if cdoc.source_path and os.path.exists(cdoc.source_path) and os.path.isfile(cdoc.source_path):
+                    return os.path.abspath(cdoc.source_path)
+                if cdoc.content_hash:
+                    hash_path = os.path.join(self.upload_dir, f"{cdoc.content_hash}.pdf")
+                    if os.path.exists(hash_path) and os.path.isfile(hash_path):
+                        return os.path.abspath(hash_path)
+                if cdoc.filename:
+                    name_path = os.path.join(self.upload_dir, cdoc.filename)
+                    if os.path.exists(name_path) and os.path.isfile(name_path):
+                        return os.path.abspath(name_path)
+
+        # 2. Look up ChatDocument across any chat session by document_id or filename
+        cdoc_global = await mongo_db.get_chat_document_by_doc_id(clean_name)
+        if cdoc_global:
+            if cdoc_global.source_path and os.path.exists(cdoc_global.source_path) and os.path.isfile(cdoc_global.source_path):
+                return os.path.abspath(cdoc_global.source_path)
+            if cdoc_global.content_hash:
+                hash_path = os.path.join(self.upload_dir, f"{cdoc_global.content_hash}.pdf")
+                if os.path.exists(hash_path) and os.path.isfile(hash_path):
+                    return os.path.abspath(hash_path)
+            if cdoc_global.filename:
+                name_path = os.path.join(self.upload_dir, cdoc_global.filename)
+                if os.path.exists(name_path) and os.path.isfile(name_path):
+                    return os.path.abspath(name_path)
+
+        # 3. Check DocumentMetadata in MongoDB
+        doc_meta = await mongo_db.get_document(clean_name)
+        if doc_meta and doc_meta.filename:
+            cand = os.path.join(self.upload_dir, doc_meta.filename)
+            if os.path.exists(cand) and os.path.isfile(cand):
+                return os.path.abspath(cand)
+
+        # 4. Sync fallback
+        return self.find_pdf_path(clean_name)
+
     async def get_representation(
         self, document_id: str, version: str = "v3", strategy: Optional[str] = None, chat_id: Optional[str] = None
     ) -> Optional[DocumentRepresentation]:
@@ -95,7 +140,7 @@ class V3IngestionService:
         5. Prevents duplicate jobs if status is PROCESSING.
         6. Otherwise parses IR, executes policy strategy chunking, indexes in Qdrant & BM25, and updates READY status.
         """
-        pdf_path = self.find_pdf_path(document_id)
+        pdf_path = await self.find_pdf_path_async(document_id, chat_id=chat_id)
         if not pdf_path:
             # Fallback for non-PDF or missing files
             rep_id = f"{chat_id or 'global'}_{document_id}_{version}_{strategy or 'default'}"
@@ -113,8 +158,14 @@ class V3IngestionService:
             await mongo_db.save_representation(rep)
             return rep
 
+        import time
+        from app.v3.ingestion.v3_profiler import v3_profiler
+        t_conv_start = time.perf_counter()
+
         doc_name = os.path.basename(pdf_path)
+        t_hash_start = time.perf_counter()
         content_hash = calculate_content_hash(pdf_path)
+        v3_profiler.metrics["content_hashing_s"] += time.perf_counter() - t_hash_start
 
         # Handle Legacy / V1 / V2.1 / V2.2 representations
         if version in ["v1", "v2.1", "v2.2"]:
@@ -143,8 +194,21 @@ class V3IngestionService:
             await mongo_db.save_representation(rep)
             return rep
 
-        # Process V3 Representation Lifecycle
-        target_strategy = strategy or "table_aware"
+        # 1. Cheap document profiling pass & strategy selection
+        t_policy_start = time.perf_counter()
+        profile = v3_structural_parser.profile_pdf(pdf_path)
+        selected_strategy = (
+            strategy
+            if (strategy and strategy not in ["auto", "none", "None"])
+            else v3_chunking_policy.select_strategy(
+                document_name=doc_name,
+                requested_strategy=strategy,
+                profile_dict=profile,
+            )
+        )
+        v3_profiler.metrics["v3_policy_selection_s"] += time.perf_counter() - t_policy_start
+
+        target_strategy = selected_strategy
         existing = await mongo_db.get_representation(document_id, "v3", target_strategy, chat_id=chat_id)
         if existing:
             if existing.content_hash == content_hash and existing.status == "READY":
@@ -153,14 +217,6 @@ class V3IngestionService:
             elif existing.status == "PROCESSING":
                 logger.info(f"[V3][REPRESENTATION][PROCESSING] Materialization currently in progress for document={document_id} strategy={target_strategy}")
                 return existing
-
-        # Parse PDF IR & resolve strategy via V3ChunkingPolicy if not cached
-        doc_ir = v3_structural_parser.parse_pdf(pdf_path, document_id=document_id)
-        selected_strategy = v3_chunking_policy.select_strategy(
-            doc_ir=doc_ir,
-            document_name=doc_name,
-            requested_strategy=strategy,
-        )
 
         rep_id = f"{chat_id or 'global'}_{document_id}_v3_{selected_strategy}"
         logger.info(f"[V3][REPRESENTATION][CHECK] document={document_id} version=v3 strategy={selected_strategy} chat_id={chat_id}")
@@ -179,11 +235,19 @@ class V3IngestionService:
             chunker_version=f"V3ChunkingEngine_{selected_strategy}",
             index_status="NOT_INDEXED",
         )
+        t_mongo_start = time.perf_counter()
         await mongo_db.save_representation(rep_in_progress)
+        v3_profiler.metrics["mongodb_updates_s"] += time.perf_counter() - t_mongo_start
         logger.info(f"[V3][REPRESENTATION][PROCESSING] Starting materialization for document={doc_name} strategy={selected_strategy}")
 
         try:
-            # 4. Perform Structural Parsing trace
+            # 2. Perform Strategy-Specific Structural Parsing
+            doc_ir = v3_structural_parser.parse_pdf(
+                pdf_path,
+                document_id=document_id,
+                strategy=selected_strategy,
+                profile=profile,
+            )
             total_paras = sum(len(p.paragraphs) for p in doc_ir.pages)
             total_tables = doc_ir.metadata.get("total_tables", sum(len(p.tables) for p in doc_ir.pages))
             total_fn = doc_ir.metadata.get("total_footnotes", sum(len(p.footnotes) for p in doc_ir.pages))
@@ -191,56 +255,86 @@ class V3IngestionService:
             logger.info(f"[V3][PARSER] Parser=V3StructuralPDFParser pages={doc_ir.total_pages}")
             logger.info(f"[V3][IR] Document={doc_name} pages={doc_ir.total_pages} paragraphs={total_paras} tables={total_tables} footnotes={total_fn} IR_generated=True")
 
-            # 5. Multi-Strategy Chunking (V3.2)
+            # 3. Multi-Strategy Chunking (V3.2)
+            t_chunk_start = time.perf_counter()
             cfg = ChunkingConfig(strategy=selected_strategy)
             chunks: List[V3Chunk] = v3_chunking_engine.chunk_document(doc_ir, config=cfg)
-            logger.info(f"[V3][CHUNK] Strategy={selected_strategy} generated={len(chunks)} chunks")
+            dur_chunk = time.perf_counter() - t_chunk_start
+            v3_profiler.metrics["v3_chunk_generation_s"] += dur_chunk
+            v3_profiler.metrics["chunks_generated"] = len(chunks)
+            logger.info(f"[V3][CHUNK] Strategy={selected_strategy} generated={len(chunks)} chunks in {dur_chunk:.4f}s")
 
-            # 6. Vector Embedding
-            chunk_contents = [c.content for c in chunks]
-            embeddings = embedding_service.embed_batch(chunk_contents)
+            # 4 & 5. Vector Embedding & Isolated Indexing in Batches of 100
+            batch_size = 100
+            v3_profiler.metrics["embedding_batch_size"] = batch_size
+            all_embeddings = []
+            for i in range(0, len(chunks), batch_size):
+                batch_chunks = chunks[i : i + batch_size]
+                batch_contents = [c.content for c in batch_chunks]
+                batch_embeds = embedding_service.embed_batch(batch_contents)
+                all_embeddings.extend(batch_embeds)
 
-            # 7. Isolated Indexing into Qdrant & BM25
-            vector_store.upsert_v3_chunks(
-                chunks=chunks,
-                embeddings=embeddings,
-                filename=doc_name,
-                strategy=selected_strategy,
-                chat_id=chat_id,
-            )
+                vector_store.upsert_v3_chunks(
+                    chunks=batch_chunks,
+                    embeddings=batch_embeds,
+                    filename=doc_name,
+                    strategy=selected_strategy,
+                    chat_id=chat_id,
+                )
 
-            bm25_service.index_v3_chunks(
-                chunks=chunks,
-                filename=doc_name,
-                strategy=selected_strategy,
-                chat_id=chat_id,
-            )
+                bm25_service.stage_v3_chunks(
+                    chunks=batch_chunks,
+                    filename=doc_name,
+                    strategy=selected_strategy,
+                    chat_id=chat_id,
+                )
 
-            logger.info(f"[V3][INDEX] qdrant=nexus_chunks bm25=nexus_bm25 strategy={selected_strategy} chat_id={chat_id} indexed={len(chunks)}")
+            # Consolidated single BM25 rebuild after all batches stage
+            bm25_service.commit_v3_index()
+
+            logger.info(f"[V3][INDEX] qdrant=nexus_chunks bm25=nexus_bm25 strategy={selected_strategy} chat_id={chat_id} indexed={len(chunks)} in batches of {batch_size}")
 
             # 8. Representation Validation (Requirements Section 11)
             logger.info(f"[V3][VALIDATION] Starting 12-point representation validation for '{doc_name}'...")
+            t_val_start = time.perf_counter()
             assert doc_ir is not None and doc_ir.total_pages > 0, "Validation Failed: V3 Document IR missing or 0 pages"
             assert chunks and len(chunks) > 0, "Validation Failed: V3 chunks generated 0 items"
             assert selected_strategy in v3_chunking_policy.SUPPORTED_STRATEGIES, f"Validation Failed: Invalid strategy '{selected_strategy}'"
 
             from app.v3.retrieval.v3_retriever import v3_retriever
 
+            # Dynamic validation query from document content
+            validation_query = "document"
+            words = [w for w in chunks[0].content.split() if len("".join(ch for ch in w if ch.isalnum())) >= 3]
+            for w in words:
+                w_clean = "".join(ch for ch in w if ch.isalnum())
+                test_bm25 = bm25_service.search(w_clean, top_k=2, document_ids=[document_id, doc_name], version="v3", chunking_strategy=selected_strategy, chat_id=chat_id)
+                if test_bm25:
+                    validation_query = w_clean
+                    break
+
             # Test V3 BM25 search
-            test_bm25 = bm25_service.search("financial", top_k=2, document_ids=[document_id, doc_name], version="v3", chunking_strategy=selected_strategy, chat_id=chat_id)
+            t_val_bm25 = time.perf_counter()
+            test_bm25 = bm25_service.search(validation_query, top_k=2, document_ids=[document_id, doc_name], version="v3", chunking_strategy=selected_strategy, chat_id=chat_id)
+            v3_profiler.metrics["validation_bm25_s"] += time.perf_counter() - t_val_bm25
             assert len(test_bm25) > 0, f"Validation Failed: V3 BM25 index query returned 0 results for '{doc_name}'"
             assert all(c.version == "v3" for c in test_bm25), "Validation Failed: Non-V3 chunk found in V3 BM25 results"
 
             # Test V3 Dense search
-            test_dense = vector_store.search_similar(query_vector=embeddings[0], top_k=2, document_ids=[document_id, doc_name], version="v3", chunking_strategy=selected_strategy, chat_id=chat_id)
+            t_val_dense = time.perf_counter()
+            test_dense = vector_store.search_similar(query_vector=all_embeddings[0], top_k=2, document_ids=[document_id, doc_name], version="v3", chunking_strategy=selected_strategy, chat_id=chat_id)
+            v3_profiler.metrics["validation_dense_s"] += time.perf_counter() - t_val_dense
             assert len(test_dense) > 0, f"Validation Failed: V3 Dense vector query returned 0 results for '{doc_name}'"
             assert all(c.version == "v3" for c in test_dense), "Validation Failed: Non-V3 chunk found in V3 Dense results"
 
             # Test V3 Hybrid RRF search
-            test_hybrid = v3_retriever.search("financial", top_k=2, document_ids=[document_id, doc_name], chunking_strategy=selected_strategy, chat_id=chat_id)
+            t_val_hybrid = time.perf_counter()
+            test_hybrid = v3_retriever.search(validation_query, top_k=2, document_ids=[document_id, doc_name], chunking_strategy=selected_strategy, chat_id=chat_id)
+            v3_profiler.metrics["validation_hybrid_s"] += time.perf_counter() - t_val_hybrid
             assert len(test_hybrid) > 0, f"Validation Failed: V3 Hybrid RRF query returned 0 results for '{doc_name}'"
             assert all(c.version == "v3" for c in test_hybrid), "Validation Failed: Contaminated V1/V2 chunk found in V3 Hybrid results"
 
+            v3_profiler.metrics["validation_total_s"] += time.perf_counter() - t_val_start
             logger.info(f"[V3][VALIDATION][PASSED] All 12 validation checks passed for '{doc_name}'. Marking READY.")
 
             # 9. Mark as READY in MongoDB registry
@@ -259,7 +353,12 @@ class V3IngestionService:
                 index_status="INDEXED",
                 updated_at=datetime.now(timezone.utc),
             )
+            t_mongo_start2 = time.perf_counter()
             await mongo_db.save_representation(ready_rep)
+            v3_profiler.metrics["mongodb_updates_s"] += time.perf_counter() - t_mongo_start2
+
+            v3_profiler.metrics["total_conversion_s"] += time.perf_counter() - t_conv_start
+            v3_profiler.print_report()
             logger.info(f"[V3][READY] representation={rep_id} status=READY chunks={ready_rep.chunk_count}")
             return ready_rep
 
@@ -289,10 +388,26 @@ class V3IngestionService:
         document_name: str,
         strategy: str = "table_aware",
         chat_id: Optional[str] = None,
-    ) -> Dict[str, Any]:
+    ) -> DocumentRepresentation:
         """Synchronous wrapper around structural parsing & indexing for backward compatibility."""
-        doc_ir: V3DocumentIR = v3_structural_parser.parse_pdf(pdf_path, document_id=document_id)
-        cfg = ChunkingConfig(strategy=strategy)
+        profile = v3_structural_parser.profile_pdf(pdf_path)
+        selected_strategy = (
+            strategy
+            if (strategy and strategy not in ["auto", "none", "None"])
+            else v3_chunking_policy.select_strategy(
+                document_name=document_name,
+                requested_strategy=strategy,
+                profile_dict=profile,
+            )
+        )
+
+        doc_ir: V3DocumentIR = v3_structural_parser.parse_pdf(
+            pdf_path,
+            document_id=document_id,
+            strategy=selected_strategy,
+            profile=profile,
+        )
+        cfg = ChunkingConfig(strategy=selected_strategy)
         chunks: List[V3Chunk] = v3_chunking_engine.chunk_document(doc_ir, config=cfg)
         embeddings = embedding_service.embed_batch([c.content for c in chunks])
 
@@ -300,23 +415,34 @@ class V3IngestionService:
             chunks=chunks,
             embeddings=embeddings,
             filename=document_name,
-            strategy=strategy,
+            strategy=selected_strategy,
             chat_id=chat_id,
         )
-        bm25_service.index_v3_chunks(
+        bm25_service.stage_v3_chunks(
             chunks=chunks,
             filename=document_name,
-            strategy=strategy,
+            strategy=selected_strategy,
             chat_id=chat_id,
         )
+        bm25_service.commit_v3_index()
 
-        return {
-            "document_id": document_id,
-            "document_name": document_name,
-            "strategy": strategy,
-            "total_chunks": len(chunks),
-            "status": "READY",
-        }
+        rep_id = f"{chat_id or 'global'}_{document_id}_v3_{selected_strategy}"
+        rep = DocumentRepresentation(
+            representation_id=rep_id,
+            chat_id=chat_id or "global",
+            document_id=document_id,
+            document_name=document_name,
+            content_hash="sync_hash",
+            version="v3",
+            chunking_strategy=selected_strategy,
+            status="READY",
+            chunk_count=len(chunks),
+            parser_version="PyMuPDF_TableFinder_V3",
+            chunker_version=f"V3ChunkingEngine_{selected_strategy}",
+            index_status="INDEXED",
+        )
+        mongo_db._fallback_reps[rep.representation_id] = rep.model_dump()
+        return rep
 
     def ensure_v3_indexed(
         self,

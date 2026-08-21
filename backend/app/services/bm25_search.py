@@ -95,14 +95,28 @@ class BM25IndexService:
         self._rebuild_index()
         logger.info(f"Indexed {len(chunks)} chunks into BM25 store for '{filename}'. Total corpus: {len(self.chunk_payloads)}")
 
-    def index_v3_chunks(self, chunks: Any, filename: str, strategy: str, chat_id: Optional[str] = None):
-        """Indexes V3 structural chunks into BM25 store with version, strategy, and chat_id payload tags."""
+    def stage_v3_chunks(self, chunks: Any, filename: str, strategy: str, chat_id: Optional[str] = None):
+        """Stages V3 structural chunks into BM25 token corpus without immediate index rebuild."""
         if not chunks:
             return
 
         doc_id = getattr(chunks[0], "document_id", "")
         if doc_id:
-            self.delete_v3_chunks(doc_id, strategy, chat_id=chat_id)
+            # Delete old payload entries for this document before staging
+            new_payloads = []
+            new_corpus = []
+            for p, c in zip(self.chunk_payloads, self.corpus_tokens):
+                if (
+                    p.get("document_id") == doc_id
+                    and p.get("version") == "v3"
+                    and p.get("chunking_strategy") == strategy
+                ):
+                    if chat_id is None or p.get("chat_id") == chat_id:
+                        continue
+                new_payloads.append(p)
+                new_corpus.append(c)
+            self.chunk_payloads = new_payloads
+            self.corpus_tokens = new_corpus
 
         for idx, chunk in enumerate(chunks):
             bbox_dict = chunk.bbox.model_dump() if getattr(chunk, "bbox", None) else None
@@ -128,8 +142,23 @@ class BM25IndexService:
             self.chunk_payloads.append(payload)
             self.corpus_tokens.append(tokens)
 
+    def commit_v3_index(self):
+        """Executes a single consolidated BM25 index rebuild after staging all batches."""
+        import time
+        from app.v3.ingestion.v3_profiler import v3_profiler
+
+        t0 = time.perf_counter()
         self._rebuild_index()
-        logger.info(f"Indexed {len(chunks)} V3 chunks ({strategy}) into BM25 store for '{filename}'. Total corpus: {len(self.chunk_payloads)}")
+        dur = time.perf_counter() - t0
+
+        v3_profiler.metrics["bm25_indexing_s"] += dur
+        v3_profiler.metrics["bm25_rebuild_ops"] += 1
+        logger.info(f"Committed BM25 index. Total corpus: {len(self.chunk_payloads)} tokens in {dur:.4f}s")
+
+    def index_v3_chunks(self, chunks: Any, filename: str, strategy: str, chat_id: Optional[str] = None):
+        """Indexes V3 structural chunks into BM25 store with version, strategy, and chat_id payload tags."""
+        self.stage_v3_chunks(chunks, filename, strategy, chat_id=chat_id)
+        self.commit_v3_index()
 
     def delete_v3_chunks(self, document_id: str, strategy: str, chat_id: Optional[str] = None) -> bool:
         """Removes existing V3 chunks for a specific document, strategy, and chat_id from BM25 index."""

@@ -28,7 +28,7 @@ class V3Retriever:
         query: str,
         top_k: int = 4,
         document_ids: Optional[List[str]] = None,
-        chunking_strategy: str = "table_aware",
+        chunking_strategy: Optional[str] = None,
         rrf_k: int = 60,
         fetch_k: int = 20,
         chat_id: Optional[str] = None,
@@ -39,8 +39,25 @@ class V3Retriever:
         if not query or not query.strip():
             return []
 
+        # Auto-resolve strategy if not explicitly specified or if default matches active document strategy
+        target_strategy = chunking_strategy
+        if not target_strategy or target_strategy == "table_aware":
+            from app.db.mongodb import mongo_db
+            if document_ids:
+                for doc_id in document_ids:
+                    reps = [
+                        r for r in mongo_db._fallback_reps.values()
+                        if (r.get("document_id") == doc_id or r.get("document_name") == doc_id or doc_id in r.get("document_id", ""))
+                        and r.get("version") == "v3"
+                        and r.get("status") == "READY"
+                    ]
+                    if reps:
+                        target_strategy = reps[0].get("chunking_strategy")
+                        break
+        target_strategy = target_strategy or "table_aware"
+
         query_str = query.strip()
-        logger.info(f"[V3][RETRIEVAL] Query='{query_str}' version=v3 strategy={chunking_strategy} chat_id={chat_id} top_k={top_k}")
+        logger.info(f"[V3][RETRIEVAL] Query='{query_str}' version=v3 strategy={target_strategy} chat_id={chat_id} top_k={top_k}")
 
         # 1. Retrieve V3 Dense Candidate List
         query_vector = embedding_service.embed_text(query_str)
@@ -49,7 +66,7 @@ class V3Retriever:
             top_k=fetch_k,
             document_ids=document_ids,
             version="v3",
-            chunking_strategy=chunking_strategy,
+            chunking_strategy=target_strategy,
             chat_id=chat_id,
         )
 
@@ -59,7 +76,7 @@ class V3Retriever:
             top_k=fetch_k,
             document_ids=document_ids,
             version="v3",
-            chunking_strategy=chunking_strategy,
+            chunking_strategy=target_strategy,
             chat_id=chat_id,
         )
 
@@ -130,7 +147,7 @@ class V3Retriever:
                 row_range=base_cit.row_range,
                 column_range=base_cit.column_range,
                 bbox=base_cit.bbox,
-                strategy=chunking_strategy,
+                strategy=target_strategy,
                 version="v3",
             )
             fused_results.append(fused_cit)

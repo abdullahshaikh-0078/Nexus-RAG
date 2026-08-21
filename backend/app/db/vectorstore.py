@@ -29,6 +29,9 @@ class QdrantVectorStore:
                 url=settings.QDRANT_URL,
                 api_key=settings.QDRANT_API_KEY,
             )
+        elif settings.QDRANT_STORAGE_PATH == ":memory:":
+            logger.info("Initializing in-memory Qdrant store (QDRANT_STORAGE_PATH = ':memory:')")
+            self.client = QdrantClient(":memory:")
         else:
             storage_path = os.path.abspath(settings.QDRANT_STORAGE_PATH)
             os.makedirs(storage_path, exist_ok=True)
@@ -234,10 +237,19 @@ class QdrantVectorStore:
                 )
             )
 
+        import time
+        from app.v3.ingestion.v3_profiler import v3_profiler
+
+        t0 = time.perf_counter()
         self.client.upsert(
             collection_name=self.collection_name,
             points=points,
         )
+        dur = time.perf_counter() - t0
+
+        v3_profiler.metrics["qdrant_indexing_s"] += dur
+        v3_profiler.metrics["qdrant_upsert_ops"] += 1
+        v3_profiler.metrics["qdrant_points_per_upsert"] = len(points)
         return True
 
     def search_similar(

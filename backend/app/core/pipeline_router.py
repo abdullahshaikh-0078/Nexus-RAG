@@ -156,10 +156,25 @@ class PipelineRouter:
         elif v_id == "v3":
             from app.v3.ingestion.ingestion_service import v3_ingestion_service
             from app.v3.ingestion.v3_chunking_policy import v3_chunking_policy
+            from app.db.mongodb import mongo_db
 
-            resolved_strategy = v3_chunking_policy.select_strategy(
-                requested_strategy=chunking_strategy
-            )
+            resolved_strategy = None
+            if document_ids:
+                for doc_id in document_ids:
+                    reps = [
+                        r for r in mongo_db._fallback_reps.values()
+                        if (r.get("document_id") == doc_id or r.get("document_name") == doc_id or doc_id in r.get("document_id", ""))
+                        and r.get("version") == "v3"
+                        and r.get("status") == "READY"
+                    ]
+                    if reps:
+                        resolved_strategy = reps[0].get("chunking_strategy")
+                        break
+
+            if not resolved_strategy:
+                resolved_strategy = v3_chunking_policy.select_strategy(
+                    requested_strategy=chunking_strategy
+                )
 
             if document_ids:
                 for doc_id in document_ids:

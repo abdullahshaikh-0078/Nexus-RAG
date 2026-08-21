@@ -31,7 +31,7 @@ def test_rrf_formula_correctness_and_ordering():
 def test_hybrid_deduplication_and_fusion():
     """Tests chunk deduplication and fusion for items in both, Dense-only, or BM25-only."""
     class MockVectorStore:
-        def search_similar(self, query_vector, top_k, document_ids=None):
+        def search_similar(self, query_vector, top_k, document_ids=None, **kwargs):
             return [
                 SourceCitation(document_id="doc1", document_name="file1.txt", chunk_id="chk1", chunk_index=0, score=0.9, content="Content A"),
                 SourceCitation(document_id="doc1", document_name="file1.txt", chunk_id="chk2", chunk_index=1, score=0.8, content="Content B"),
@@ -39,7 +39,7 @@ def test_hybrid_deduplication_and_fusion():
             ]
 
     class MockBM25Service:
-        def search(self, query, top_k, document_ids=None):
+        def search(self, query, top_k, document_ids=None, **kwargs):
             return [
                 SourceCitation(document_id="doc1", document_name="file1.txt", chunk_id="chk2", chunk_index=1, score=1.0, content="Content B"),
                 SourceCitation(document_id="doc1", document_name="file1.txt", chunk_id="chk1", chunk_index=0, score=0.8, content="Content A"),

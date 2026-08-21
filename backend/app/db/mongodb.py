@@ -316,6 +316,28 @@ class MongoDBManager:
 
         return None
 
+    async def get_chat_document_by_doc_id(self, document_id: str) -> Optional[ChatDocument]:
+        """Retrieves a ChatDocument by document_id across any chat session."""
+        await self.connect()
+        if self._is_connected and self.db is not None:
+            try:
+                res = await self.db.chat_documents.find_one({"document_id": document_id})
+                if not res:
+                    res = await self.db.chat_documents.find_one({"filename": document_id})
+                if res:
+                    res.pop("_id", None)
+                    return ChatDocument(**res)
+            except Exception as e:
+                logger.warning(f"MongoDB get chat document by doc_id failed ({str(e)}).")
+
+        for d_data in self._fallback_chat_docs.values():
+            if d_data.get("document_id") == document_id or d_data.get("filename") == document_id:
+                data = dict(d_data)
+                data.pop("_id", None)
+                return ChatDocument(**data)
+
+        return None
+
     async def count_chat_documents_for_hash(self, content_hash: str) -> int:
         """Reference count: counts how many chat documents across all chats share content_hash."""
         await self.connect()

@@ -29,8 +29,24 @@ class EmbeddingService:
         """Generates embedding vectors for a list of text strings."""
         if not texts:
             return []
+        import time
+        from app.v3.ingestion.v3_profiler import v3_profiler
+
+        t0 = time.perf_counter()
         model = self._get_model()
+
+        # Record device (CPU vs CUDA) and model metadata
+        dev_str = str(getattr(model, "device", "CPU")).upper()
+        v3_profiler.metrics["embedding_model_name"] = self.model_name
+        v3_profiler.metrics["embedding_device"] = dev_str
+
         vectors = model.encode(texts, convert_to_numpy=True, batch_size=32)
+        dur = time.perf_counter() - t0
+
+        v3_profiler.metrics["embedding_generation_s"] += dur
+        v3_profiler.metrics["embedding_batch_count"] += 1
+        v3_profiler.metrics["total_chunks_embedded"] += len(texts)
+
         return vectors.tolist()
 
 

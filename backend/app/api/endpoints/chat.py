@@ -262,9 +262,10 @@ async def get_chat_document_representations(chat_id: str, document_id: str):
 @router.post("/{chat_id}/documents/{document_id}/representations/v3/convert", response_model=MaterializeRepresentationResponse)
 async def convert_document_to_v3(chat_id: str, document_id: str):
     """
-    Explicit V3 conversion endpoint:
-    Triggers PyMuPDF layout parsing -> V3DocumentIR -> V3ChunkingPolicy -> V3 embeddings/indexing -> 12-point validation.
-    Once READY, sets chat active_version = "v3".
+    Explicit V3 conversion endpoint with background job lifecycle:
+    1. If V3 representation is READY, returns immediately.
+    2. If V3 representation is PROCESSING, returns current status for UI polling.
+    3. Otherwise, sets status = PROCESSING, launches background task, and returns status = PROCESSING.
     """
     from app.v3.ingestion.ingestion_service import v3_ingestion_service
 
@@ -275,22 +276,59 @@ async def convert_document_to_v3(chat_id: str, document_id: str):
             detail=f"Document '{document_id}' not found in chat '{chat_id}'.",
         )
 
-    # Execute V3 materialization scoped to chat_id
-    rep = await v3_ingestion_service.materialize_representation(
-        document_id=document_id,
-        version="v3",
-        strategy=None,
-        chat_id=chat_id,
-    )
-
-    if rep.status == "READY":
+    # Check if representation exists and is READY
+    existing_v3 = await mongo_db.get_representation(document_id, "v3", chat_id=chat_id)
+    if existing_v3 and existing_v3.status == "READY":
         await mongo_db.update_chat_active_state(chat_id, active_document_id=document_id, active_version="v3")
+        return MaterializeRepresentationResponse(
+            success=True,
+            message=f"V3 conversion for '{cdoc.filename}' is READY ({existing_v3.chunk_count} structural chunks).",
+            representation=existing_v3,
+        )
 
-    msg = f"V3 conversion for '{cdoc.filename}' is {rep.status} ({rep.chunk_count} structural chunks)."
+    if existing_v3 and existing_v3.status == "PROCESSING":
+        return MaterializeRepresentationResponse(
+            success=False,
+            message=f"V3 conversion for '{cdoc.filename}' is currently PROCESSING.",
+            representation=existing_v3,
+        )
+
+    # Otherwise, launch async materialization task
+    async def _async_background_convert():
+        try:
+            rep = await v3_ingestion_service.materialize_representation(
+                document_id=document_id,
+                version="v3",
+                strategy=None,
+                chat_id=chat_id,
+            )
+            if rep.status == "READY":
+                await mongo_db.update_chat_active_state(chat_id, active_document_id=document_id, active_version="v3")
+        except Exception as bg_err:
+            logger.exception(f"Background V3 conversion failed for document '{document_id}': {str(bg_err)}")
+
+    # Mark PROCESSING immediately in DB
+    rep_processing = DocumentRepresentation(
+        representation_id=f"{chat_id}_{document_id}_v3_processing",
+        chat_id=chat_id,
+        document_id=document_id,
+        document_name=cdoc.filename,
+        content_hash=cdoc.content_hash,
+        version="v3",
+        status="PROCESSING",
+        parser_version="PyMuPDF_TableFinder_V3",
+        chunker_version="V3ChunkingEngine",
+        index_status="NOT_INDEXED",
+    )
+    await mongo_db.save_representation(rep_processing)
+
+    # Schedule background worker task
+    asyncio.create_task(_async_background_convert())
+
     return MaterializeRepresentationResponse(
-        success=(rep.status == "READY"),
-        message=msg,
-        representation=rep,
+        success=False,
+        message=f"V3 conversion for '{cdoc.filename}' initiated in background.",
+        representation=rep_processing,
     )
 
 
