@@ -5,7 +5,7 @@
   "bm25": null,
   "fusion_method": null,
   "rrf_k": null,
-  "timestamp": "2026-08-20T22:48:11.153336+00:00",
+  "timestamp": "2026-08-20T17:30:22.478508+00:00",
   "embedding_model": "all-MiniLM-L6-v2",
   "chunk_size": 1000,
   "chunk_overlap": 150,
@@ -17,7 +17,7 @@
   "aggregate_recall_at_10": 0.0,
   "aggregate_mrr_at_10": 0.0,
   "aggregate_ndcg_at_10": 0.0,
-  "average_retrieval_latency_ms": 3901.36,
+  "average_retrieval_latency_ms": 2808.82,
   "question_results": [
     {
       "question_id": "financebench_id_03029",
@@ -34,13 +34,15 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 4135.39,
+      "retrieval_latency_ms": 2768.6,
       "retrieved_chunk_ids": [
         "doc_financebench_3M_2018_10K_merged_198_198",
+        "doc_financebench_3M_2018_10K_merged_200_200",
         "doc_financebench_3M_2018_10K_merged_208_212"
       ],
       "retrieved_snippets": [
         "Cash Flows from Investing Activities:\n\nYears ended December 31\n (Millions) Purchases of property, plant and equipment (P",
+        "The Company is actively considering additional acquisitions, investments and strategic\n\nalliances, and from time to time",
         "This program has no pre-established end date. In 2018, the Company purchased $4.9 billion of its own\n\nstock, compared to"
       ]
     },
@@ -59,7 +61,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 3667.33,
+      "retrieval_latency_ms": 2849.03,
       "retrieved_chunk_ids": [
         "doc_financebench_3M_2018_10K_merged_198_200",
         "doc_financebench_3M_2018_10K_merged_321_323",

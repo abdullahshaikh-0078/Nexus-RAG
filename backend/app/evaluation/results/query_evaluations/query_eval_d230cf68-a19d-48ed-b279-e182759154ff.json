@@ -1,0 +1,77 @@
+{
+  "evaluation_id": "d230cf68-a19d-48ed-b279-e182759154ff",
+  "timestamp": "2026-08-20T22:50:28.852470+00:00",
+  "query": "Astrophysics and Stellar Evolution",
+  "document_ids": [
+    "doc_56c295b8250f"
+  ],
+  "retrieval_mode": "hybrid",
+  "dense_results": [],
+  "bm25_results": [],
+  "hybrid_results": [],
+  "final_context": [
+    {
+      "document_id": "doc_56c295b8250f",
+      "document_name": "doc_b.txt",
+      "chunk_id": "doc_56c295b8250f_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document B contains information about Astrophysics and Stellar Evolution.",
+      "chat_id": null,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null,
+      "page_number": 1,
+      "section": null,
+      "content_type": null,
+      "table_id": null,
+      "table_title": null,
+      "row_range": null,
+      "column_range": null,
+      "bbox": null,
+      "strategy": null,
+      "version": null
+    }
+  ],
+  "answer": "Based on **doc_b.txt**, here is what was found regarding 'Astrophysics and Stellar Evolution':\n\n\"NEXUS RAG document B contains information about Astrophysics and Stellar Evolution....\"\n\n*(Retrieved 1 relevant chunk(s) with highest similarity score of 0.032787)*",
+  "citations": [
+    {
+      "document_id": "doc_56c295b8250f",
+      "document_name": "doc_b.txt",
+      "chunk_id": "doc_56c295b8250f_merged_0_0",
+      "chunk_index": 0,
+      "score": 0.032787,
+      "content": "NEXUS RAG document B contains information about Astrophysics and Stellar Evolution.",
+      "chat_id": null,
+      "dense_rank": null,
+      "bm25_rank": null,
+      "rrf_score": null,
+      "page_number": 1,
+      "section": null,
+      "content_type": null,
+      "table_id": null,
+      "table_title": null,
+      "row_range": null,
+      "column_range": null,
+      "bbox": null,
+      "strategy": null,
+      "version": null
+    }
+  ],
+  "latency_breakdown": {
+    "rrf_fusion_ms": 1215.44,
+    "total_request_ms": 2227.0,
+    "context_expansion_ms": 1011.59,
+    "llm_generation_ms": 0.0
+  },
+  "evaluation_status": {
+    "retrieval_status": "relevant_context_detected",
+    "answer_status": "answer_generated"
+  },
+  "failure_category": null,
+  "groundedness_score": null,
+  "answer_correctness_score": null,
+  "ground_truth": null,
+  "retrieval_metrics": null,
+  "answer_metrics": null
+}

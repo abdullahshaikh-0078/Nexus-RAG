@@ -4,12 +4,12 @@
   "retrieval_mode": "hybrid",
   "total_questions": 36,
   "aggregate_recall_at_1": 0.5278,
-  "aggregate_recall_at_3": 0.5556,
-  "aggregate_recall_at_5": 0.5556,
-  "aggregate_recall_at_10": 0.5556,
-  "aggregate_mrr_at_10": 0.5417,
-  "aggregate_ndcg_at_10": 0.3202,
-  "average_retrieval_latency_ms": 2665.54,
+  "aggregate_recall_at_3": 0.6389,
+  "aggregate_recall_at_5": 0.6389,
+  "aggregate_recall_at_10": 0.6389,
+  "aggregate_mrr_at_10": 0.5787,
+  "aggregate_ndcg_at_10": 0.3502,
+  "average_retrieval_latency_ms": 3202.81,
   "question_results": [
     {
       "question_id": "D01",
@@ -22,7 +22,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.46927872602275644,
-      "retrieval_latency_ms": 2485.96,
+      "retrieval_latency_ms": 2024.24,
       "is_relevant": true
     },
     {
@@ -36,7 +36,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2475.96,
+      "retrieval_latency_ms": 1928.45,
       "is_relevant": true
     },
     {
@@ -50,7 +50,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2350.99,
+      "retrieval_latency_ms": 1952.56,
       "is_relevant": true
     },
     {
@@ -64,7 +64,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2551.13,
+      "retrieval_latency_ms": 2364.62,
       "is_relevant": false
     },
     {
@@ -78,7 +78,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 3665.8,
+      "retrieval_latency_ms": 2078.9,
       "is_relevant": false
     },
     {
@@ -92,22 +92,22 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 3611.89,
+      "retrieval_latency_ms": 1990.98,
       "is_relevant": false
     },
     {
       "question_id": "D07",
       "category": "Exact Entity / Name Lookup",
       "question": "Who is Mitchell P. Marcus?",
-      "first_relevant_rank": null,
+      "first_relevant_rank": 3,
       "recall_at_1": 0.0,
-      "recall_at_3": 0.0,
-      "recall_at_5": 0.0,
-      "recall_at_10": 0.0,
-      "mrr_at_10": 0.0,
-      "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2776.2,
-      "is_relevant": false
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 0.3333333333333333,
+      "ndcg_at_10": 0.3065735963827292,
+      "retrieval_latency_ms": 2022.18,
+      "is_relevant": true
     },
     {
       "question_id": "D08",
@@ -120,7 +120,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.3903800499921017,
-      "retrieval_latency_ms": 2367.08,
+      "retrieval_latency_ms": 3682.45,
       "is_relevant": true
     },
     {
@@ -134,7 +134,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2288.98,
+      "retrieval_latency_ms": 3709.84,
       "is_relevant": false
     },
     {
@@ -148,7 +148,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2238.32,
+      "retrieval_latency_ms": 3261.72,
       "is_relevant": true
     },
     {
@@ -162,7 +162,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2123.74,
+      "retrieval_latency_ms": 2070.2,
       "is_relevant": false
     },
     {
@@ -176,7 +176,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2621.14,
+      "retrieval_latency_ms": 2056.72,
       "is_relevant": true
     },
     {
@@ -190,7 +190,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2142.9,
+      "retrieval_latency_ms": 1996.45,
       "is_relevant": false
     },
     {
@@ -204,7 +204,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2116.32,
+      "retrieval_latency_ms": 2016.15,
       "is_relevant": false
     },
     {
@@ -218,7 +218,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2150.2,
+      "retrieval_latency_ms": 2003.56,
       "is_relevant": false
     },
     {
@@ -232,7 +232,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 0.5,
       "ndcg_at_10": 0.38685280723454163,
-      "retrieval_latency_ms": 2260.49,
+      "retrieval_latency_ms": 2023.03,
       "is_relevant": true
     },
     {
@@ -246,7 +246,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2174.7,
+      "retrieval_latency_ms": 2666.74,
       "is_relevant": true
     },
     {
@@ -260,22 +260,22 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 4158.11,
+      "retrieval_latency_ms": 4824.57,
       "is_relevant": false
     },
     {
       "question_id": "D19",
       "category": "Citation / Reference Lookup",
       "question": "What paper is cited as reference [2]?",
-      "first_relevant_rank": null,
+      "first_relevant_rank": 2,
       "recall_at_1": 0.0,
-      "recall_at_3": 0.0,
-      "recall_at_5": 0.0,
-      "recall_at_10": 0.0,
-      "mrr_at_10": 0.0,
-      "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 3863.63,
-      "is_relevant": false
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 0.5,
+      "ndcg_at_10": 0.38685280723454163,
+      "retrieval_latency_ms": 4966.4,
+      "is_relevant": true
     },
     {
       "question_id": "D20",
@@ -288,22 +288,22 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 3477.63,
+      "retrieval_latency_ms": 3025.27,
       "is_relevant": false
     },
     {
       "question_id": "D21",
       "category": "Citation / Reference Lookup",
       "question": "In what journal was the Penn Treebank paper published?",
-      "first_relevant_rank": null,
+      "first_relevant_rank": 2,
       "recall_at_1": 0.0,
-      "recall_at_3": 0.0,
-      "recall_at_5": 0.0,
-      "recall_at_10": 0.0,
-      "mrr_at_10": 0.0,
-      "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2127.15,
-      "is_relevant": false
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 0.5,
+      "ndcg_at_10": 0.38685280723454163,
+      "retrieval_latency_ms": 2965.95,
+      "is_relevant": true
     },
     {
       "question_id": "D22",
@@ -316,7 +316,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2609.38,
+      "retrieval_latency_ms": 3463.9,
       "is_relevant": false
     },
     {
@@ -330,7 +330,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2448.03,
+      "retrieval_latency_ms": 3140.41,
       "is_relevant": true
     },
     {
@@ -344,7 +344,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2174.56,
+      "retrieval_latency_ms": 3293.27,
       "is_relevant": true
     },
     {
@@ -358,7 +358,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.46927872602275644,
-      "retrieval_latency_ms": 2199.06,
+      "retrieval_latency_ms": 5060.95,
       "is_relevant": true
     },
     {
@@ -372,7 +372,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2223.02,
+      "retrieval_latency_ms": 4272.85,
       "is_relevant": false
     },
     {
@@ -386,7 +386,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2433.95,
+      "retrieval_latency_ms": 3577.88,
       "is_relevant": true
     },
     {
@@ -400,7 +400,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2459.59,
+      "retrieval_latency_ms": 5444.33,
       "is_relevant": true
     },
     {
@@ -414,7 +414,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2310.07,
+      "retrieval_latency_ms": 14135.91,
       "is_relevant": true
     },
     {
@@ -428,7 +428,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2263.36,
+      "retrieval_latency_ms": 4158.33,
       "is_relevant": true
     },
     {
@@ -442,7 +442,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2308.3,
+      "retrieval_latency_ms": 2071.54,
       "is_relevant": true
     },
     {
@@ -456,7 +456,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2568.21,
+      "retrieval_latency_ms": 2198.36,
       "is_relevant": true
     },
     {
@@ -470,7 +470,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2446.16,
+      "retrieval_latency_ms": 2348.61,
       "is_relevant": false
     },
     {
@@ -484,7 +484,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 4791.64,
+      "retrieval_latency_ms": 2111.12,
       "is_relevant": true
     },
     {
@@ -498,7 +498,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 4252.61,
+      "retrieval_latency_ms": 1987.09,
       "is_relevant": true
     },
     {
@@ -512,7 +512,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2443.16,
+      "retrieval_latency_ms": 2405.8,
       "is_relevant": true
     }
   ]

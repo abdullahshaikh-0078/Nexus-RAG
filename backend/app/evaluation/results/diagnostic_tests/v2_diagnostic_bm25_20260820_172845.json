@@ -1,15 +1,15 @@
 {
   "dataset_version": "v2_diagnostic",
-  "evaluation_version": "v2_diagnostic_hybrid",
-  "retrieval_mode": "hybrid",
+  "evaluation_version": "v2_diagnostic_bm25",
+  "retrieval_mode": "bm25",
   "total_questions": 36,
-  "aggregate_recall_at_1": 0.5278,
-  "aggregate_recall_at_3": 0.5556,
-  "aggregate_recall_at_5": 0.5556,
-  "aggregate_recall_at_10": 0.5556,
-  "aggregate_mrr_at_10": 0.5417,
-  "aggregate_ndcg_at_10": 0.3202,
-  "average_retrieval_latency_ms": 2665.54,
+  "aggregate_recall_at_1": 0.5556,
+  "aggregate_recall_at_3": 0.6944,
+  "aggregate_recall_at_5": 0.6944,
+  "aggregate_recall_at_10": 0.6944,
+  "aggregate_mrr_at_10": 0.625,
+  "aggregate_ndcg_at_10": 0.3802,
+  "average_retrieval_latency_ms": 1395.63,
   "question_results": [
     {
       "question_id": "D01",
@@ -22,7 +22,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.46927872602275644,
-      "retrieval_latency_ms": 2485.96,
+      "retrieval_latency_ms": 977.81,
       "is_relevant": true
     },
     {
@@ -36,7 +36,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2475.96,
+      "retrieval_latency_ms": 899.42,
       "is_relevant": true
     },
     {
@@ -50,7 +50,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2350.99,
+      "retrieval_latency_ms": 3333.29,
       "is_relevant": true
     },
     {
@@ -64,7 +64,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2551.13,
+      "retrieval_latency_ms": 1103.02,
       "is_relevant": false
     },
     {
@@ -78,7 +78,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 3665.8,
+      "retrieval_latency_ms": 950.35,
       "is_relevant": false
     },
     {
@@ -92,22 +92,22 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 3611.89,
+      "retrieval_latency_ms": 942.25,
       "is_relevant": false
     },
     {
       "question_id": "D07",
       "category": "Exact Entity / Name Lookup",
       "question": "Who is Mitchell P. Marcus?",
-      "first_relevant_rank": null,
+      "first_relevant_rank": 2,
       "recall_at_1": 0.0,
-      "recall_at_3": 0.0,
-      "recall_at_5": 0.0,
-      "recall_at_10": 0.0,
-      "mrr_at_10": 0.0,
-      "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2776.2,
-      "is_relevant": false
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 0.5,
+      "ndcg_at_10": 0.38685280723454163,
+      "retrieval_latency_ms": 1599.8,
+      "is_relevant": true
     },
     {
       "question_id": "D08",
@@ -120,22 +120,22 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.3903800499921017,
-      "retrieval_latency_ms": 2367.08,
+      "retrieval_latency_ms": 1828.98,
       "is_relevant": true
     },
     {
       "question_id": "D09",
       "category": "Exact Entity / Name Lookup",
       "question": "Who co-authored the Penn Treebank paper with Mitchell P. Marcus?",
-      "first_relevant_rank": null,
+      "first_relevant_rank": 2,
       "recall_at_1": 0.0,
-      "recall_at_3": 0.0,
-      "recall_at_5": 0.0,
-      "recall_at_10": 0.0,
-      "mrr_at_10": 0.0,
-      "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2288.98,
-      "is_relevant": false
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 0.5,
+      "ndcg_at_10": 0.38685280723454163,
+      "retrieval_latency_ms": 1614.1,
+      "is_relevant": true
     },
     {
       "question_id": "D10",
@@ -148,7 +148,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2238.32,
+      "retrieval_latency_ms": 984.46,
       "is_relevant": true
     },
     {
@@ -162,7 +162,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2123.74,
+      "retrieval_latency_ms": 1101.75,
       "is_relevant": false
     },
     {
@@ -176,7 +176,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2621.14,
+      "retrieval_latency_ms": 1056.63,
       "is_relevant": true
     },
     {
@@ -190,7 +190,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2142.9,
+      "retrieval_latency_ms": 938.29,
       "is_relevant": false
     },
     {
@@ -204,7 +204,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2116.32,
+      "retrieval_latency_ms": 978.49,
       "is_relevant": false
     },
     {
@@ -218,21 +218,21 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2150.2,
+      "retrieval_latency_ms": 1092.35,
       "is_relevant": false
     },
     {
       "question_id": "D16",
       "category": "Acronym Lookup",
       "question": "What does WMT stand for?",
-      "first_relevant_rank": 2,
-      "recall_at_1": 0.0,
+      "first_relevant_rank": 1,
+      "recall_at_1": 1.0,
       "recall_at_3": 1.0,
       "recall_at_5": 1.0,
       "recall_at_10": 1.0,
-      "mrr_at_10": 0.5,
-      "ndcg_at_10": 0.38685280723454163,
-      "retrieval_latency_ms": 2260.49,
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 0.6131471927654584,
+      "retrieval_latency_ms": 941.18,
       "is_relevant": true
     },
     {
@@ -246,36 +246,36 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2174.7,
+      "retrieval_latency_ms": 2461.75,
       "is_relevant": true
     },
     {
       "question_id": "D18",
       "category": "Acronym Lookup",
       "question": "What conference proceedings published the Attention is All You Need paper in 2017?",
-      "first_relevant_rank": null,
+      "first_relevant_rank": 2,
       "recall_at_1": 0.0,
-      "recall_at_3": 0.0,
-      "recall_at_5": 0.0,
-      "recall_at_10": 0.0,
-      "mrr_at_10": 0.0,
-      "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 4158.11,
-      "is_relevant": false
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 0.5,
+      "ndcg_at_10": 0.38685280723454163,
+      "retrieval_latency_ms": 1897.43,
+      "is_relevant": true
     },
     {
       "question_id": "D19",
       "category": "Citation / Reference Lookup",
       "question": "What paper is cited as reference [2]?",
-      "first_relevant_rank": null,
+      "first_relevant_rank": 2,
       "recall_at_1": 0.0,
-      "recall_at_3": 0.0,
-      "recall_at_5": 0.0,
-      "recall_at_10": 0.0,
-      "mrr_at_10": 0.0,
-      "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 3863.63,
-      "is_relevant": false
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 0.5,
+      "ndcg_at_10": 0.38685280723454163,
+      "retrieval_latency_ms": 1639.59,
+      "is_relevant": true
     },
     {
       "question_id": "D20",
@@ -288,22 +288,22 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 3477.63,
+      "retrieval_latency_ms": 1394.86,
       "is_relevant": false
     },
     {
       "question_id": "D21",
       "category": "Citation / Reference Lookup",
       "question": "In what journal was the Penn Treebank paper published?",
-      "first_relevant_rank": null,
+      "first_relevant_rank": 2,
       "recall_at_1": 0.0,
-      "recall_at_3": 0.0,
-      "recall_at_5": 0.0,
-      "recall_at_10": 0.0,
-      "mrr_at_10": 0.0,
-      "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2127.15,
-      "is_relevant": false
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr_at_10": 0.5,
+      "ndcg_at_10": 0.38685280723454163,
+      "retrieval_latency_ms": 1510.12,
+      "is_relevant": true
     },
     {
       "question_id": "D22",
@@ -316,7 +316,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2609.38,
+      "retrieval_latency_ms": 1314.89,
       "is_relevant": false
     },
     {
@@ -330,7 +330,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2448.03,
+      "retrieval_latency_ms": 1657.3,
       "is_relevant": true
     },
     {
@@ -344,7 +344,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2174.56,
+      "retrieval_latency_ms": 1836.72,
       "is_relevant": true
     },
     {
@@ -358,7 +358,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.46927872602275644,
-      "retrieval_latency_ms": 2199.06,
+      "retrieval_latency_ms": 1453.51,
       "is_relevant": true
     },
     {
@@ -372,7 +372,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2223.02,
+      "retrieval_latency_ms": 1761.62,
       "is_relevant": false
     },
     {
@@ -386,7 +386,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2433.95,
+      "retrieval_latency_ms": 1450.11,
       "is_relevant": true
     },
     {
@@ -400,7 +400,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2459.59,
+      "retrieval_latency_ms": 1974.79,
       "is_relevant": true
     },
     {
@@ -414,7 +414,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2310.07,
+      "retrieval_latency_ms": 2160.46,
       "is_relevant": true
     },
     {
@@ -428,7 +428,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2263.36,
+      "retrieval_latency_ms": 1146.41,
       "is_relevant": true
     },
     {
@@ -442,7 +442,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2308.3,
+      "retrieval_latency_ms": 1109.45,
       "is_relevant": true
     },
     {
@@ -456,7 +456,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2568.21,
+      "retrieval_latency_ms": 1060.4,
       "is_relevant": true
     },
     {
@@ -470,7 +470,7 @@
       "recall_at_10": 0.0,
       "mrr_at_10": 0.0,
       "ndcg_at_10": 0.0,
-      "retrieval_latency_ms": 2446.16,
+      "retrieval_latency_ms": 1070.96,
       "is_relevant": false
     },
     {
@@ -484,7 +484,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 4791.64,
+      "retrieval_latency_ms": 1002.33,
       "is_relevant": true
     },
     {
@@ -498,7 +498,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 4252.61,
+      "retrieval_latency_ms": 1004.73,
       "is_relevant": true
     },
     {
@@ -512,7 +512,7 @@
       "recall_at_10": 1.0,
       "mrr_at_10": 1.0,
       "ndcg_at_10": 0.6131471927654584,
-      "retrieval_latency_ms": 2443.16,
+      "retrieval_latency_ms": 993.06,
       "is_relevant": true
     }
   ]
