@@ -93,7 +93,18 @@ export default function DocumentSidebar({
     const v3Rep = repsMap[docId]?.find((r) => r.version === "v3");
 
     if (v3Rep?.status === "PROCESSING" || convertingDocId === docId) {
+      let pollCount = 0;
+      const maxPolls = 300; // 10 minutes generous timeout for large 800+ page PDFs
+
       const interval = setInterval(async () => {
+        pollCount += 1;
+        if (pollCount > maxPolls) {
+          clearInterval(interval);
+          setConvertingDocId(null);
+          setError("V3 conversion polling timed out after 10 minutes. Click 'Convert PDF to V3' to retry.");
+          return;
+        }
+
         try {
           const res = await fetchChatDocumentRepresentations(activeChatId, docId);
           setRepsMap((prev) => ({ ...prev, [docId]: res.representations }));
@@ -309,10 +320,10 @@ export default function DocumentSidebar({
           </p>
           <button
             onClick={() => handleTriggerV3Convert(activeDoc.document_id)}
-            disabled={convertingDocId === activeDoc.document_id || activeV3Rep?.status === "PROCESSING"}
-            className="w-full py-2 px-3 bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-2 shadow-md transition-all"
+            disabled={convertingDocId === activeDoc.document_id}
+            className="w-full py-2 px-3 bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
           >
-            {convertingDocId === activeDoc.document_id || activeV3Rep?.status === "PROCESSING" ? (
+            {convertingDocId === activeDoc.document_id ? (
               <>
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
                 Converting PDF to V3...
@@ -320,7 +331,7 @@ export default function DocumentSidebar({
             ) : (
               <>
                 <Zap className="w-3.5 h-3.5" />
-                Convert PDF to V3
+                {activeV3Rep?.status === "PROCESSING" ? "Resume / Convert PDF to V3" : "Convert PDF to V3"}
               </>
             )}
           </button>

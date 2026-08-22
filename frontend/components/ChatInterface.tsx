@@ -94,7 +94,7 @@ export default function ChatInterface({
       const activeDocId = chatDocuments.length > 0 ? chatDocuments[0].document_id : undefined;
       const docIdsFilter = activeDocId ? [activeDocId] : undefined;
       const legacyMode = version === "v1" ? "dense" : (version === "v2.1" ? "bm25" : "hybrid");
-      const res = await queryRag(query, 4, docIdsFilter, legacyMode, version, "table_aware", activeChatId || undefined);
+      const res = await queryRag(query, 4, docIdsFilter, legacyMode, version, "auto", activeChatId || undefined);
 
       const assistantMsg: Message = {
         id: `assistant-${Date.now()}`,
@@ -193,7 +193,7 @@ export default function ChatInterface({
           {/* Backend Strategy Info Badge for V3 */}
           {version === "v3" && (
             <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-purple-950/80 text-purple-200 border border-purple-700/80">
-              Backend strategy: Table-Aware
+              Backend strategy: Auto (Multi-Strategy)
             </span>
           )}
 

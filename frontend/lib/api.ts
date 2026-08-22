@@ -308,9 +308,10 @@ export async function fetchChatDocumentRepresentations(
 
 export async function convertChatDocumentToV3(
   chatId: string,
-  documentId: string
+  documentId: string,
+  forceReprocess: boolean = true
 ): Promise<MaterializeRepresentationResponse> {
-  const res = await fetch(`${API_BASE_URL}/chats/${chatId}/documents/${documentId}/representations/v3/convert`, {
+  const res = await fetch(`${API_BASE_URL}/chats/${chatId}/documents/${documentId}/representations/v3/convert?force_reprocess=${forceReprocess}`, {
     method: "POST",
   });
 
