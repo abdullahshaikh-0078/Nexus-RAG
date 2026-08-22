@@ -176,10 +176,6 @@ class PipelineRouter:
                     requested_strategy=chunking_strategy
                 )
 
-            if document_ids:
-                for doc_id in document_ids:
-                    v3_ingestion_service.ensure_v3_indexed([doc_id], strategy=resolved_strategy, chat_id=chat_id)
-
             raw_cits, breakdown, exp_meta, calc_result = v3_reasoning_engine.process_query(
                 query=query,
                 top_k=top_k,

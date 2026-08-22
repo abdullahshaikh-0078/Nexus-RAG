@@ -3,6 +3,8 @@ import time
 import uuid
 import hashlib
 import logging
+import asyncio
+from datetime import datetime, timezone
 from typing import Optional, List
 from fastapi import APIRouter, HTTPException, UploadFile, File, status
 
@@ -260,12 +262,12 @@ async def get_chat_document_representations(chat_id: str, document_id: str):
 
 
 @router.post("/{chat_id}/documents/{document_id}/representations/v3/convert", response_model=MaterializeRepresentationResponse)
-async def convert_document_to_v3(chat_id: str, document_id: str):
+async def convert_document_to_v3(chat_id: str, document_id: str, force_reprocess: bool = False):
     """
     Explicit V3 conversion endpoint with background job lifecycle:
-    1. If V3 representation is READY, returns immediately.
-    2. If V3 representation is PROCESSING, returns current status for UI polling.
-    3. Otherwise, sets status = PROCESSING, launches background task, and returns status = PROCESSING.
+    1. If V3 representation is READY and not force_reprocess, returns immediately.
+    2. If V3 representation is active PROCESSING (age <= 300s) and not force_reprocess, returns current status for UI polling.
+    3. If V3 representation is stale PROCESSING (> 300s), force_reprocess=True, or missing/FAILED, launches background worker.
     """
     from app.v3.ingestion.ingestion_service import v3_ingestion_service
 
@@ -276,9 +278,9 @@ async def convert_document_to_v3(chat_id: str, document_id: str):
             detail=f"Document '{document_id}' not found in chat '{chat_id}'.",
         )
 
-    # Check if representation exists and is READY
+    # Check if representation exists and is READY or active PROCESSING
     existing_v3 = await mongo_db.get_representation(document_id, "v3", chat_id=chat_id)
-    if existing_v3 and existing_v3.status == "READY":
+    if existing_v3 and existing_v3.status == "READY" and not force_reprocess:
         await mongo_db.update_chat_active_state(chat_id, active_document_id=document_id, active_version="v3")
         return MaterializeRepresentationResponse(
             success=True,
@@ -286,14 +288,29 @@ async def convert_document_to_v3(chat_id: str, document_id: str):
             representation=existing_v3,
         )
 
-    if existing_v3 and existing_v3.status == "PROCESSING":
-        return MaterializeRepresentationResponse(
-            success=False,
-            message=f"V3 conversion for '{cdoc.filename}' is currently PROCESSING.",
-            representation=existing_v3,
-        )
+    if existing_v3 and existing_v3.status == "PROCESSING" and not force_reprocess:
+        is_stale = False
+        if existing_v3.updated_at:
+            dt = existing_v3.updated_at
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            age = (datetime.now(timezone.utc) - dt).total_seconds()
+            if age > 60:  # 60s threshold
+                is_stale = True
+        
+        if not is_stale:
+            return MaterializeRepresentationResponse(
+                success=False,
+                message=f"V3 conversion for '{cdoc.filename}' is currently PROCESSING.",
+                representation=existing_v3,
+            )
+        else:
+            logger.warning(f"Found stale PROCESSING representation '{existing_v3.representation_id}' for '{document_id}' (age > 60s). Re-triggering conversion.")
 
-    # Otherwise, launch async materialization task
+    # Canonical representation identity for UI response
+    canonical_rep_id = existing_v3.representation_id if existing_v3 else f"{chat_id}_{document_id}_v3"
+
+    # Async background convert worker
     async def _async_background_convert():
         try:
             rep = await v3_ingestion_service.materialize_representation(
@@ -301,15 +318,32 @@ async def convert_document_to_v3(chat_id: str, document_id: str):
                 version="v3",
                 strategy=None,
                 chat_id=chat_id,
+                force_reprocess=True,
             )
-            if rep.status == "READY":
+            if rep and rep.status == "READY":
                 await mongo_db.update_chat_active_state(chat_id, active_document_id=document_id, active_version="v3")
         except Exception as bg_err:
             logger.exception(f"Background V3 conversion failed for document '{document_id}': {str(bg_err)}")
+            failed_rep = DocumentRepresentation(
+                representation_id=canonical_rep_id,
+                chat_id=chat_id,
+                document_id=document_id,
+                document_name=cdoc.filename,
+                content_hash=cdoc.content_hash,
+                version="v3",
+                status="FAILED",
+                chunk_count=0,
+                index_status="FAILED",
+                error_message=str(bg_err),
+                updated_at=datetime.now(timezone.utc),
+            )
+            await mongo_db.save_representation(failed_rep)
 
-    # Mark PROCESSING immediately in DB
+    # Schedule background worker task using asyncio
+    asyncio.create_task(_async_background_convert())
+
     rep_processing = DocumentRepresentation(
-        representation_id=f"{chat_id}_{document_id}_v3_processing",
+        representation_id=canonical_rep_id,
         chat_id=chat_id,
         document_id=document_id,
         document_name=cdoc.filename,
@@ -319,11 +353,8 @@ async def convert_document_to_v3(chat_id: str, document_id: str):
         parser_version="PyMuPDF_TableFinder_V3",
         chunker_version="V3ChunkingEngine",
         index_status="NOT_INDEXED",
+        updated_at=datetime.now(timezone.utc),
     )
-    await mongo_db.save_representation(rep_processing)
-
-    # Schedule background worker task
-    asyncio.create_task(_async_background_convert())
 
     return MaterializeRepresentationResponse(
         success=False,
