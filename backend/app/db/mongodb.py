@@ -398,15 +398,12 @@ class MongoDBManager:
             if rep_data.get("document_id") == document_id and rep_data.get("version") == version:
                 if chat_id and rep_data.get("chat_id") != chat_id:
                     continue
-                if version == "v3":
-                    if strategy and rep_data.get("chunking_strategy") == strategy:
-                        data = dict(rep_data)
-                        data.pop("_id", None)
-                        return DocumentRepresentation(**data)
-                else:
-                    data = dict(rep_data)
-                    data.pop("_id", None)
-                    return DocumentRepresentation(**data)
+                if version == "v3" and strategy:
+                    if rep_data.get("chunking_strategy") != strategy:
+                        continue
+                data = dict(rep_data)
+                data.pop("_id", None)
+                return DocumentRepresentation(**data)
 
         return None
 

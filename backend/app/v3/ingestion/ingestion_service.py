@@ -43,7 +43,24 @@ class V3IngestionService:
         """Locates original immutable source PDF file in upload directory or FinanceBench directory."""
         clean_name = document_id_or_filename.strip()
 
-        # If clean_name is a document_id (e.g. doc_7a0b9badd53f), check if mongo_db has filename mapping
+        # 1. Check fallback chat docs if clean_name is a document_id, filename, or content_hash
+        for cdoc in mongo_db._fallback_chat_docs.values():
+            if cdoc.get("document_id") == clean_name or cdoc.get("filename") == clean_name or cdoc.get("content_hash") == clean_name:
+                sp = cdoc.get("source_path")
+                if sp and os.path.exists(sp) and os.path.isfile(sp):
+                    return os.path.abspath(sp)
+                ch = cdoc.get("content_hash")
+                if ch:
+                    hp = os.path.join(self.upload_dir, f"{ch}.pdf")
+                    if os.path.exists(hp) and os.path.isfile(hp):
+                        return os.path.abspath(hp)
+                fn = cdoc.get("filename")
+                if fn:
+                    np = os.path.join(self.upload_dir, fn)
+                    if os.path.exists(np) and os.path.isfile(np):
+                        return os.path.abspath(np)
+
+        # 2. Check fallback docs
         if clean_name in mongo_db._fallback_docs:
             filename = mongo_db._fallback_docs[clean_name].get("filename")
             if filename:
@@ -74,6 +91,11 @@ class V3IngestionService:
         Authoritatively locates original immutable source PDF file by querying ChatDocument / DocumentMetadata.
         """
         clean_name = document_id_or_filename.strip()
+
+        # Direct content_hash file check in uploads
+        hash_cand = os.path.join(self.upload_dir, f"{clean_name}.pdf")
+        if os.path.exists(hash_cand) and os.path.isfile(hash_cand):
+            return os.path.abspath(hash_cand)
 
         # 1. If chat_id is provided, look up ChatDocument in MongoDB
         if chat_id:
@@ -130,6 +152,7 @@ class V3IngestionService:
         version: str = "v3",
         strategy: Optional[str] = None,
         chat_id: Optional[str] = None,
+        force_reprocess: bool = False,
     ) -> DocumentRepresentation:
         """
         Lazy materialization manager for document representations:
@@ -137,7 +160,7 @@ class V3IngestionService:
         2. Calculates content_hash.
         3. Checks MongoDB registry.
         4. Returns existing READY representation if hash matches.
-        5. Prevents duplicate jobs if status is PROCESSING.
+        5. Prevents duplicate jobs if status is PROCESSING (unless stale or force_reprocess=True).
         6. Otherwise parses IR, executes policy strategy chunking, indexes in Qdrant & BM25, and updates READY status.
         """
         pdf_path = await self.find_pdf_path_async(document_id, chat_id=chat_id)
@@ -154,6 +177,7 @@ class V3IngestionService:
                 chunking_strategy=strategy,
                 status="FAILED",
                 error_message=f"Original source PDF not found for '{document_id}'",
+                updated_at=datetime.now(timezone.utc),
             )
             await mongo_db.save_representation(rep)
             return rep
@@ -171,7 +195,7 @@ class V3IngestionService:
         if version in ["v1", "v2.1", "v2.2"]:
             rep_id = f"{chat_id or 'global'}_{document_id}_{version}"
             existing = await mongo_db.get_representation(document_id, version, chat_id=chat_id)
-            if existing and existing.status == "READY" and existing.content_hash == content_hash:
+            if existing and existing.status == "READY" and existing.content_hash == content_hash and not force_reprocess:
                 logger.info(f"[V3][REPRESENTATION][CHECK] document={document_id} version={version} status=READY (cached)")
                 return existing
 
@@ -190,6 +214,7 @@ class V3IngestionService:
                 parser_version="LegacyUnifiedParser",
                 chunker_version="RecursiveTextChunker",
                 index_status="INDEXED",
+                updated_at=datetime.now(timezone.utc),
             )
             await mongo_db.save_representation(rep)
             return rep
@@ -210,13 +235,27 @@ class V3IngestionService:
 
         target_strategy = selected_strategy
         existing = await mongo_db.get_representation(document_id, "v3", target_strategy, chat_id=chat_id)
-        if existing:
-            if existing.content_hash == content_hash and existing.status == "READY":
+        if not existing:
+            existing = await mongo_db.get_representation(document_id, "v3", chat_id=chat_id)
+
+        if existing and not force_reprocess:
+            if existing.content_hash == content_hash and existing.status == "READY" and (not strategy or existing.chunking_strategy == target_strategy):
                 logger.info(f"[V3][REPRESENTATION][READY] Representation ready (cached) for document={document_id} strategy={target_strategy} chunks={existing.chunk_count}")
                 return existing
             elif existing.status == "PROCESSING":
-                logger.info(f"[V3][REPRESENTATION][PROCESSING] Materialization currently in progress for document={document_id} strategy={target_strategy}")
-                return existing
+                is_stale = False
+                if existing.updated_at:
+                    dt = existing.updated_at
+                    if dt.tzinfo is None:
+                        dt = dt.replace(tzinfo=timezone.utc)
+                    age = (datetime.now(timezone.utc) - dt).total_seconds()
+                    if age > 300:
+                        is_stale = True
+                if not is_stale:
+                    logger.info(f"[V3][REPRESENTATION][PROCESSING] Materialization currently in progress for document={document_id} strategy={target_strategy}")
+                    return existing
+                else:
+                    logger.warning(f"[V3][REPRESENTATION][STALE] Found stale PROCESSING representation for document={document_id} (age > 300s). Re-materializing.")
 
         rep_id = f"{chat_id or 'global'}_{document_id}_v3_{selected_strategy}"
         logger.info(f"[V3][REPRESENTATION][CHECK] document={document_id} version=v3 strategy={selected_strategy} chat_id={chat_id}")
@@ -234,6 +273,7 @@ class V3IngestionService:
             parser_version="PyMuPDF_TableFinder_V3",
             chunker_version=f"V3ChunkingEngine_{selected_strategy}",
             index_status="NOT_INDEXED",
+            updated_at=datetime.now(timezone.utc),
         )
         t_mongo_start = time.perf_counter()
         await mongo_db.save_representation(rep_in_progress)
@@ -263,6 +303,10 @@ class V3IngestionService:
             v3_profiler.metrics["v3_chunk_generation_s"] += dur_chunk
             v3_profiler.metrics["chunks_generated"] = len(chunks)
             logger.info(f"[V3][CHUNK] Strategy={selected_strategy} generated={len(chunks)} chunks in {dur_chunk:.4f}s")
+
+            # Delete any prior Qdrant & BM25 payload entries for this document before staging batches
+            bm25_service.delete_v3_chunks(document_id=document_id, strategy=selected_strategy, chat_id=chat_id)
+            vector_store.delete_v3_chunks(document_id=document_id, strategy=selected_strategy, chat_id=chat_id)
 
             # 4 & 5. Vector Embedding & Isolated Indexing in Batches of 100
             batch_size = 100

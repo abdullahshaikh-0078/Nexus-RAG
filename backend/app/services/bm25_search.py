@@ -72,6 +72,13 @@ class BM25IndexService:
         self.corpus_tokens: List[List[str]] = []
         self.bm25: Optional[RobustBM25] = None
 
+    def _rebuild_index(self):
+        """Rebuilds internal RobustBM25 instance from current corpus tokens."""
+        if self.corpus_tokens:
+            self.bm25 = RobustBM25(self.corpus_tokens)
+        else:
+            self.bm25 = None
+
     def index_chunks(self, chunks: List[DocumentChunk], filename: str, chat_id: Optional[str] = None):
         """Indexes document chunks into the BM25 lexical corpus."""
         if not chunks:
@@ -96,27 +103,9 @@ class BM25IndexService:
         logger.info(f"Indexed {len(chunks)} chunks into BM25 store for '{filename}'. Total corpus: {len(self.chunk_payloads)}")
 
     def stage_v3_chunks(self, chunks: Any, filename: str, strategy: str, chat_id: Optional[str] = None):
-        """Stages V3 structural chunks into BM25 token corpus without immediate index rebuild."""
+        """Stages V3 structural chunk batch into BM25 store without rebuilding index until commit_v3_index."""
         if not chunks:
             return
-
-        doc_id = getattr(chunks[0], "document_id", "")
-        if doc_id:
-            # Delete old payload entries for this document before staging
-            new_payloads = []
-            new_corpus = []
-            for p, c in zip(self.chunk_payloads, self.corpus_tokens):
-                if (
-                    p.get("document_id") == doc_id
-                    and p.get("version") == "v3"
-                    and p.get("chunking_strategy") == strategy
-                ):
-                    if chat_id is None or p.get("chat_id") == chat_id:
-                        continue
-                new_payloads.append(p)
-                new_corpus.append(c)
-            self.chunk_payloads = new_payloads
-            self.corpus_tokens = new_corpus
 
         for idx, chunk in enumerate(chunks):
             bbox_dict = chunk.bbox.model_dump() if getattr(chunk, "bbox", None) else None
@@ -295,8 +284,9 @@ class BM25IndexService:
             if version == "v3":
                 if payload.get("version") != "v3":
                     continue
-                if chunking_strategy and payload.get("chunking_strategy") != chunking_strategy:
-                    continue
+                if chunking_strategy and chunking_strategy not in ["auto", "none", "None", "all"] and not document_ids and not chat_id:
+                    if payload.get("chunking_strategy") != chunking_strategy:
+                        continue
             else:
                 if payload.get("version") == "v3":
                     continue

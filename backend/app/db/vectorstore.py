@@ -200,11 +200,6 @@ class QdrantVectorStore:
         if not chunks or not self.client:
             return False
 
-        if len(chunks) > 0:
-            doc_id = getattr(chunks[0], "document_id", "")
-            if doc_id:
-                self.delete_v3_chunks(doc_id, strategy, chat_id=chat_id)
-
         points = []
         for idx, (chunk, vector) in enumerate(zip(chunks, embeddings)):
             bbox_dict = chunk.bbox.model_dump() if getattr(chunk, "bbox", None) else None
@@ -289,10 +284,12 @@ class QdrantVectorStore:
             must_conditions.append(
                 qmodels.FieldCondition(key="version", match=qmodels.MatchValue(value="v3"))
             )
-            if chunking_strategy:
-                must_conditions.append(
-                    qmodels.FieldCondition(key="chunking_strategy", match=qmodels.MatchValue(value=chunking_strategy))
-                )
+            if chunking_strategy and chunking_strategy not in ["auto", "none", "None", "all"]:
+                # Only apply strategy filter if not filtering by document_ids or chat_id
+                if not document_ids and not chat_id:
+                    must_conditions.append(
+                        qmodels.FieldCondition(key="chunking_strategy", match=qmodels.MatchValue(value=chunking_strategy))
+                    )
         else:
             # For V1/V2 legacy queries, exclude V3 points
             must_not_conditions.append(
